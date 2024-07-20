@@ -1,0 +1,3 @@
+[submodule "MeGameEngine/vendors/stdlog"]
+	path = MeGameEngine/vendors/stdlog
+	url = https://github.com/gabime/spdlog.git

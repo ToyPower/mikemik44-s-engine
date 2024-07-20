@@ -27,9 +27,18 @@
     <ClInclude Include="src\MeCore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\logging\Log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\specialincludes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main\entry\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\logging\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
