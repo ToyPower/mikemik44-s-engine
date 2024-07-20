@@ -9,5 +9,6 @@ namespace ME {
 		void run();
 
 	};
+	Application* CreateApplication();
 }
 

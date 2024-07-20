@@ -10,9 +10,6 @@ public:
 	}
 };
 
-int main() {
-	Sandbox* sandbox = new Sandbox();
-	sandbox->run();
-	delete sandbox;
-	
+ME::Application* ME::CreateApplication() {
+	return new Sandbox();
 }
