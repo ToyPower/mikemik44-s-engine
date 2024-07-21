@@ -2,7 +2,7 @@
 #include "hzpch.h"
 #include "../../window/window.h"
 
-#include <GLFW/glfw3.h>
+struct GLFWwindow;
 namespace ME {
 
 	class WindowsWindow : public Window {

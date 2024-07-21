@@ -12,8 +12,9 @@ workspace "MyGameEngine"
 outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 includeDir = {}
 includeDir["GLFW"] = "MeGameEngine/vendors/glfw/include"
-
+includeDir["GLAD"] = "MeGameEngine/vendors/glad/include"
 include "MeGameEngine/vendors/glfw/premake5.lua"
+include "MeGameEngine/vendors/glad/premake5.lua"
 project "MeGameEngine"
 	location "MeGameEngine"
 	kind "SharedLib"
@@ -32,17 +33,21 @@ project "MeGameEngine"
 	includedirs {
 		"%{prj.name}/vendors/stdlog/include",
 		"%{prj.name}/src",
-		"%{includeDir.GLFW}"
+		"%{includeDir.GLFW}",
+		"%{includeDir.GLAD}"
 	}
 	
 	links {
 		"GLFW",
+		"GLAD",
 		"opengl32.lib"
 	}
-	
+	defines {
+		"GLFW_INCLUDE_NONE",
+	}
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "on"
+		staticruntime "off"
 		systemversion "latest"
 		
 		defines {
@@ -54,15 +59,18 @@ project "MeGameEngine"
 			("{copy} %{cfg.buildtarget.relpath} ../bin/" .. outputDir .. "/Sandbox")
 		}
 		
-		filter "configurations.Debug"
-			defines "ME_Debug"
-			symbols "On"
-		filter "configurations.Release"
-			defines "ME_Release"
-			optimize "On"
-		filter "configurations.Dist"
-			defines "ME_Dist"
-			optimize "On"
+	filter "configurations:Debug"
+		defines "ME_Debug"
+		runtime "Debug"
+		symbols "on"
+	filter "configurations:Release"
+		defines "ME_Release"
+		runtime "Release"
+		optimize "speed"
+	filter "configurations:Dist"
+		defines "ME_Dist"
+		runtime "Release"
+		optimize "speed"
 			
 project "Sandbox"
 	location "Sandbox"
@@ -87,19 +95,22 @@ project "Sandbox"
 	
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "on"
+		staticruntime "off"
 		systemversion "latest"
 		
 		defines {
 			"ME_PLATFORM_WINDOWS"
 		}
 		
-		filter "configurations.Debug"
-			defines "ME_Debug"
-			symbols "On"
-		filter "configurations.Release"
-			defines "ME_Release"
-			optimize "On"
-		filter "configurations.Dist"
-			defines "ME_Dist"
-			optimize "On"
+	filter "configurations:Debug"
+		defines "ME_Debug"
+		runtime "Debug"
+		symbols "on"
+	filter "configurations:Release"
+		defines "ME_Release"
+		runtime "Release"
+		optimize "speed"
+	filter "configurations:Dist"
+		defines "ME_Dist"
+		runtime "Release"
+		optimize "speed"

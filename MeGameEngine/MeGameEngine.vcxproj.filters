@@ -10,8 +10,20 @@
     <Filter Include="main\events">
       <UniqueIdentifier>{2E84529D-9A39-CB92-232E-C5698FE2C196}</UniqueIdentifier>
     </Filter>
+    <Filter Include="main\layer">
+      <UniqueIdentifier>{D6F35681-C2AB-98CE-2BB3-712A178A33BF}</UniqueIdentifier>
+    </Filter>
     <Filter Include="main\logging">
       <UniqueIdentifier>{20C24652-0C25-D6F6-B5AA-0EADA1ECA179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main\platform">
+      <UniqueIdentifier>{1E4F2258-8A0F-9E8E-534A-E70BBFC9E26A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main\platform\windows">
+      <UniqueIdentifier>{78CFEB8C-E43B-A787-AD2F-3FE5195BC9EF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main\window">
+      <UniqueIdentifier>{31E568C6-9D9A-E1BB-268F-DB929243D8BF}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -29,27 +41,47 @@
     <ClInclude Include="src\main\events\EventCaller.h">
       <Filter>main\events</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\layer\Layer.h">
+      <Filter>main\layer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\layer\LayerStack.h">
+      <Filter>main\layer</Filter>
+    </ClInclude>
     <ClInclude Include="src\main\logging\Log.h">
       <Filter>main\logging</Filter>
     </ClInclude>
     <ClInclude Include="src\main\macro.h">
       <Filter>main</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\platform\windows\WindowsWindow.h">
+      <Filter>main\platform\windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\main\specialincludes.h">
       <Filter>main</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\window\window.h" />
-    <ClInclude Include="src\main\platform\windows\WindowsWindow.h" />
+    <ClInclude Include="src\main\window\window.h">
+      <Filter>main\window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\hzpch.cpp" />
     <ClCompile Include="src\main\entry\Application.cpp">
       <Filter>main\entry</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\events\EventCaller.cpp">
+      <Filter>main\events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\layer\Layer.cpp">
+      <Filter>main\layer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\layer\LayerStack.cpp">
+      <Filter>main\layer</Filter>
+    </ClCompile>
     <ClCompile Include="src\main\logging\Log.cpp">
       <Filter>main\logging</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\platform\windows\WindowsWindow.cpp" />
-    <ClCompile Include="src\main\events\EventCaller.cpp" />
+    <ClCompile Include="src\main\platform\windows\WindowsWindow.cpp">
+      <Filter>main\platform\windows</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
