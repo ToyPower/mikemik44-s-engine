@@ -14,9 +14,13 @@ includeDir = {}
 includeDir["GLFW"] = "MeGameEngine/vendors/glfw/include"
 includeDir["GLAD"] = "MeGameEngine/vendors/glad/include"
 includeDir["IMGUI"] = "MeGameEngine/vendors/imgui"
-include "MeGameEngine/vendors/glfw/premake5.lua"
-include "MeGameEngine/vendors/glad/premake5.lua"
-include "MeGameEngine/vendors/imgui/premake5.lua"
+
+group "dependecies" 
+	include "MeGameEngine/vendors/glfw/premake5.lua"
+	include "MeGameEngine/vendors/glad/premake5.lua"
+	include "MeGameEngine/vendors/imgui/premake5.lua"
+group ""
+
 project "MeGameEngine"
 	location "MeGameEngine"
 	kind "SharedLib"
@@ -60,7 +64,7 @@ project "MeGameEngine"
 		}
 		
 		postbuildcommands {
-			("{copy} %{cfg.buildtarget.relpath} ../bin/" .. outputDir .. "/Sandbox")
+			("{copy} %{cfg.buildtarget.relpath} \"../bin/" .. outputDir .. "/Sandbox/\"")
 		}
 		
 	filter "configurations:Debug"

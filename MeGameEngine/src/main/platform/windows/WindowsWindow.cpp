@@ -72,7 +72,7 @@ namespace ME {
 			EventCaller::callEvent(e1);
 		});
 		glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mod) {
-			const char* name;
+			const char* name = nullptr;
 			switch (action) {
 				case GLFW_PRESS: {
 					name = "windowKeyPress";
@@ -84,6 +84,9 @@ namespace ME {
 				}
 				case GLFW_REPEAT: {
 					name = "windowKeyDown";
+					break;
+				default:
+					name = "windowKeyChange";
 					break;
 				}
 			}
