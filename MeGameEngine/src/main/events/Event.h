@@ -42,23 +42,29 @@ namespace ME {
 				if (i != 0) {
 					ss << ", ";
 				}
-				ss << paramname[i] << ": ";
+				
 				if (ans.type() == typeid(std::string)) {
+					ss << paramname[i] << ": ";
 					ss << std::any_cast<std::string>(ans);
 				}
 				else if (ans.type() == typeid(int)) {
+					ss << paramname[i] << ": ";
 					ss << std::any_cast<int>(ans);
 				}
 				else if (ans.type() == typeid(float)) {
+					ss << paramname[i] << ": ";
 					ss << std::any_cast<float>(ans);
 				}
 				else if (ans.type() == typeid(double)) {
+					ss << paramname[i] << ": ";
 					ss << std::any_cast<double>(ans);
 				}
 				else if (ans.type() == typeid(const char*)) {
+					ss << paramname[i] << ": ";
 					ss << std::any_cast<const char*>(ans);
 				}
 				else if (ans.type() == typeid(bool)) {
+					ss << paramname[i] << ": ";
 					ss << std::any_cast<bool>(ans);
 				}
 			}

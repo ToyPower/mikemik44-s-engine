@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>hzpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;ME_PLATFORM_WINDOWS;ME_BUILD_DLL;ME_Debug;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendors\stdlog\include;src;vendors\glfw\include;vendors\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendors\stdlog\include;src;vendors\glfw\include;vendors\glad\include;vendors\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -103,7 +103,7 @@
       <PrecompiledHeaderFile>hzpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;ME_PLATFORM_WINDOWS;ME_BUILD_DLL;ME_Release;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendors\stdlog\include;src;vendors\glfw\include;vendors\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendors\stdlog\include;src;vendors\glfw\include;vendors\glad\include;vendors\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -130,7 +130,7 @@
       <PrecompiledHeaderFile>hzpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;ME_PLATFORM_WINDOWS;ME_BUILD_DLL;ME_Dist;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendors\stdlog\include;src;vendors\glfw\include;vendors\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendors\stdlog\include;src;vendors\glfw\include;vendors\glad\include;vendors\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -158,10 +158,12 @@
     <ClInclude Include="src\main\entry\Entry.h" />
     <ClInclude Include="src\main\events\Event.h" />
     <ClInclude Include="src\main\events\EventCaller.h" />
+    <ClInclude Include="src\main\layer\ImGuiLayer.h" />
     <ClInclude Include="src\main\layer\Layer.h" />
     <ClInclude Include="src\main\layer\LayerStack.h" />
     <ClInclude Include="src\main\logging\Log.h" />
     <ClInclude Include="src\main\macro.h" />
+    <ClInclude Include="src\main\platform\opengl\imgui_impl_opengl3.h" />
     <ClInclude Include="src\main\platform\windows\WindowsWindow.h" />
     <ClInclude Include="src\main\specialincludes.h" />
     <ClInclude Include="src\main\window\window.h" />
@@ -172,9 +174,11 @@
     </ClCompile>
     <ClCompile Include="src\main\entry\Application.cpp" />
     <ClCompile Include="src\main\events\EventCaller.cpp" />
+    <ClCompile Include="src\main\layer\ImGuiLayer.cpp" />
     <ClCompile Include="src\main\layer\Layer.cpp" />
     <ClCompile Include="src\main\layer\LayerStack.cpp" />
     <ClCompile Include="src\main\logging\Log.cpp" />
+    <ClCompile Include="src\main\platform\opengl\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\main\platform\windows\WindowsWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +187,9 @@
     </ProjectReference>
     <ProjectReference Include="vendors\glad\GLAD.vcxproj">
       <Project>{5D4A857C-4981-860D-F26D-6C10DE83020F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendors\imgui\ImGui.vcxproj">
+      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

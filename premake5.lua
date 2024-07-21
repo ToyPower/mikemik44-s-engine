@@ -13,8 +13,10 @@ outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 includeDir = {}
 includeDir["GLFW"] = "MeGameEngine/vendors/glfw/include"
 includeDir["GLAD"] = "MeGameEngine/vendors/glad/include"
+includeDir["IMGUI"] = "MeGameEngine/vendors/imgui"
 include "MeGameEngine/vendors/glfw/premake5.lua"
 include "MeGameEngine/vendors/glad/premake5.lua"
+include "MeGameEngine/vendors/imgui/premake5.lua"
 project "MeGameEngine"
 	location "MeGameEngine"
 	kind "SharedLib"
@@ -34,12 +36,14 @@ project "MeGameEngine"
 		"%{prj.name}/vendors/stdlog/include",
 		"%{prj.name}/src",
 		"%{includeDir.GLFW}",
-		"%{includeDir.GLAD}"
+		"%{includeDir.GLAD}",
+		"%{includeDir.IMGUI}"
 	}
 	
 	links {
 		"GLFW",
 		"GLAD",
+		"ImGui",
 		"opengl32.lib"
 	}
 	defines {
@@ -88,7 +92,9 @@ project "Sandbox"
 		"MeGameEngine/vendors/stdlog/include",
 		"MeGameEngine/src",
 		"%{prj.name}/src",
-		"%{includeDir.GLFW}"
+		"%{includeDir.GLFW}",
+		"%{includeDir.GLAD}",
+		"%{includeDir.IMGUI}"
 	}
 	
 	links {"MeGameEngine"}

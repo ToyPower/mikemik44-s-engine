@@ -65,6 +65,12 @@ namespace ME {
 			e1.putParam("window", win);
 			EventCaller::callEvent(e1);
 		});
+		glfwSetCharCallback(m_window, [](GLFWwindow* window, unsigned int key) {
+			Events& e1 = Events("windowKeyTyped");
+			e1.putParam("window", window);
+			e1.putParam("character", (int)key);
+			EventCaller::callEvent(e1);
+		});
 		glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mod) {
 			const char* name;
 			switch (action) {

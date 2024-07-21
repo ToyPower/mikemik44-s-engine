@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 namespace ME {
 #define FE_BIND(x) std::bind(&Application::x, this, std::placeholders::_1)
+	Application* Application::s_instance = nullptr;
 	void Application::run() {
 		
 		while (m_running) {
@@ -22,10 +23,12 @@ namespace ME {
 
 	void Application::pushLayer(Layer* layer) {
 		m_st.pushLayer(layer);
+		layer->onAttach();
 	}
 
 	void Application::pushOverlay(Layer* layer) {
 		m_st.pushOverlay(layer);
+		layer->onAttach();
 	}
 
 	bool Application::onEvent(Events& ee) {
@@ -61,6 +64,7 @@ namespace ME {
 	}
 
 	Application::Application() {
+		s_instance = this;
 		m_window = std::unique_ptr<Window>(Window::create());
 		EventCaller::addEventListener(FE_BIND(onEvent), "window*");
 		

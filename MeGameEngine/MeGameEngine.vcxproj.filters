@@ -19,6 +19,9 @@
     <Filter Include="main\platform">
       <UniqueIdentifier>{1E4F2258-8A0F-9E8E-534A-E70BBFC9E26A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="main\platform\opengl">
+      <UniqueIdentifier>{F2224CCB-DEB1-D594-87D0-E98F733EE63A}</UniqueIdentifier>
+    </Filter>
     <Filter Include="main\platform\windows">
       <UniqueIdentifier>{78CFEB8C-E43B-A787-AD2F-3FE5195BC9EF}</UniqueIdentifier>
     </Filter>
@@ -41,6 +44,9 @@
     <ClInclude Include="src\main\events\EventCaller.h">
       <Filter>main\events</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\layer\ImGuiLayer.h">
+      <Filter>main\layer</Filter>
+    </ClInclude>
     <ClInclude Include="src\main\layer\Layer.h">
       <Filter>main\layer</Filter>
     </ClInclude>
@@ -52,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="src\main\macro.h">
       <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\platform\opengl\imgui_impl_opengl3.h">
+      <Filter>main\platform\opengl</Filter>
     </ClInclude>
     <ClInclude Include="src\main\platform\windows\WindowsWindow.h">
       <Filter>main\platform\windows</Filter>
@@ -71,6 +80,9 @@
     <ClCompile Include="src\main\events\EventCaller.cpp">
       <Filter>main\events</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\layer\ImGuiLayer.cpp">
+      <Filter>main\layer</Filter>
+    </ClCompile>
     <ClCompile Include="src\main\layer\Layer.cpp">
       <Filter>main\layer</Filter>
     </ClCompile>
@@ -79,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="src\main\logging\Log.cpp">
       <Filter>main\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\platform\opengl\imgui_impl_opengl3.cpp">
+      <Filter>main\platform\opengl</Filter>
     </ClCompile>
     <ClCompile Include="src\main\platform\windows\WindowsWindow.cpp">
       <Filter>main\platform\windows</Filter>
