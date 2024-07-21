@@ -15,7 +15,11 @@
 #define ME_CORE_TRACE(...) ::ME::Log::GetCoreLogger()->trace(__VA_ARGS__)
 #define ME_CORE_ERROR(...) ::ME::Log::GetCoreLogger()->error(__VA_ARGS__)
 #define ME_CORE_FATAL(...) ::ME::Log::GetCoreLogger()->fatal(__VA_ARGS__)
-
+#ifdef ME_ENABLE_ASSERT
+#define ME_CORE_ASSORT(num, ...) {if (!num) {ME::Log::GetCoreLogger()->error(__VA_ARGS__);__debugbreak();}}
+#else
+#define ME_CORE_ASSORT(num, ...)
+#endif
 #define ME_CLIENT_INFO(...) ::ME::Log::GetClientLogger()->info(__VA_ARGS__)
 #define ME_CLIENT_WARN(...) ::ME::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define ME_CLIENT_TRACE(...) ::ME::Log::GetClientLogger()->trace(__VA_ARGS__)

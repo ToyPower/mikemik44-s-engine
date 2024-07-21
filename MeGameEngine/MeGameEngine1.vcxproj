@@ -15,10 +15,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{E7CD3491-D330-C435-7CB6-FCEB68F88FB8}</ProjectGuid>
+    <ProjectGuid>{F88ACEB7-644B-4AEE-2D86-936B99058FCA}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>MeGameEngine</RootNamespace>
+    <RootNamespace>MeGameEngine1</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -55,53 +55,50 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Debug-windows-x86_64\MeGameEngine\</OutDir>
-    <IntDir>..\bin-int\Debug-windows-x86_64\MeGameEngine\</IntDir>
-    <TargetName>MeGameEngine</TargetName>
+    <OutDir>..\bin\Debug-windows-x86_64\MeGameEngine1\</OutDir>
+    <IntDir>..\bin-int\Debug-windows-x86_64\MeGameEngine1\</IntDir>
+    <TargetName>MeGameEngine1</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Release-windows-x86_64\MeGameEngine\</OutDir>
-    <IntDir>..\bin-int\Release-windows-x86_64\MeGameEngine\</IntDir>
-    <TargetName>MeGameEngine</TargetName>
+    <OutDir>..\bin\Release-windows-x86_64\MeGameEngine1\</OutDir>
+    <IntDir>..\bin-int\Release-windows-x86_64\MeGameEngine1\</IntDir>
+    <TargetName>MeGameEngine1</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Dist-windows-x86_64\MeGameEngine\</OutDir>
-    <IntDir>..\bin-int\Dist-windows-x86_64\MeGameEngine\</IntDir>
-    <TargetName>MeGameEngine</TargetName>
+    <OutDir>..\bin\Dist-windows-x86_64\MeGameEngine1\</OutDir>
+    <IntDir>..\bin-int\Dist-windows-x86_64\MeGameEngine1\</IntDir>
+    <TargetName>MeGameEngine1</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>hzpch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>ME_PLATFORM_WINDOWS;ME_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendors\stdlog\include;src;vendors\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\MeGameEngine1\vendors\stdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\bin\Debug-windows-x86_64\MeGameEngine\MeGameEngine.lib</ImportLibrary>
+      <ImportLibrary>..\bin\Debug-windows-x86_64\MeGameEngine1\MeGameEngine1.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows-x86_64\MeGameEngine\MeGameEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\MeGameEngine\MeGameEngine.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\MeGameEngine\MeGameEngine.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\MeGameEngine1\MeGameEngine1.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\MeGameEngine1\MeGameEngine1.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\MeGameEngine1\MeGameEngine1.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>hzpch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>ME_PLATFORM_WINDOWS;ME_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendors\stdlog\include;src;vendors\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\MeGameEngine1\vendors\stdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -109,20 +106,18 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\bin\Release-windows-x86_64\MeGameEngine\MeGameEngine.lib</ImportLibrary>
+      <ImportLibrary>..\bin\Release-windows-x86_64\MeGameEngine1\MeGameEngine1.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows-x86_64\MeGameEngine\MeGameEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\MeGameEngine\MeGameEngine.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\MeGameEngine\MeGameEngine.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\MeGameEngine1\MeGameEngine1.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\MeGameEngine1\MeGameEngine1.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\MeGameEngine1\MeGameEngine1.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>hzpch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>ME_PLATFORM_WINDOWS;ME_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendors\stdlog\include;src;vendors\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\MeGameEngine1\vendors\stdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -130,40 +125,12 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\bin\Dist-windows-x86_64\MeGameEngine\MeGameEngine.lib</ImportLibrary>
+      <ImportLibrary>..\bin\Dist-windows-x86_64\MeGameEngine1\MeGameEngine1.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Dist-windows-x86_64\MeGameEngine\MeGameEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\MeGameEngine\MeGameEngine.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\MeGameEngine\MeGameEngine.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Dist-windows-x86_64\MeGameEngine1\MeGameEngine1.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\MeGameEngine1\MeGameEngine1.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\MeGameEngine1\MeGameEngine1.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="src\main\platform\windows\WindowsWindow.h" />
-    <ClInclude Include="src\main\window\window.h" />
-    <ClInclude Include="src\MeCore.h" />
-    <ClInclude Include="src\hzpch.h" />
-    <ClInclude Include="src\main\entry\Application.h" />
-    <ClInclude Include="src\main\entry\Entry.h" />
-    <ClInclude Include="src\main\events\Event.h" />
-    <ClInclude Include="src\main\events\EventCaller.h" />
-    <ClInclude Include="src\main\logging\Log.h" />
-    <ClInclude Include="src\main\macro.h" />
-    <ClInclude Include="src\main\specialincludes.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\hzpch.cpp">
-      <PrecompiledHeader>Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="src\main\entry\Application.cpp" />
-    <ClCompile Include="src\main\events\EventCaller.cpp" />
-    <ClCompile Include="src\main\logging\Log.cpp" />
-    <ClCompile Include="src\main\platform\windows\WindowsWindow.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="vendors\glfw\GLFW.vcxproj">
-      <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

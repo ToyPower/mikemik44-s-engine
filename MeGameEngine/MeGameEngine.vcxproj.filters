@@ -1,45 +1,55 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="main">
+      <UniqueIdentifier>{6A7F9A7C-56B6-9B0D-FFA2-8110EBB8170F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="main\entry">
+      <UniqueIdentifier>{AB55DF80-970D-21CE-0015-FA29ECEBBBBE}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="main\events">
+      <UniqueIdentifier>{2E84529D-9A39-CB92-232E-C5698FE2C196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main\logging">
+      <UniqueIdentifier>{20C24652-0C25-D6F6-B5AA-0EADA1ECA179}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\main\macro.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\MeCore.h" />
+    <ClInclude Include="src\hzpch.h" />
+    <ClInclude Include="src\main\entry\Application.h">
+      <Filter>main\entry</Filter>
     </ClInclude>
     <ClInclude Include="src\main\entry\Entry.h">
-      <Filter>Header Files</Filter>
+      <Filter>main\entry</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\entry\Application.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\main\events\Event.h">
+      <Filter>main\events</Filter>
     </ClInclude>
-    <ClInclude Include="src\MeCore.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\main\events\EventCaller.h">
+      <Filter>main\events</Filter>
     </ClInclude>
     <ClInclude Include="src\main\logging\Log.h">
-      <Filter>Header Files</Filter>
+      <Filter>main\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\macro.h">
+      <Filter>main</Filter>
     </ClInclude>
     <ClInclude Include="src\main\specialincludes.h">
-      <Filter>Header Files</Filter>
+      <Filter>main</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\window\window.h" />
+    <ClInclude Include="src\main\platform\windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\hzpch.cpp" />
     <ClCompile Include="src\main\entry\Application.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>main\entry</Filter>
     </ClCompile>
     <ClCompile Include="src\main\logging\Log.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>main\logging</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\platform\windows\WindowsWindow.cpp" />
+    <ClCompile Include="src\main\events\EventCaller.cpp" />
   </ItemGroup>
 </Project>
