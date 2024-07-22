@@ -7,3 +7,6 @@
 [submodule "MeGameEngine/vendors/imgui"]
 	path = MeGameEngine/vendors/imgui
 	url = https://github.com/TheCherno/imgui.git
+[submodule "MeGameEngine/vendors/glm2"]
+	path = MeGameEngine/vendors/glm2
+	url = https://github.com/g-truc/glm.git

@@ -1,7 +1,7 @@
 #pragma once
-#include "layer.h"
 
-#include "../entry/Application.h"
+#include "main/layer/Layer.h"
+
 namespace ME {
 
 	class ME_API ImGuiLayer : public Layer{
@@ -9,11 +9,11 @@ namespace ME {
 	public:
 		ImGuiLayer();
 		~ImGuiLayer();
-		void onAttach() override;
-		void onDetach() override;
-		void onUpdate() override;
-		void onRender() override;
-		bool onEvent(Events& e) override;
+		virtual void onAttach() override;
+		virtual void onDetach() override;
+		virtual void onGUIRender() override;
+		void begin();
+		void end();
 	private:
 		float m_time = 0.0f;
 	};

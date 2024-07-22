@@ -14,7 +14,7 @@ namespace ME {
 		virtual void onUpdate() {};
 		virtual void onRender() {};
 		virtual bool onEvent(Events& e) { return true; };
-
+		virtual void onGUIRender() {};
 		inline const std::string& getName() const { return m_name; }
 	protected:
 		std::string m_name;

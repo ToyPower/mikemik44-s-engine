@@ -1,5 +1,6 @@
 #pragma once
 #include "hzpch.h"
+#include "main/layer/ImGuiLayer.h"
 #include "../macro.h"
 #include "../layer/Layer.h"
 #include "../layer/LayerStack.h"
@@ -19,6 +20,7 @@ namespace ME {
 		inline static Application& getInstance() { return *s_instance; }
 	private:
 		std::unique_ptr<Window> m_window;
+		ImGuiLayer* m_imguilayer;
 		bool m_running = true;
 		LayerStack m_st;
 		static Application* s_instance;

@@ -2,7 +2,13 @@
 #include "WindowsWindow.h"
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
+#include "WindowsInput.h"
+#include "../../Input.h"
+
 namespace ME {
+
+	
+
 	void errorcallback(int error, const char* desc) {
 		ME_CORE_ERROR("GLFW Error [{0}]: {1}", error, desc);
 	}
@@ -24,6 +30,7 @@ namespace ME {
 	}
 
 	void WindowsWindow::init(const WindowProps& props) {
+	
 		m_data.title = props.title;
 		m_data.width = props.width;	
 		m_data.height = props.height;

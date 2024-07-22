@@ -1,6 +1,8 @@
 #include "hzpch.h"
 #include "Application.h"
 #include <glad/glad.h>
+#include <main/Input.h>
+
 namespace ME {
 #define FE_BIND(x) std::bind(&Application::x, this, std::placeholders::_1)
 	Application* Application::s_instance = nullptr;
@@ -14,6 +16,11 @@ namespace ME {
 					layer->onUpdate();
 					layer->onRender();
 				}
+				m_imguilayer->begin();
+				for (auto layer : m_st) {
+					layer->onGUIRender();
+				}
+				m_imguilayer->end();
 				m_window->onUpdate();
 			}
 			
@@ -67,11 +74,10 @@ namespace ME {
 		s_instance = this;
 		m_window = std::unique_ptr<Window>(Window::create());
 		EventCaller::addEventListener(FE_BIND(onEvent), "window*");
-		
+		m_imguilayer = new ImGuiLayer();
+		pushOverlay(m_imguilayer);
 	}
 
 	Application::~Application() {
-
 	}
-
 }
