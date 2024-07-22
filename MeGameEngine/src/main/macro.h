@@ -1,5 +1,5 @@
 #pragma once
-
+#ifdef UNNNN
 #ifdef ME_PLATFORM_WINDOWS
 	#ifdef ME_BUILD_DLL
 		#define ME_API _declspec(dllexport)
@@ -8,6 +8,9 @@
 	#endif	
 #else
 	#error We only support windws
+#endif
+#else
+#define ME_API
 #endif
 
 #define ME_CORE_INFO(...) ::ME::Log::GetCoreLogger()->info(__VA_ARGS__)

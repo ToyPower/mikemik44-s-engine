@@ -3,7 +3,6 @@
 #include "main/layer/Layer.h"
 #include "main/entry/Entry.h"
 #include "main/specialincludes.h"
-#include "main/layer/ImGuiLayer.h"
 #include "main/Input.h"
 #include "main/KeyCodes.h"
 #include "main/MouseButtonCodes.h"

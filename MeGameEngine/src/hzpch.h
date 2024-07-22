@@ -2,18 +2,21 @@
 
 #include <iostream>
 #include <memory>
-#include <functional>
 #include <utility>
 #include <algorithm>
-#include <sstream>
+#include <functional>
 
-#include <any>
 #include <string>
+#include <sstream>
+#include <array>
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#include <any>
+
+#include "main/logging/Log.h"
 
 #ifdef ME_PLATFORM_WINDOWS
-	#include "Windows.h"
-	#include <GLFW/glfw3.h>
+#include <Windows.h>
+#include <GLFW/glfw3.h>
 #endif

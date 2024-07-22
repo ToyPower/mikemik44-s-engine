@@ -1364,6 +1364,9 @@
     <ClCompile Include="src\main\events\EventCaller.cpp">
       <Filter>src\main\events</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\layer\ImGuiBuild.cpp">
+      <Filter>src\main\layer</Filter>
+    </ClCompile>
     <ClCompile Include="src\main\layer\ImGuiLayer.cpp">
       <Filter>src\main\layer</Filter>
     </ClCompile>
@@ -1382,6 +1385,5 @@
     <ClCompile Include="src\main\platform\windows\WindowsWindow.cpp">
       <Filter>src\main\platform\windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\layer\ImGuiBuild.cpp" />
   </ItemGroup>
 </Project>

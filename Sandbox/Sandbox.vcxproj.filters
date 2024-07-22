@@ -1,13 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="MeGameEngine">
+      <UniqueIdentifier>{E7CD3491-D330-C435-7CB6-FCEB68F88FB8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MeGameEngine\vendors">
+      <UniqueIdentifier>{57270217-43B6-8BE0-ECD4-9FDBD8429C86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MeGameEngine\vendors\glad">
+      <UniqueIdentifier>{BE28F08F-2AEB-231A-739B-B2A6DF9CFCF7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MeGameEngine\vendors\glfw">
+      <UniqueIdentifier>{7629F08F-E2EB-231A-2B9C-B2A6979DFCF7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src">
-      <UniqueIdentifier>{f17c7258-677c-4246-95f9-f35f61435acc}</UniqueIdentifier>
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\MeGameEngine\vendors\glad\include">
+      <Filter>MeGameEngine\vendors\glad</Filter>
+    </None>
+    <None Include="..\MeGameEngine\vendors\glfw\include">
+      <Filter>MeGameEngine\vendors\glfw</Filter>
+    </None>
   </ItemGroup>
 </Project>

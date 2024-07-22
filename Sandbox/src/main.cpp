@@ -2,11 +2,19 @@
 #include <MeCore.h>
 #include <glm/glm.hpp>
 
-
+#include <imgui/imgui.h>
 class ExampleLayer : public ME::Layer {
 
 public:
 	ExampleLayer() : Layer("ExampleLayer") {};
+
+	virtual void onGUIRender() override {
+
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World!");
+		ImGui::End();
+
+	}
 
 	void onUpdate() override {
 		if (ME::Input::isKeyPress(ME_KEY_TAB)) {

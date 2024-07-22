@@ -1,6 +1,6 @@
 #include "hzpch.h"
 #include "main/layer/ImGuiLayer.h"
-#define IMGUI_IMPL_OPENGL_LOADER_GLAD
+#define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
 #include <imgui.h>
 #include <imgui_internal.h>
 #include <backends/imgui_impl_glfw.h>
@@ -63,7 +63,7 @@ namespace ME {
 	void ImGuiLayer::end() {
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::getInstance();
-		io.DisplaySize = ImVec2(app.getWindow().getWidth(), app.getWindow().getHeight());
+		io.DisplaySize = ImVec2((float)app.getWindow().getWidth(), (float)app.getWindow().getHeight());
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

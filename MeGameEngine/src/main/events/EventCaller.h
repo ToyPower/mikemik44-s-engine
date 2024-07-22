@@ -26,7 +26,7 @@ namespace ME {
 		}
 
 		static bool inform(std::string a, std::string b) {
-			int pos = a.find("*");
+			size_t pos = a.find("*");
 			if (b.length() >= pos) {
 				if (strcmp(a.substr(0, pos).c_str(), b.substr(0, pos).c_str()) == 0) {
 					return true;

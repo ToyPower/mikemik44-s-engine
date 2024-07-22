@@ -9,6 +9,9 @@ workspace "MyGameEngine"
 		"Dist"
 	}
 	startproject "Sandbox"
+	defines {
+		"_CRT_SECURE_NO_WARNINGS"
+	}
 outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 includeDir = {}
 includeDir["GLFW"] = "MeGameEngine/vendors/glfw/include"
@@ -24,14 +27,15 @@ group ""
 
 project "MeGameEngine"
 	location "MeGameEngine"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "c++"
 	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
 	
+	staticruntime "off"
 	pchheader "hzpch.h"
 	pchsource "MeGameEngine/src/hzpch.cpp"
-
+	cppdialect "C++17"
 	files {
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
@@ -40,8 +44,8 @@ project "MeGameEngine"
 	}
 	
 	includedirs {
-		"%{prj.name}/vendors/stdlog/include",
-		"%{prj.name}/src",
+		"MeGameEngine/src",
+		"MeGameEngine/vendors/stdlog/include",
 		"%{includeDir.GLFW}",
 		"%{includeDir.GLAD}",
 		"%{includeDir.IMGUI}",
@@ -58,17 +62,12 @@ project "MeGameEngine"
 		"GLFW_INCLUDE_NONE",
 	}
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "off"
+		
 		systemversion "latest"
 		
 		defines {
 			"ME_PLATFORM_WINDOWS",
 			"ME_BUILD_DLL"
-		}
-		
-		postbuildcommands {
-			("{copy} %{cfg.buildtarget.relpath} \"../bin/" .. outputDir .. "/Sandbox/\"")
 		}
 		
 	filter "configurations:Debug"
@@ -90,6 +89,8 @@ project "Sandbox"
 	language "c++"
 	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
+	cppdialect "C++17"
+	staticruntime "off"
 
 	files {
 		"%{prj.name}/src/**.h",
@@ -99,18 +100,18 @@ project "Sandbox"
 	includedirs {
 		"MeGameEngine/vendors/stdlog/include",
 		"MeGameEngine/src",
-		"%{prj.name}/src",
+		"MeGameEngine/vendors",
+		"%{includeDir.GLM}",
 		"%{includeDir.GLFW}",
 		"%{includeDir.GLAD}",
-		"%{includeDir.IMGUI}",
-		"%{includeDir.GLM}"
 	}
 	
-	links {"MeGameEngine"}
+	links {
+		"MeGameEngine"
+	}
 	
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "off"
+		
 		systemversion "latest"
 		
 		defines {
