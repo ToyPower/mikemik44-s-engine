@@ -8,7 +8,7 @@ namespace ME {
 		glGenBuffers(1, &vertexBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
-		
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
 
@@ -30,11 +30,12 @@ namespace ME {
 		
 	}
 
-	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* pos, uint32_t size, uint32_t totalSize) {
+	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* pos, uint32_t size) {
 		glGenBuffers(1, &indexBuffer);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size * sizeof(uint32_t), pos, GL_STATIC_DRAW);
-
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		this->count = size;
 	}
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer() {

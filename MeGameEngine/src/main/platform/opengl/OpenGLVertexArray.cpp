@@ -74,9 +74,10 @@ namespace ME {
 			locations.push_back(count);
 			glVertexAttribPointer(count, a.getComponentCount(), convertToGLType(a.data), a.normalized ? GL_TRUE : GL_FALSE, ((BufferLayout&)(layout)).getStrife(), (const void*)(a.offset));
 			count += 1;
+			buffer->unbind();
 		}
 		m_vbuffers.push_back(buffer);
-
+		glBindVertexArray(0);
 	}
 	
 	void OpenGLVertexArray::setIndexBuffer(const std::shared_ptr<IIndexBuffer>& buffer) {

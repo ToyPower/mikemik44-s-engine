@@ -13,13 +13,19 @@ namespace ME {
 			if (m_window != nullptr) {
 				glClearColor(0.1f, 0.1f , 0.1f, 1);
 				glClear(GL_COLOR_BUFFER_BIT);
-				
+				m_shader2->bind();
+				m_square->bind();
+				glDrawElements(GL_TRIANGLES, m_square->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
+
+				m_square->unbind();
+				m_shader2->unbind();
 				m_shader->bind();
 				m_va->bind();
-				glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-				
+				glDrawElements(GL_TRIANGLES, m_ibuffer->getCount(), GL_UNSIGNED_INT, nullptr);
+
 				m_va->unbind();
 				m_shader->unbind();
+				
 				for (auto layer : m_st) {
 					layer->onUpdate();
 					layer->onRender();
@@ -87,7 +93,7 @@ namespace ME {
 		float vertices[3 * 3 + 3 * 4] = {
 			-0.5f, -0.5f, 0.0f,  1, 0, 0,1, 
 			0.0f, 0.5f, 0.0f,    0, 1, 0,1,
-			0.5f, -0.5f, 0.0f,    0, 0, 1,1
+			0.5f, -0.5f, 0.0f,    0, 0, 1,1,
 		};
 		BufferLayout layout = {
 
@@ -106,11 +112,36 @@ namespace ME {
 	
 		m_vbuffer.reset(VVertexBuffer::create(vertices, sizeof(vertices)));
 		m_vbuffer->setLayout(layout);
-		m_ibuffer.reset(IIndexBuffer::create(indices,3, sizeof(indices)));
+		m_ibuffer.reset(IIndexBuffer::create(indices, sizeof(indices)/sizeof(uint32_t)));
 		
 		m_va->addVertexBuffer(m_vbuffer);
 		m_va->setIndexBuffer(m_ibuffer);
+		
+		m_square.reset(VertexArray::create());
+		float na[4 * 3] = {
 
+			-0.75, -0.75, 0,
+			0.75, -0.75, 0,
+			0.75,  0.75, 0,
+			-0.75, 0.75, 0
+
+		};
+		uint32_t ni[6] = {
+
+			0,1,2,
+			2,3,0
+
+		};
+		std::shared_ptr<VVertexBuffer> buf = std::shared_ptr<VVertexBuffer>(VVertexBuffer::create(na, sizeof(na)));
+		std::shared_ptr<IIndexBuffer> indd = std::shared_ptr<IIndexBuffer>((IIndexBuffer::create(ni, sizeof(ni) / sizeof(uint32_t))));
+
+		buf->setLayout(BufferLayout({
+
+			{ShaderType::Vec3, "m_Position"},
+
+			}));
+		m_square->addVertexBuffer(buf);
+		m_square->setIndexBuffer(indd);
 		const std::string& a = R"(#version 410 core
 			layout(location = 0) in vec3 position;
 			layout(location = 1) in vec3 color1;
@@ -130,8 +161,27 @@ namespace ME {
 
 			}
 		)";
+		m_shader.reset(new Shader(a, b));
+		const std::string& a2 = R"(#version 410 core
+			layout(location = 0) in vec3 position;
+			out vec3 color;
 
-		m_shader.reset(new Shader(a,b));
+			void main() {
+				color = vec3(0.2, 0.3, 0);
+				gl_Position = vec4(position,1);
+			}
+		)";
+		const std::string& b2 = R"(#version 410 core
+			in vec3 color;
+			
+			void main() {
+			
+				gl_FragColor = vec4(color, 1);
+
+			}
+		)";
+
+		m_shader2.reset(new Shader(a2,b2));
 	}
 
 	Application::~Application() {

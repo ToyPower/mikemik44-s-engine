@@ -12,7 +12,7 @@ namespace ME {
 	
 		void bind() override;
 		void unbind() override;
-		virtual void setLayout(BufferLayout& layout) override { 
+		virtual const void setLayout(BufferLayout& layout) override { 
 			m_layout = layout;
 			
 		}
@@ -26,12 +26,14 @@ namespace ME {
 	class OpenGLIndexBuffer : public IIndexBuffer {
 
 	public:
-		OpenGLIndexBuffer(uint32_t* pos, uint32_t size, uint32_t totalSize);
+		OpenGLIndexBuffer(uint32_t* pos, uint32_t size);
 		virtual ~OpenGLIndexBuffer() override;
-		void virtual bind() override;
-		void virtual unbind() override;
+		virtual void bind() override;
+		virtual	void unbind() override;
+		virtual uint32_t getCount() const override { return count; }
 	private:
 		uint32_t indexBuffer;
+		uint32_t count;
 	};
 	
 }

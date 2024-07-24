@@ -123,7 +123,7 @@ namespace ME{
 	public:
 		virtual ~VVertexBuffer() {};
 		
-		virtual void setLayout(BufferLayout& layout) = 0;
+		virtual const void setLayout(BufferLayout& layout) = 0;
 		virtual const BufferLayout& getLayout() const = 0;
 		virtual void bind() = 0;
 		virtual void unbind() = 0;
@@ -134,10 +134,10 @@ namespace ME{
 	class IIndexBuffer {
 	public:
 		virtual ~IIndexBuffer() {};
-
+		virtual uint32_t getCount() const = 0;
 		virtual void bind() = 0;
 		virtual void unbind() = 0;
-		static IIndexBuffer* create(uint32_t* vertices, uint32_t size, uint32_t totalSize);
+		static IIndexBuffer* create(uint32_t* vertices, uint32_t size);
 
 
 	};
