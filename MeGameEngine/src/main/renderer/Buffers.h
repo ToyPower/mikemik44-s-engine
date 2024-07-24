@@ -118,26 +118,26 @@ namespace ME{
 		bool m_normalized;
 	};
 
-	class VVertexBuffer {
+	class VertexBuffer {
 
 	public:
-		virtual ~VVertexBuffer() {};
+		virtual ~VertexBuffer() {};
 		
 		virtual const void setLayout(BufferLayout& layout) = 0;
 		virtual const BufferLayout& getLayout() const = 0;
 		virtual void bind() = 0;
 		virtual void unbind() = 0;
-		static VVertexBuffer* create(float* vertices, uint32_t size);
+		static VertexBuffer* create(float* vertices, uint32_t size);
 
 	};
 
-	class IIndexBuffer {
+	class IndexBuffer {
 	public:
-		virtual ~IIndexBuffer() {};
+		virtual ~IndexBuffer() {};
 		virtual uint32_t getCount() const = 0;
 		virtual void bind() = 0;
 		virtual void unbind() = 0;
-		static IIndexBuffer* create(uint32_t* vertices, uint32_t size);
+		static IndexBuffer* create(uint32_t* vertices, uint32_t size);
 
 
 	};

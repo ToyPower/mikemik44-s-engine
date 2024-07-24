@@ -6,7 +6,7 @@ namespace ME {
 
 
 
-	IIndexBuffer* IIndexBuffer::create(uint32_t* vertices, uint32_t size) {
+	IndexBuffer* IndexBuffer::create(uint32_t* vertices, uint32_t size) {
 		switch (Renderer::getAPI()) {
 		case RENDERAPI::none:
 			ME_CORE_ASSORT(false, "Render API None is not supported!");
@@ -18,7 +18,7 @@ namespace ME {
 		return nullptr;
 	}
 
-	VVertexBuffer* VVertexBuffer::create(float* vertices, uint32_t size) {
+	VertexBuffer* VertexBuffer::create(float* vertices, uint32_t size) {
 		switch (Renderer::getAPI()) {
 		case RENDERAPI::none:
 			ME_CORE_ASSORT(false, "Render API None is not supported!");

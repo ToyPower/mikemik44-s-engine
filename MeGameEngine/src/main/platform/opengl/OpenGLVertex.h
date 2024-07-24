@@ -4,7 +4,7 @@
 #include <glad/glad.h>
 namespace ME {
 	
-	class OpenGLVertexBuffer : public VVertexBuffer {
+	class OpenGLVertexBuffer : public VertexBuffer {
 
 	public:
 		OpenGLVertexBuffer(float* vertices, uint32_t size);
@@ -23,7 +23,7 @@ namespace ME {
 		BufferLayout m_layout;
 	};
 
-	class OpenGLIndexBuffer : public IIndexBuffer {
+	class OpenGLIndexBuffer : public IndexBuffer {
 
 	public:
 		OpenGLIndexBuffer(uint32_t* pos, uint32_t size);

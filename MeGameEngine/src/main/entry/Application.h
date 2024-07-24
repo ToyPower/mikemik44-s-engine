@@ -27,9 +27,7 @@ namespace ME {
 		bool m_running = true;
 		LayerStack m_st;
 		static Application* s_instance;
-		std::shared_ptr<VVertexBuffer> m_vbuffer;
 		
-		std::shared_ptr<IIndexBuffer> m_ibuffer;
 		std::shared_ptr<Shader> m_shader, m_shader2;
 		std::shared_ptr<VertexArray> m_va;
 

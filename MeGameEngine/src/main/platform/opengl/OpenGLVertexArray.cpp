@@ -63,7 +63,7 @@ namespace ME {
 		}
 		glBindVertexArray(0);
 	}
-	void OpenGLVertexArray::addVertexBuffer(const std::shared_ptr<VVertexBuffer>& buffer) {
+	void OpenGLVertexArray::addVertexBuffer(const std::shared_ptr<VertexBuffer>& buffer) {
 
 		glBindVertexArray(id);
 		uint32_t count = 0;
@@ -80,7 +80,7 @@ namespace ME {
 		glBindVertexArray(0);
 	}
 	
-	void OpenGLVertexArray::setIndexBuffer(const std::shared_ptr<IIndexBuffer>& buffer) {
+	void OpenGLVertexArray::setIndexBuffer(const std::shared_ptr<IndexBuffer>& buffer) {
 		
 		m_ibuffer = buffer;
 	};

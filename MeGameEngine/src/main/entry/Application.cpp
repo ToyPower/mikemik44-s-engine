@@ -21,7 +21,7 @@ namespace ME {
 				m_shader2->unbind();
 				m_shader->bind();
 				m_va->bind();
-				glDrawElements(GL_TRIANGLES, m_ibuffer->getCount(), GL_UNSIGNED_INT, nullptr);
+				glDrawElements(GL_TRIANGLES, m_va->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
 
 				m_va->unbind();
 				m_shader->unbind();
@@ -109,13 +109,13 @@ namespace ME {
 		//new OpenGLVertexBuffer((float*)vertices, 0, 0, 3, sizeof(vertices));
 		bool start = false;
 		m_va.reset(VertexArray::create());
-	
-		m_vbuffer.reset(VVertexBuffer::create(vertices, sizeof(vertices)));
-		m_vbuffer->setLayout(layout);
-		m_ibuffer.reset(IIndexBuffer::create(indices, sizeof(indices)/sizeof(uint32_t)));
+		auto def = std::shared_ptr<VertexBuffer>(VertexBuffer::create(vertices, sizeof(vertices)));
+
+		def->setLayout(layout);
 		
-		m_va->addVertexBuffer(m_vbuffer);
-		m_va->setIndexBuffer(m_ibuffer);
+		m_va->addVertexBuffer(def);
+		auto ib = std::shared_ptr<IndexBuffer>(IndexBuffer::create(indices, sizeof(indices)));
+		m_va->setIndexBuffer(ib);
 		
 		m_square.reset(VertexArray::create());
 		float na[4 * 3] = {
@@ -132,8 +132,8 @@ namespace ME {
 			2,3,0
 
 		};
-		std::shared_ptr<VVertexBuffer> buf = std::shared_ptr<VVertexBuffer>(VVertexBuffer::create(na, sizeof(na)));
-		std::shared_ptr<IIndexBuffer> indd = std::shared_ptr<IIndexBuffer>((IIndexBuffer::create(ni, sizeof(ni) / sizeof(uint32_t))));
+		std::shared_ptr<VertexBuffer> buf = std::shared_ptr<VertexBuffer>(VertexBuffer::create(na, sizeof(na)));
+		std::shared_ptr<IndexBuffer> indd = std::shared_ptr<IndexBuffer>((IndexBuffer::create(ni, sizeof(ni) / sizeof(uint32_t))));
 
 		buf->setLayout(BufferLayout({
 
