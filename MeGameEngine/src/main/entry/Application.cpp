@@ -2,7 +2,8 @@
 #include "Application.h"
 #include <glad/glad.h>
 #include <main/Input.h>
-#include "main/platform/opengl/OpenGLVertex.h"
+#include "main/renderer/Buffers.h"
+#include "main/renderer/VertexArray.h"
 namespace ME {
 #define FE_BIND(x) std::bind(&Application::x, this, std::placeholders::_1)
 	Application* Application::s_instance = nullptr;
@@ -12,15 +13,12 @@ namespace ME {
 			if (m_window != nullptr) {
 				glClearColor(0.1f, 0.1f , 0.1f, 1);
 				glClear(GL_COLOR_BUFFER_BIT);
-				glBindVertexArray(va);
-				m_shader->bind();
-				m_vbuffer->bind();
 				
-				m_ibuffer->bind();
+				m_shader->bind();
+				m_va->bind();
 				glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 				
-				m_ibuffer->unbind();
-				m_vbuffer->unbind();
+				m_va->unbind();
 				m_shader->unbind();
 				for (auto layer : m_st) {
 					layer->onUpdate();
@@ -91,26 +89,28 @@ namespace ME {
 			0.0f, 0.5f, 0.0f,    0, 1, 0,1,
 			0.5f, -0.5f, 0.0f,    0, 0, 1,1
 		};
-
-		
-		uint32_t indices[3] = {
-			0, 1, 2
-		};
-		glGenVertexArrays(1, &va);
-		glBindVertexArray(va);
-		//new OpenGLVertexBuffer((float*)vertices, 0, 0, 3, sizeof(vertices));
-		bool start = false;
 		BufferLayout layout = {
 
 			{ShaderType::Vec3, "m_Position"},
 			{ShaderType::Vec4, "m_color"},
 
 		};
-		ME_CORE_INFO("{0}", layout.getStrife());
+		
+		uint32_t indices[3] = {
+			0, 1, 2
+		};
+		
+		//new OpenGLVertexBuffer((float*)vertices, 0, 0, 3, sizeof(vertices));
+		bool start = false;
+		m_va.reset(VertexArray::create());
+	
 		m_vbuffer.reset(VVertexBuffer::create(vertices, sizeof(vertices)));
 		m_vbuffer->setLayout(layout);
 		m_ibuffer.reset(IIndexBuffer::create(indices,3, sizeof(indices)));
 		
+		m_va->addVertexBuffer(m_vbuffer);
+		m_va->setIndexBuffer(m_ibuffer);
+
 		const std::string& a = R"(#version 410 core
 			layout(location = 0) in vec3 position;
 			layout(location = 1) in vec3 color1;

@@ -1369,6 +1369,8 @@
     <ClInclude Include="src\main\renderer\Buffers.h" />
     <ClInclude Include="src\main\platform\opengl\OpenGLVertex.h" />
     <ClInclude Include="src\main\renderer\Renderer.h" />
+    <ClInclude Include="src\main\renderer\VertexArray.h" />
+    <ClInclude Include="src\main\platform\opengl\OpenGlVertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\hzpch.cpp">
@@ -1406,5 +1408,7 @@
     <ClCompile Include="src\main\platform\opengl\OpenGLVertex.cpp" />
     <ClCompile Include="src\main\renderer\Buffers.cpp" />
     <ClCompile Include="src\main\renderer\Renderer.cpp" />
+    <ClCompile Include="src\main\renderer\VertexArray.cpp" />
+    <ClCompile Include="src\main\platform\opengl\OpenGLVertexArray.cpp" />
   </ItemGroup>
 </Project>

@@ -11,14 +11,7 @@ namespace ME {
 		
 	}
 
-	 void OpenGLVertexBuffer::bindData(uint32_t location, uint32_t startPos, uint32_t size, uint32_t totalSize, uint32_t strife) {
-		//ME_CORE_INFO("{0} {1}", size, totalSize);
-		// glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-		 glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-		this->locations.push_back(location);
-		 glVertexAttribPointer(location, size, GL_FLOAT, false, strife, (const void*)(startPos));
-		
-	}
+
 
 	OpenGLVertexBuffer::~OpenGLVertexBuffer() {
 		glDeleteBuffers(1,&this->vertexBuffer);
@@ -26,20 +19,13 @@ namespace ME {
 	}
 
 	void OpenGLVertexBuffer::bind() {
-		//glBindVertexArray(va);
-		for (uint32_t i : locations) {
-			glEnableVertexAttribArray(i);
-		}
+
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 		
 	}
 
 	void OpenGLVertexBuffer::unbind() {
-		for (uint32_t i : locations) {
-			glDisableVertexAttribArray(i);
-		}
-		glBindVertexArray(va);
-		glBindVertexArray(0);
+		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		
 	}

@@ -144,11 +144,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\main\platform\opengl\OpenGLVertex.h" />
+    <ClInclude Include="src\main\platform\opengl\OpenGlVertexArray.h" />
     <ClInclude Include="src\main\renderer\GraphicsContext.h" />
     <ClInclude Include="src\main\platform\opengl\OpenGLContext.h" />
     <ClInclude Include="src\main\renderer\Renderer.h" />
     <ClInclude Include="src\main\renderer\Shader.h" />
     <ClInclude Include="src\main\renderer\Buffers.h" />
+    <ClInclude Include="src\main\renderer\VertexArray.h" />
     <ClInclude Include="src\MeCore.h" />
     <ClInclude Include="src\hzpch.h" />
     <ClInclude Include="src\main\Input.h" />
@@ -597,11 +599,13 @@
     <ClCompile Include="src\main\logging\Log.cpp" />
     <ClCompile Include="src\main\platform\opengl\OpenGLContext.cpp" />
     <ClCompile Include="src\main\platform\opengl\OpenGLVertex.cpp" />
+    <ClCompile Include="src\main\platform\opengl\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\main\platform\windows\WindowsInput.cpp" />
     <ClCompile Include="src\main\platform\windows\WindowsWindow.cpp" />
     <ClCompile Include="src\main\renderer\Buffers.cpp" />
     <ClCompile Include="src\main\renderer\Renderer.cpp" />
     <ClCompile Include="src\main\renderer\Shader.cpp" />
+    <ClCompile Include="src\main\renderer\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendors\glfw\GLFW.vcxproj">

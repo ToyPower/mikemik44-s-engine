@@ -95,6 +95,8 @@ namespace ME{
 		inline const std::vector<BufferElements> getElements() { return m_elements; }
 		std::vector<BufferElements>::iterator begin() { return m_elements.begin(); }
 		std::vector<BufferElements>::iterator end() { return m_elements.end(); }
+		std::vector<BufferElements>::const_iterator begin() const { return m_elements.begin(); }
+		std::vector<BufferElements>::const_iterator end()  const { return m_elements.end(); }
 		uint32_t getStrife() { return m_stride; }
 		bool getNormalized() { return m_normalized; }
 		void setNormalized(bool normal) { m_normalized = normal; }
@@ -120,7 +122,7 @@ namespace ME{
 
 	public:
 		virtual ~VVertexBuffer() {};
-		virtual void bindData(uint32_t location, uint32_t startPos, uint32_t size, uint32_t totalSize, uint32_t strife) = 0;
+		
 		virtual void setLayout(BufferLayout& layout) = 0;
 		virtual const BufferLayout& getLayout() const = 0;
 		virtual void bind() = 0;
