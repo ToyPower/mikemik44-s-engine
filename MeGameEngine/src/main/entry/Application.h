@@ -5,6 +5,9 @@
 #include "../layer/Layer.h"
 #include "../layer/LayerStack.h"
 #include "../platform/windows/WindowsWindow.h"
+#include "main/renderer/Shader.h"
+#include "main/renderer/Buffers.h"
+
 namespace ME {
 	
 	class ME_API Application
@@ -23,7 +26,12 @@ namespace ME {
 		ImGuiLayer* m_imguilayer;
 		bool m_running = true;
 		LayerStack m_st;
+		uint32_t va;
 		static Application* s_instance;
+		std::unique_ptr<VVertexBuffer> m_vbuffer;
+		
+		std::unique_ptr<IIndexBuffer> m_ibuffer;
+		std::unique_ptr<Shader> m_shader;
 	};
 	Application* CreateApplication();
 }

@@ -1,13 +1,9 @@
 #include "hzpch.h"
 #include "WindowsWindow.h"
-#include "glad/glad.h"
-#include <GLFW/glfw3.h>
 #include "WindowsInput.h"
 #include "../../Input.h"
-
+#include "main/platform/opengl/OpenGLContext.h"
 namespace ME {
-
-	
 
 	void errorcallback(int error, const char* desc) {
 		ME_CORE_ERROR("GLFW Error [{0}]: {1}", error, desc);
@@ -34,6 +30,8 @@ namespace ME {
 		m_data.title = props.title;
 		m_data.width = props.width;	
 		m_data.height = props.height;
+		
+		
 		glfwSetErrorCallback(&errorcallback);
 		ME_CORE_INFO("Creating Window of size {0}x{1} with name {2}", m_data.width, m_data.height, m_data.title.c_str());
 		if (!s_glfwinit) {
@@ -44,10 +42,9 @@ namespace ME {
 		}
 
 		m_window = glfwCreateWindow((int)m_data.width, (int)m_data.height, m_data.title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_window);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		ME_CORE_ASSORT(status, "Could not load glad!");
-
+		m_context = new OpenGLContext(m_window);
+		m_context->initialize();
+		
 		glfwSetWindowUserPointer(m_window, &m_data);
 		setVSync(true);
 
@@ -166,11 +163,12 @@ namespace ME {
 			glfwPollEvents();
 		}
 		if (m_window != nullptr) {
-			glfwSwapBuffers(m_window);
+			m_context->swapBuffers();
 		}
 	}
 
 	bool WindowsWindow::isVSync() const {
 		return m_data.vsync;
 	}
+
 }

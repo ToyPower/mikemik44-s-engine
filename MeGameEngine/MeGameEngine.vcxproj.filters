@@ -49,6 +49,12 @@
     <Filter Include="vendors\glm2\glm\gtx">
       <UniqueIdentifier>{D89E232C-C42D-ADF5-6D4C-C1F059BABD9B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\main\renderer">
+      <UniqueIdentifier>{b2b2af8a-99a9-45d1-93b4-64e00293c3d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\platform\opengl">
+      <UniqueIdentifier>{223667c4-d8cc-4e6b-921c-e5d53af42563}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\MeCore.h">
@@ -1353,6 +1359,16 @@
     <ClInclude Include="vendors\glm2\glm\vector_relational.hpp">
       <Filter>vendors\glm2\glm</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\renderer\GraphicsContext.h">
+      <Filter>src\main\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\platform\opengl\OpenGLContext.h">
+      <Filter>src\main\platform\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\Shader.h" />
+    <ClInclude Include="src\main\renderer\Buffers.h" />
+    <ClInclude Include="src\main\platform\opengl\OpenGLVertex.h" />
+    <ClInclude Include="src\main\renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\hzpch.cpp">
@@ -1385,5 +1401,10 @@
     <ClCompile Include="src\main\platform\windows\WindowsWindow.cpp">
       <Filter>src\main\platform\windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\platform\opengl\OpenGLContext.cpp" />
+    <ClCompile Include="src\main\renderer\Shader.cpp" />
+    <ClCompile Include="src\main\platform\opengl\OpenGLVertex.cpp" />
+    <ClCompile Include="src\main\renderer\Buffers.cpp" />
+    <ClCompile Include="src\main\renderer\Renderer.cpp" />
   </ItemGroup>
 </Project>

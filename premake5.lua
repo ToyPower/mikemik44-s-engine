@@ -10,7 +10,8 @@ workspace "MyGameEngine"
 	}
 	startproject "Sandbox"
 	defines {
-		"_CRT_SECURE_NO_WARNINGS"
+		"_CRT_SECURE_NO_WARNINGS",
+		"GLFW_INCLUDE_NONE"
 	}
 outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 includeDir = {}
@@ -57,9 +58,6 @@ project "MeGameEngine"
 		"GLAD",
 		"ImGui",
 		"opengl32.lib"
-	}
-	defines {
-		"GLFW_INCLUDE_NONE",
 	}
 	filter "system:windows"
 		

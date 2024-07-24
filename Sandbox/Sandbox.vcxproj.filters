@@ -22,12 +22,4 @@
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\MeGameEngine\vendors\glad\include">
-      <Filter>MeGameEngine\vendors\glad</Filter>
-    </None>
-    <None Include="..\MeGameEngine\vendors\glfw\include">
-      <Filter>MeGameEngine\vendors\glfw</Filter>
-    </None>
-  </ItemGroup>
 </Project>

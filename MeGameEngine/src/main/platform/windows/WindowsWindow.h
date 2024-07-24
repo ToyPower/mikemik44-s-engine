@@ -1,7 +1,8 @@
 #pragma once
 #include "hzpch.h"
 #include "../../window/window.h"
-
+#include <GLFW/glfw3.h>
+#include "main/renderer/GraphicsContext.h"
 struct GLFWwindow;
 namespace ME {
 
@@ -28,6 +29,7 @@ namespace ME {
 	private:
 		GLFWwindow* m_window;
 		WindowProps m_data;
+		GraphicsContext* m_context;
 	};
 
 }
