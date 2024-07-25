@@ -114,35 +114,39 @@ public:
 	}
 
 	void onUpdate() override {
-		
+		float offset = (1.0f / 144.0f) * 60.0f;
 		if (ME::Input::isKeyPress(ME_KEY_W)) {
-			cam.move(cam.getForward(), 0.01);
+			cam.move(cam.getForward(), 0.1 * offset);
 		}
 
 		if (ME::Input::isKeyPress(ME_KEY_Q)) {
-			cam.rotate({ 0,0,1 }, 5);
+			cam.rotate({ 0,0,1 }, 2 * offset);
+		}
+
+		if (ME::Input::isKeyPress(ME_KEY_E)) {
+			cam.rotate({ 0,0,-1 }, 2 * offset);
 		}
 		if (ME::Input::isKeyPress(ME_KEY_S)) {
-			cam.move(cam.getBackward(), 0.01);
+			cam.move(cam.getBackward(), 0.1 * offset);
 		}
 		if (ME::Input::isKeyPress(ME_KEY_A)) {
-			cam.move(cam.getLeft(), 0.01);
+			cam.move(cam.getLeft(), 0.1 * offset);
 		}
 		if (ME::Input::isKeyPress(ME_KEY_D)) {
-			cam.move(cam.getRight(), 0.01);
+			cam.move(cam.getRight(), 0.1 * offset);
 		}
 
 		if (ME::Input::isKeyPress(ME_KEY_UP)) {
-			cam.move({0,-1,0}, 0.01);
+			cam.move({0,-1,0}, 0.1 * offset);
 		}
 		if (ME::Input::isKeyPress(ME_KEY_DOWN)) {
-			cam.move({0,1,0}, 0.01);
+			cam.move({0,1,0}, 0.1 * offset);
 		}
 		if (ME::Input::isKeyPress(ME_KEY_LEFT)) {
-			cam.move({1,0,0}, 0.01);
+			cam.move({1,0,0}, 0.1 * offset);
 		}
 		if (ME::Input::isKeyPress(ME_KEY_RIGHT)) {
-			cam.move({-1,0,0}, 0.01);
+			cam.move({-1,0,0}, 0.1 * offset);
 		}
 		//ME_CLIENT_INFO("ExampleLayer::onUpdate");
 	}

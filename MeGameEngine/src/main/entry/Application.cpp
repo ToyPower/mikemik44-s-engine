@@ -1,10 +1,6 @@
 #include "hzpch.h"
 #include "Application.h"
-#include <main/Input.h>
-#include "main/renderer/buffers/Buffers.h"
-#include "main/renderer/buffers/VertexArray.h"
-#include "main/renderer/renderer/Renderer.h"
-#include "main/renderer/renderer/RendererContent.h"
+
 namespace ME {
 #define FE_BIND(x) std::bind(&Application::x, this, std::placeholders::_1)
 	Application* Application::s_instance = nullptr;

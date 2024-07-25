@@ -5,9 +5,6 @@
 #include "../layer/Layer.h"
 #include "../layer/LayerStack.h"
 #include "../platform/windows/WindowsWindow.h"
-#include "main/renderer/shaders/Shader.h"
-#include "main/renderer/buffers/Buffers.h"
-#include "main/renderer/buffers/VertexArray.h"
 namespace ME {
 	
 	class ME_API Application
