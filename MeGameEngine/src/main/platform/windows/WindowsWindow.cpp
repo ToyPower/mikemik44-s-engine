@@ -2,7 +2,7 @@
 #include "WindowsWindow.h"
 #include "WindowsInput.h"
 #include "../../Input.h"
-#include "main/platform/opengl/OpenGLContext.h"
+#include "main/platform/opengl/renderer/OpenGLContext.h"
 namespace ME {
 
 	void errorcallback(int error, const char* desc) {

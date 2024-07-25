@@ -1359,18 +1359,22 @@
     <ClInclude Include="vendors\glm2\glm\vector_relational.hpp">
       <Filter>vendors\glm2\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\GraphicsContext.h">
+    <ClInclude Include="src\main\renderer\renderer\GraphicsContext.h">
       <Filter>src\main\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\platform\opengl\OpenGLContext.h">
+    <ClInclude Include="src\main\platform\opengl\renderer\OpenGLContext.h">
       <Filter>src\main\platform\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\Shader.h" />
-    <ClInclude Include="src\main\renderer\Buffers.h" />
-    <ClInclude Include="src\main\platform\opengl\OpenGLVertex.h" />
-    <ClInclude Include="src\main\renderer\Renderer.h" />
-    <ClInclude Include="src\main\renderer\VertexArray.h" />
-    <ClInclude Include="src\main\platform\opengl\OpenGlVertexArray.h" />
+    <ClInclude Include="src\main\renderer\shaders\Shader.h" />
+    <ClInclude Include="src\main\renderer\buffers\Buffers.h" />
+    <ClInclude Include="src\main\platform\opengl\buffers\OpenGLVertex.h" />
+    <ClInclude Include="src\main\renderer\renderer\Renderer.h" />
+    <ClInclude Include="src\main\renderer\buffers\VertexArray.h" />
+    <ClInclude Include="src\main\platform\opengl\buffers\OpenGlVertexArray.h" />
+    <ClInclude Include="src\main\renderer\renderer\RendererApi.h" />
+    <ClInclude Include="src\main\renderer\renderer\RendererContent.h" />
+    <ClInclude Include="src\main\platform\opengl\renderer\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\main\renderer\data\Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\hzpch.cpp">
@@ -1403,12 +1407,16 @@
     <ClCompile Include="src\main\platform\windows\WindowsWindow.cpp">
       <Filter>src\main\platform\windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\platform\opengl\OpenGLContext.cpp" />
-    <ClCompile Include="src\main\renderer\Shader.cpp" />
-    <ClCompile Include="src\main\platform\opengl\OpenGLVertex.cpp" />
-    <ClCompile Include="src\main\renderer\Buffers.cpp" />
-    <ClCompile Include="src\main\renderer\Renderer.cpp" />
-    <ClCompile Include="src\main\renderer\VertexArray.cpp" />
-    <ClCompile Include="src\main\platform\opengl\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\main\platform\opengl\renderer\OpenGLContext.cpp" />
+    <ClCompile Include="src\main\renderer\shaders\Shader.cpp" />
+    <ClCompile Include="src\main\platform\opengl\buffers\OpenGLVertex.cpp" />
+    <ClCompile Include="src\main\renderer\buffers\Buffers.cpp" />
+    <ClCompile Include="src\main\renderer\renderer\Renderer.cpp" />
+    <ClCompile Include="src\main\renderer\buffers\VertexArray.cpp" />
+    <ClCompile Include="src\main\platform\opengl\buffers\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\main\renderer\renderer\RendererApi.cpp" />
+    <ClCompile Include="src\main\renderer\renderer\RendererContent.cpp" />
+    <ClCompile Include="src\main\platform\opengl\renderer\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\main\renderer\data\Camera.cpp" />
   </ItemGroup>
 </Project>

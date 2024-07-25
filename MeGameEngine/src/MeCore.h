@@ -6,3 +6,10 @@
 #include "main/Input.h"
 #include "main/KeyCodes.h"
 #include "main/MouseButtonCodes.h"
+#include "main/renderer/buffers/Buffers.h"
+#include "main/renderer/renderer/Renderer.h"
+#include "main/renderer/renderer/RendererContent.h"
+#include "main/renderer/buffers/VertexArray.h"
+#include "main/renderer/shaders/Shader.h"
+#include "main/renderer/data/Camera.h"
+

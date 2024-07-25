@@ -1,6 +1,6 @@
 #include <hzpch.h>
 #include "Shader.h"
-
+#include <glm/gtc/type_ptr.hpp>
 namespace ME {
 	uint32_t Shader::genShader(int type, const std::string& source) {
 		uint32_t shader = glCreateShader(type);
@@ -81,6 +81,39 @@ namespace ME {
 
 	void Shader::unbind() const {
 		glUseProgram(0);
+	}
+
+	void Shader::setUniformMat4(const std::string& name, const glm::mat4& m) {
+		GLint loc = glGetUniformLocation(program, name.c_str());
+		glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(m));
+	}
+	void Shader::setUniformMat3(const std::string& name, const glm::mat3& m) {
+		GLint loc = glGetUniformLocation(program, name.c_str());
+		glUniformMatrix3fv(loc, 1, GL_FALSE, glm::value_ptr(m));
+	}
+	void Shader::setUniformFloat(const std::string& name, const float m) {
+		GLint loc = glGetUniformLocation(program, name.c_str());
+		glUniform1f(loc, m);
+	}
+	void Shader::setUniformVec2(const std::string& name, const glm::vec2& m) {
+		GLint loc = glGetUniformLocation(program, name.c_str());
+		glUniform2f(loc, m.x, m.y);
+	}
+	void Shader::setUniformVec3(const std::string& name, const glm::vec3& m) {
+		GLint loc = glGetUniformLocation(program, name.c_str());
+		glUniform3f(loc, m.x, m.y, m.z);
+	}
+	void Shader::setUniformVec4(const std::string& name, const glm::vec4& m) {
+		GLint loc = glGetUniformLocation(program, name.c_str());
+		glUniform4f(loc,m.x, m.y,m.z, m.w);
+	}
+	void Shader::setUniformBool(const std::string& name, const bool m) {
+		GLint loc = glGetUniformLocation(program, name.c_str());
+		glUniform1i (loc, m ? 1 : 0);
+	}
+	void Shader::setUniformInt(const std::string& name, const int m) {
+		GLint loc = glGetUniformLocation(program, name.c_str());
+		glUniform1i(loc,m);
 	}
 
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include <hzpch.h>
-#include "main/renderer/VertexArray.h"
+#include "main/renderer/buffers/VertexArray.h"
 namespace ME {
 
 	class OpenGLVertexArray : public VertexArray {

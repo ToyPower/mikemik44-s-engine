@@ -1,15 +1,15 @@
 #include <hzpch.h>
 #include "VertexArray.h"
-#include "Renderer.h"
-#include "main/platform/opengl/OpenGLVertexArray.h"
+#include "main/renderer/renderer/Renderer.h"
+#include "main/platform/opengl/buffers/OpenGLVertexArray.h"
 namespace ME {
 
 	VertexArray* VertexArray::create() {
 	switch (Renderer::getAPI()) {
-		case RENDERAPI::none:
+		case RendererAPI::API::none:
 			ME_CORE_ASSORT(false, "Render API None is not supported!");
 			return nullptr;
-		case RENDERAPI::opengl:
+		case RendererAPI::API::opengl:
 			return new OpenGLVertexArray();
 		}
 		ME_CORE_ASSORT(false, "Unknown Render API");

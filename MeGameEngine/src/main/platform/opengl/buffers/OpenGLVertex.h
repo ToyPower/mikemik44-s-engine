@@ -1,6 +1,6 @@
 #pragma once
 #include <hzpch.h>
-#include "main/renderer/Buffers.h"
+#include "main/renderer/buffers/Buffers.h"
 #include <glad/glad.h>
 namespace ME {
 	
