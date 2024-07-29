@@ -7,7 +7,7 @@ namespace ME {
 	class RendererContent {
 
 	public:
-		inline static void drawIndex(const std::shared_ptr<VertexArray>& arr) {
+		inline static void drawIndex(const Ref<VertexArray>& arr) {
 			s_api->drawIndex(arr);
 		}
 		inline static void clear() {

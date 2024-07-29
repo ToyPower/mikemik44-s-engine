@@ -13,7 +13,7 @@ namespace ME {
 	void OpenGLRendererAPI::setClearColor(glm::vec4& color) {
 		glClearColor(color.r, color.g, color.b, color.a);
 	}
-	void OpenGLRendererAPI::drawIndex(const std::shared_ptr<VertexArray>& obj) {
+	void OpenGLRendererAPI::drawIndex(const Ref<VertexArray>& obj) {
 
 		glDrawElements(GL_TRIANGLES, obj->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
 

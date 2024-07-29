@@ -75,15 +75,15 @@ namespace ME {
 			addTriangle(a, c, d);
 		}
 
-		std::shared_ptr<VertexArray> getVertexArray() {
+		Ref<VertexArray> getVertexArray() {
 			if (updated) {
 				updated = false;
 
-				std::shared_ptr<VertexBuffer> buf = std::shared_ptr<VertexBuffer>(VertexBuffer::create(vertices.data(), vertices.size() * sizeof(vertices.data())));
+				Ref<VertexBuffer> buf = Ref<VertexBuffer>(VertexBuffer::create(vertices.data(), vertices.size() * sizeof(vertices.data())));
 				buf->setLayout(tmp);
 				res.reset(VertexArray::create());
 				res->addVertexBuffer(buf);
-				res->setIndexBuffer(std::shared_ptr<IndexBuffer>(IndexBuffer::create(indices.data(), sizeof(indices.data()))));
+				res->setIndexBuffer(Ref<IndexBuffer>(IndexBuffer::create(indices.data(), sizeof(indices.data()))));
 			}
 			return res;
 		}
@@ -93,7 +93,7 @@ namespace ME {
 		BufferLayout tmp;
 		std::vector<float> vertices = {};
 		std::vector<uint32_t> indices = {};
-		std::shared_ptr<VertexArray> res;
+		Ref<VertexArray> res;
 		bool updated = true;
 	};
 }

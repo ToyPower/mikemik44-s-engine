@@ -12,14 +12,14 @@ namespace ME {
 		virtual void bind() const override;
 		virtual void unbind() const override;
 		
-		virtual void setUniformMat4(const std::string& name, const glm::mat4& m) override;
-		virtual void setUniformMat3(const std::string& name, const glm::mat3& m) override;
-		virtual void setUniformFloat(const std::string& name, const float m) override;
-		virtual void setUniformVec2(const std::string& name, const glm::vec2& m) override;
-		virtual void setUniformVec3(const std::string& name, const glm::vec3& m) override;
-		virtual void setUniformVec4(const std::string& name, const glm::vec4& m) override;
-		virtual void setUniformBool(const std::string& name, const bool m) override;
-		virtual void setUniformInt(const std::string& name, const int m) override;
+		void setUniformMat4(const std::string& name, const glm::mat4& m);
+		void setUniformMat3(const std::string& name, const glm::mat3& m);
+		void setUniformFloat(const std::string& name, const float m);
+		void setUniformVec2(const std::string& name, const glm::vec2& m);
+		void setUniformVec3(const std::string& name, const glm::vec3& m);
+		void setUniformVec4(const std::string& name, const glm::vec4& m);
+		void setUniformBool(const std::string& name, const bool m);
+		void setUniformInt(const std::string& name, const int m);
 
 	
 	private:

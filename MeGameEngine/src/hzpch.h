@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <any>
-
+#include "main/macro.h"
 #include "main/logging/Log.h"
 
 #ifdef ME_PLATFORM_WINDOWS

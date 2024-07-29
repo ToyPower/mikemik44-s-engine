@@ -30,7 +30,7 @@ public:
 
 	ME::PerspectiveCamera cam = ME::PerspectiveCamera(40.0f, 800, 600);
 	ME::Mesh m1, m2;
-	std::shared_ptr<ME::Shader> shader, shader2;
+	ME::Ref<ME::Shader> shader, shader2;
 	
 	ExampleLayer() : Layer("ExampleLayer") {
 		

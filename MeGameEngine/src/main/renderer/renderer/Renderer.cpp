@@ -1,7 +1,7 @@
 #include <hzpch.h>
 #include "Renderer.h"
 #include "RendererContent.h"
-
+#include "main/platform/opengl/shaders/OpenGLShader.h"
 namespace ME {
 	Renderer::SceneData* Renderer::m_inform = new Renderer::SceneData;
 	void Renderer::beginScene(Camera& cam) {
@@ -10,11 +10,13 @@ namespace ME {
 	void Renderer::endScene() {
 
 	}
-	void Renderer::submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& obj, const glm::mat4& transform, const Material& mat) {
+	void Renderer::submit(const Ref<Shader>& shader, const Ref<VertexArray>& obj, const glm::mat4& transform, const Material& mat) {
 		shader->bind();
-		shader->setUniformMat4("u_mesh", transform);
-		shader->setUniformMat4("u_proj", m_inform->proj);
-		shader->setUniformVec4("u_color", mat.albeto);
+	
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->setUniformMat4("u_mesh", transform);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->setUniformMat4("u_proj", m_inform->proj);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->setUniformVec4("u_color", mat.albeto);
+		
 		obj->bind();
 		RendererContent::drawIndex(obj);
 		obj->unbind();

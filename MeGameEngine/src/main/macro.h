@@ -39,3 +39,11 @@
 #define ME_LOG_TRACE(name, ...) ::ME::Log::GetLogger(name)->trace(__VA_ARGS__)
 #define ME_LOG_ERROR(name, ...) ::ME::Log::GetLogger(name)->error(__VA_ARGS__)
 #define ME_LOG_FATAL(name, ...) ::ME::Log::GetLogger(name)->fatal(__VA_ARGS__)
+namespace ME {
+	template<typename T>
+	using scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+
+}
