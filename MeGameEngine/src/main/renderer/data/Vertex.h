@@ -5,11 +5,14 @@ namespace ME {
 
 	class Vertex {
 	public:
-		
+		uint32_t getSize() {
+			return size;
+		}
 		Vertex(const glm::vec3& pos) : pos(pos) {
 			this->data2 = {};
 			this->data3 = {};
 			this->data4 = {};
+			size += 4 * 3;
 		}
 
 		void addData( std::vector<float>& arr) {
@@ -45,16 +48,19 @@ namespace ME {
 		void putData(const std::string ref, glm::vec2 data) {
 			data2[ref] = data;
 			up = true;
+			size += 4 * 2;
 		}
 
 		void putData(const std::string ref, glm::vec3 data) {
 			data3[ref] = data;
 			up = true;
+			size += 4 * 3;
 		}
 
 		void putData(const std::string ref, glm::vec4 data) {
 			data4[ref] = data;
 			up = true;
+			size += 4 * 4;
 		}
 
 		bool hadData2(const std::string ref) {
@@ -126,6 +132,7 @@ namespace ME {
 		}
 		operator glm::vec3() const {return pos; }
 	private:
+		uint32_t size = 0;
 		bool up = true;
 		glm::vec3 pos;
 		BufferLayout layout;

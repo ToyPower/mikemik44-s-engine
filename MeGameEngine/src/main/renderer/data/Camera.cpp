@@ -63,7 +63,7 @@ namespace ME {
 		backward = rotate3(backward, rotation);
 		left = rotate3(left, rotation);
 		right = rotate3(right, rotation);
-		ME_CORE_INFO("{0} {1} {2}", forward.x, forward.y, forward.z);
+		
 		up = forward;
 		down = backward;
 		view = glm::lookAtLH(pos, pos + forward, glm::vec3(0, 1, 0));

@@ -11,6 +11,14 @@ namespace ME {
 	public:
 		Mesh(Transform& trans = Transform(), Material& mat = Material()) : trans(trans), mat(mat){}
 		
+		void loadFromString(const std::string& str) {
+
+		}
+
+		std::string toString() {
+			return std::string("");
+		}
+
 		Transform& getTransform() {
 			return trans;
 		}
@@ -21,7 +29,7 @@ namespace ME {
 
 		uint32_t* addVertex(Vertex& pos) {
 			uint32_t place = vertices.size();
-
+			
 			pos.addData(vertices);
 		
 			uint32_t placee = vertices.size();
@@ -59,35 +67,18 @@ namespace ME {
 		std::shared_ptr<VertexArray> getVertexArray() {
 			if (updated) {
 				updated = false;
-				std::vector<float> all = {};
-				all.push_back(-0.5f);
-				all.push_back(-0.5f);
-				all.push_back(0.0f);
 
-				all.push_back(-0.5f);
-				all.push_back(0.5f);
-				all.push_back(0.0f);
-
-				all.push_back(0.5f);
-				all.push_back(0.5f);
-				all.push_back(0.0f);
-
-				uint32_t inn[3] = {
-					0,1,2
-				};
-				
 				std::shared_ptr<VertexBuffer> buf = std::shared_ptr<VertexBuffer>(VertexBuffer::create(vertices.data(), vertices.size() * sizeof(vertices.data())));
 				buf->setLayout(tmp);
 				res.reset(VertexArray::create());
 				res->addVertexBuffer(buf);
-				res->setIndexBuffer(std::shared_ptr<IndexBuffer>(IndexBuffer::create(indices.data(), indices.size() * sizeof(indices.data()))));
+				res->setIndexBuffer(std::shared_ptr<IndexBuffer>(IndexBuffer::create(indices.data(), sizeof(indices.data()))));
 			}
 			return res;
 		}
 	private:
 		Transform trans;
 		Material mat;
-
 		BufferLayout tmp;
 		std::vector<float> vertices = {};
 		std::vector<uint32_t> indices = {};

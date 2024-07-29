@@ -21,10 +21,10 @@ class ExampleLayer : public ME::Layer {
 
 public:
 
-	float aspect = 800.0 / 600.0;
 	ME::PerspectiveCamera cam = ME::PerspectiveCamera(40.0f, 800, 600);
 	ME::Mesh m1, m2;
 	std::shared_ptr<ME::Shader> shader, shader2;
+	
 	ExampleLayer() : Layer("ExampleLayer") {
 		
 		cam.setPosition({ 0,0,3 });
@@ -32,6 +32,8 @@ public:
 		m1.addVertex(create({ 0.0f, 0.5f, 0.0f }, { 0,1,0,1 }));
 		m1.addVertex(create({ 0.5f, -0.5f, 0.0f }, { 0,0,1,1 }));
 		m1.addTriangle(0, 1, 2);
+		m1.getTransform().setPos({ 0,0,0.001 });
+		
 		
 		m2.addVertex(create({ -0.75,-0.75f,0.0f }));
 		m2.addVertex(create({ -0.75,0.75f,0.0f }));
@@ -95,16 +97,16 @@ public:
 		ImGui::DragFloat3("Position", (float*)&ref, 0.01);
 		ImGui::DragFloat3("Rotation", (float*)&m1.getTransform().getRotation(), 1);
 		ImGui::DragFloat3("Scale", (float*)&m1.getTransform().getScale(), 0.01);
-
+		ImGui::Separator();
+		
 		ImGui::ColorEdit3("Color", (float*)&m2.getMaterial().albeto, 0.01);
 
 		ImGui::End();
-		//ME_CLIENT_INFO("{0}", trans.getPosition().y);
-
+		
 	}
 
 	void onUpdate(ME::TimeStep step) override {
-		//trans.rotate({ 0,0,1 }, 1);
+		
 		float offset = (1.0f / 144.0f) * 60.0f;
 		float mov = step * 10* 8;
 		float rot = step *180;
