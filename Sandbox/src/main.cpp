@@ -12,6 +12,13 @@ ME::Vertex create(glm::vec3 pos, glm::vec4 color) {
 	return v;
 }
 
+ME::Vertex create(glm::vec3 pos, glm::vec4 color, glm::vec2 texCoord) {
+	ME::Vertex v(pos);
+	v.putData("color", color);
+	v.putData("texCoord", texCoord);
+	return v;
+}
+
 ME::Vertex create(glm::vec3 pos) {
 	ME::Vertex v(pos);
 	return v;
@@ -45,6 +52,7 @@ public:
 		const std::string& a = R"(#version 410 core
 			layout(location = 0) in vec3 position;
 			layout(location = 1) in vec4 color1;
+			layout(location = 2) in vec2 texCoord;
 			uniform mat4 u_proj;
 			uniform mat4 u_mesh;
 			uniform vec4 u_color;
@@ -52,6 +60,9 @@ public:
 
 			void main() {
 				color = color1 * u_color;
+				color.x = color.x + texCoord.x;
+				color.y = color.y + texCoord.y;
+				
 				gl_Position = u_proj * u_mesh * vec4(position,1);
 			}
 		)";
@@ -99,7 +110,8 @@ public:
 		ImGui::DragFloat3("Scale", (float*)&m1.getTransform().getScale(), 0.01);
 		ImGui::Separator();
 		
-		ImGui::ColorEdit3("Color", (float*)&m2.getMaterial().albeto, 0.01);
+		ImGui::ColorEdit3("Albedo 2", (float*)&m1.getMaterial().albeto, 0.01);
+		ImGui::ColorEdit3("Albedo", (float*)&m2.getMaterial().albeto, 0.01);
 
 		ImGui::End();
 		

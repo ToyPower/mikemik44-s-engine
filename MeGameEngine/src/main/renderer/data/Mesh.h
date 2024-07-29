@@ -7,12 +7,20 @@
 #include "main/renderer/buffers/Buffers.h"
 #include "main/renderer/data/Vertex.h"
 namespace ME {
+	
 	class Mesh {
 	public:
 		Mesh(Transform& trans = Transform(), Material& mat = Material()) : trans(trans), mat(mat){}
 		
 		void loadFromString(const std::string& str) {
 
+		}
+		void setMaterial(const Material& mat) {
+			this->mat = mat;
+		}
+
+		void setTransform(const Transform& trans) {
+			this->trans = trans;
 		}
 
 		std::string toString() {
@@ -24,6 +32,9 @@ namespace ME {
 		}
 
 		Material& getMaterial() {
+			if (&this->mat == &getMaterialFromBase("Base")) {
+				this->mat = Material();
+			}
 			return mat;
 		}
 
@@ -78,7 +89,7 @@ namespace ME {
 		}
 	private:
 		Transform trans;
-		Material mat;
+		Material mat = getMaterialFromBase("Base");
 		BufferLayout tmp;
 		std::vector<float> vertices = {};
 		std::vector<uint32_t> indices = {};

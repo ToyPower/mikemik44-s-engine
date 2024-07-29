@@ -19,47 +19,59 @@ namespace ME {
 			arr.push_back(pos.x);
 			arr.push_back(pos.y);
 			arr.push_back(pos.z);
-			std::map<const std::string, glm::vec4>::iterator it = data4.begin();
-			while (it != data4.end()) {
-				glm::vec4 ref = it->second;
-				arr.push_back(ref.x);
-				arr.push_back(ref.y);
-				arr.push_back(ref.z);
-				arr.push_back(ref.w);
-				++it;
-			}
-			std::map<const std::string, glm::vec3>::iterator it2 = data3.begin();
-			while (it2 != data3.end()) {
-				glm::vec4 ref = it->second;
-				arr.push_back(ref.x);
-				arr.push_back(ref.y);
-				arr.push_back(ref.z);
-				++it2;
-			}
-			std::map<const std::string, glm::vec2>::iterator it3 = data2.begin();
-			while (it3 != data2.end()) {
-				glm::vec4 ref = it->second;
-				arr.push_back(ref.x);
-				arr.push_back(ref.y);
-				++it3;
+			for (uint32_t i = 0; i < list.size(); i++) {
+				const std::string ref = list[i];
+				uint32_t j = list2[i];
+				if (j == 2) {
+					auto h = data2[ref];
+					arr.push_back(h.x);
+					arr.push_back(h.y);
+				}
+				else if (j == 3) {
+					auto h = data3[ref];
+					arr.push_back(h.x);
+					arr.push_back(h.y);
+					arr.push_back(h.z);
+				}
+				else if (j == 4) {
+					auto h = data4[ref];
+					arr.push_back(h.x);
+					arr.push_back(h.y);
+					arr.push_back(h.z);
+					arr.push_back(h.w);
+				}
 			}
 		}
 
-		void putData(const std::string ref, glm::vec2 data) {
+		void putData(std::string ref, glm::vec2 data) {
 			data2[ref] = data;
 			up = true;
 			size += 4 * 2;
+			if (!cont(ref)) {
+				list.push_back(ref);
+				list2.push_back(2);
+			}
 		}
 
-		void putData(const std::string ref, glm::vec3 data) {
+		
+
+		void putData(std::string ref, glm::vec3 data) {
 			data3[ref] = data;
 			up = true;
 			size += 4 * 3;
+			if (!cont(ref)) {
+				list.push_back(ref);
+				list2.push_back(3);
+			}
 		}
 
-		void putData(const std::string ref, glm::vec4 data) {
+		void putData(std::string ref, glm::vec4 data) {
 			data4[ref] = data;
 			up = true;
+			if (!cont(ref)) {
+				list.push_back(ref);
+				list2.push_back(4);
+			}
 			size += 4 * 4;
 		}
 
@@ -105,24 +117,19 @@ namespace ME {
 			if (up) {
 				up = false;
 				std::vector<BufferElements> allElem;
-				allElem.push_back({ShaderType::Vec3, "position"});
-				std::map<const std::string, glm::vec4>::iterator it = data4.begin();
-				while (it != data4.end()) {
-					const std::string ref = it->first;
-					allElem.push_back({ ShaderType::Vec4, ref });
-					++it;
-				}
-				std::map<const std::string, glm::vec3>::iterator it2 = data3.begin();
-				while (it2 != data3.end()) {
-					const std::string ref = it2->first;
-					allElem.push_back({ ShaderType::Vec3, ref });
-					++it2;
-				}
-				std::map<const std::string, glm::vec2>::iterator it3 = data2.begin();
-				while (it3 != data2.end()) {
-					const std::string ref = it3->first;
-					allElem.push_back({ ShaderType::Vec4, ref });
-					++it3;
+				allElem.push_back({ ShaderType::Vec3, "m_position" });
+				for (uint32_t i = 0; i < list.size(); i++) {
+					std::string ref = list[i];
+					uint32_t j = list2[i];
+					if (j == 2) {
+						allElem.push_back({ ShaderType::Vec2, ref });
+					}
+					else if (j == 3) {
+						allElem.push_back({ ShaderType::Vec3, ref });
+					}
+					else if (j == 4) {
+						allElem.push_back({ ShaderType::Vec4, ref });
+					}
 				}
 				
 				layout = BufferLayout(std::initializer_list<BufferElements>(&allElem.front(), &allElem.front() + allElem.size()));
@@ -132,6 +139,12 @@ namespace ME {
 		}
 		operator glm::vec3() const {return pos; }
 	private:
+		bool cont(std::string& str) {
+			if (std::find(list.begin(), list.end(), str) != list.end()) {
+				return true;
+			}
+			return false;
+		}
 		uint32_t size = 0;
 		bool up = true;
 		glm::vec3 pos;
@@ -139,6 +152,8 @@ namespace ME {
 		std::map<const std::string, glm::vec4> data4;
 		std::map<const std::string, glm::vec3> data3;
 		std::map<const std::string, glm::vec2> data2;
+		std::vector<std::string> list = {};
+		std::vector<uint32_t> list2 = {};
 	};
 
 }
