@@ -1,6 +1,5 @@
 #include <hzpch.h>
 #include "Shader.h"
-#include <glm/gtc/type_ptr.hpp>
 #include "main/renderer/renderer/Renderer.h"
 #include "main/platform/opengl/shaders/OpenGLShader.h"
 namespace ME {
