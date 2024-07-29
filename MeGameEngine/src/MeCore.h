@@ -18,3 +18,4 @@
 #include "main/renderer/data/Mesh.h"
 #include "main/renderer/data/Vertex.h"
 
+#include "main/renderer/renderer/Texture.h"

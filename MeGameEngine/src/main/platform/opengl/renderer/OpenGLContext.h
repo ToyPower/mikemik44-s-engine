@@ -7,8 +7,9 @@ namespace ME {
 
 	public:
 		OpenGLContext(GLFWwindow* window);
-		void swapBuffers() override;
-		void initialize() override;
+	
+		virtual void swapBuffers() override;
+		virtual void initialize() override;
 	private:
 		GLFWwindow* m_window;
 	};

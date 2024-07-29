@@ -1,14 +1,14 @@
 #pragma once
 #include <hzpch.h>
 #include <glm/glm.hpp>
-
+#include "main/renderer/renderer/Texture.h"
 namespace ME {
 
 	struct Material {
 		
 		glm::vec4 albeto = glm::vec4(1,1,1,1);
-		
-		
+		Ref<Texture> tex;
+
 	};
 	
 	static std::map<const std::string, Ref<Material>> mats = {};
@@ -18,6 +18,6 @@ namespace ME {
 			return mats[find->first];
 		}
 		
-		return Ref<Material>();
+		return Ref<Material>(new Material());
 	}
 }

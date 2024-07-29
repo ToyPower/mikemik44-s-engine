@@ -7,6 +7,9 @@ namespace ME {
 	class RendererContent {
 
 	public:
+		inline static void init() {
+			s_api->init();
+		}
 		inline static void drawIndex(const Ref<VertexArray>& arr) {
 			s_api->drawIndex(arr);
 		}

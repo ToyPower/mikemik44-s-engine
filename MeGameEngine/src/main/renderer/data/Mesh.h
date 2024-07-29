@@ -10,7 +10,9 @@ namespace ME {
 	
 	class Mesh {
 	public:
-		Mesh(Transform& trans = Transform(), Ref<Material> mat = Ref<Material>()) : trans(trans), mat(mat){}
+		Mesh(Transform& trans = Transform(), Ref<Material> mat = Ref<Material>()) : trans(trans), mat(mat){
+			mat = (getMaterialFromBase("Base"));
+		}
 		
 		void loadFromString(const std::string& str) {
 
@@ -32,9 +34,14 @@ namespace ME {
 		}
 
 		Ref<Material> getMaterial() {
-			if (this->mat == getMaterialFromBase("Base")) {
-				this->mat = Ref<Material>();
+			if (mat.get() == getMaterialFromBase("Base").get()) {
+				mat = Ref<Material>(new Material());
 			}
+
+			if (mat == nullptr) {
+				mat = Ref<Material>(new Material());
+			}
+
 			return mat;
 		}
 
@@ -83,17 +90,18 @@ namespace ME {
 				buf->setLayout(tmp);
 				res.reset(VertexArray::create());
 				res->addVertexBuffer(buf);
-				res->setIndexBuffer(Ref<IndexBuffer>(IndexBuffer::create(indices.data(), sizeof(indices.data()))));
+				res->setIndexBuffer(Ref<IndexBuffer>(IndexBuffer::create(indices.data(), indices.size())));
 			}
 			return res;
 		}
 	private:
 		Transform trans;
-		Ref<Material> mat = getMaterialFromBase("Base");
+		Ref<Material> mat;
 		BufferLayout tmp;
 		std::vector<float> vertices = {};
 		std::vector<uint32_t> indices = {};
 		Ref<VertexArray> res;
+		uint32_t si = 0;
 		bool updated = true;
 	};
 }

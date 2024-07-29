@@ -28,25 +28,45 @@ class ExampleLayer : public ME::Layer {
 
 public:
 
-	ME::PerspectiveCamera cam = ME::PerspectiveCamera(90.0f, 800, 600);
-	ME::Ref<ME::Material> mat = ME::Ref<ME::Material>(new ME::Material({ {1,0,1,1} }));
-	ME::Ref<ME::Shader> shader, shader2;
+	ME::PerspectiveCamera cam = ME::PerspectiveCamera(90.0f, 800, 600, 0.001);
+	ME::Ref<ME::Material> mat = ME::Ref<ME::Material>(new ME::Material({ {1,1,1,1} })), mat2 = ME::Ref<ME::Material>(new ME::Material({ {1,1,1,1} }));
+	ME::Ref<ME::Shader> shader;
 	std::vector<ME::Mesh> grid;
+
 	ExampleLayer() : Layer("ExampleLayer") {
-		
+		mat->tex = ME::Texture2D::create("assets/textures/ChernoLogo.png");
+		mat2->tex = ME::Texture2D::create("assets/textures/test.png");
+		mat2->albeto.g = 0;
 		cam.setPosition({ 0,0,0.5 });
+		for (uint32_t i = 0; i < 1; i++) {
 		
-		for (uint32_t i = 0; i < 20; i++) {
-			for (uint32_t j = 0; j < 20; j++) {
-				ME::Mesh m2;
-				m2.addVertex(create({ -0.5,-0.5f,0.0f }));
-				m2.addVertex(create({ -0.5,0.5f,0.0f }));
-				m2.addVertex(create({ 0.5,0.5f,0.0f }));
-				m2.addVertex(create({ 0.5,-0.5f,0.0f }));
+			for (uint32_t j = 0; j < 2; j++) {
+				ME::Mesh m2 = ME::Mesh();
+				
+				m2.addVertex(create({ -0.5,-0.5f,0.0f }, { 1,1,1,1 }, { 0,0 }));
+				m2.addVertex(create({ -0.5,0.5f,0.0f }, { 1,1,1,1 }, { 0,1 }));
+				m2.addVertex(create({ 0.5,0.5f,0.0f }, { 1,1,1,1 }, { 1,1 }));
+				m2.addVertex(create({ 0.5,-0.5f,0.0f }, { 1,1,1,1 }, { 1,0 }));
+
+				m2.addVertex(create({ -0.5,-0.5f,-1.0f }, { 1,1,1,1 }, { 1,0 }));
+				m2.addVertex(create({ -0.5,0.5f,-1.0f }, { 1,1,1,1 }, { 1,1 }));
+				m2.addVertex(create({ 0.5,0.5f,-1.0f }, { 1,1,1,1 }, { 0,1 }));
+				m2.addVertex(create({ 0.5,-0.5f,-1.0f }, { 1,1,1,1 }, { 0,0 }));
+				
+				
+				m2.addSquare(7, 6, 5, 4);
+				m2.addSquare(4, 0, 1, 5);
+				m2.addSquare(3, 7, 6, 2);
 				m2.addSquare(0, 1, 2, 3);
+				
 				m2.getTransform().setScale({ 0.1,0.1,0.1 });
-				m2.getTransform().setPos({ i * 0.11f,j * 0.11f,0 });
-				m2.setMaterial(mat);
+				m2.getTransform().setPos({ i * 0.11f,0,(1-j) * -0.101f });
+				if (j == 1) {
+					m2.setMaterial(mat);
+				}
+				else {
+					m2.setMaterial(mat2);
+				}
 				grid.push_back(m2);
 			}
 		}
@@ -60,47 +80,26 @@ public:
 			uniform mat4 u_mesh;
 			uniform vec4 u_color;
 			out vec4 color; 
-
+			out vec2 v_texCoord;
 			void main() {
 				color = color1 * u_color;
-				color.x = color.x + texCoord.x;
-				color.y = color.y + texCoord.y;
 				
+				v_texCoord = texCoord;
 				gl_Position = u_proj * u_mesh * vec4(position,1);
 			}
 		)";
 		const std::string& b = R"(#version 410 core
 			in vec4 color;
-			
+			in vec2 v_texCoord;
+			uniform sampler2D u_tex;	
 			void main() {
 			
-				gl_FragColor = color;
+				gl_FragColor = texture(u_tex, v_texCoord) * color;
 
 			}
 		)";
 		shader.reset(ME::Shader::create(a, b));
 
-		const std::string& a2 = R"(#version 410 core
-			layout(location = 0) in vec3 position;
-			out vec4 color;
-			uniform mat4 u_proj;
-			uniform mat4 u_mesh;
-			uniform vec4 u_color;
-			void main() {
-				color = vec4(1,1,1,1.0f) * u_color;
-				gl_Position = u_proj * u_mesh * vec4(position,1);
-			}
-		)";
-		const std::string& b2 = R"(#version 410 core
-			in vec4 color;
-			
-			void main() {
-			
-				gl_FragColor = color;
-
-			}
-		)";
-		shader2.reset(ME::Shader::create(a2, b2));
 	
 	};
 
@@ -149,7 +148,7 @@ public:
 		RC::clear();
 		R::beginScene(cam);
 		for (ME::Mesh m : grid) {
-			R::submit(shader2, m);
+			R::submit(shader, m);
 		}
 		
 		R::endScene();

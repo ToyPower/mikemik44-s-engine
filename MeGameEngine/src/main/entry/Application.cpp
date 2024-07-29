@@ -1,6 +1,7 @@
 #include "hzpch.h"
 #include "Application.h"
 #include <GLFW/glfw3.h>
+#include "main/renderer/renderer/Renderer.h"
 namespace ME {
 #define FE_BIND(x) std::bind(&Application::x, this, std::placeholders::_1)
 	Application* Application::s_instance = nullptr;
@@ -73,7 +74,7 @@ namespace ME {
 	Application::Application() {
 		s_instance = this;
 		m_window = std::unique_ptr<Window>(Window::create());
-	
+		Renderer::init();
 		EventCaller::addEventListener(FE_BIND(onEvent), "window*");
 		m_imguilayer = new ImGuiLayer();
 		pushOverlay(m_imguilayer);

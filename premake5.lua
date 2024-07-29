@@ -19,6 +19,7 @@ includeDir["GLFW"] = "MeGameEngine/vendors/glfw/include"
 includeDir["GLAD"] = "MeGameEngine/vendors/glad/include"
 includeDir["IMGUI"] = "MeGameEngine/vendors/imgui"
 includeDir["GLM"] = "MeGameEngine/vendors/glm2"
+includeDir["STB"] = "MeGameEngine/vendors/stb"
 
 group "dependecies" 
 	include "MeGameEngine/vendors/glfw/premake5.lua"
@@ -41,7 +42,9 @@ project "MeGameEngine"
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendors/glm2/glm/**.hpp",
-		"%{prj.name}/vendors/glm2/glm/**.inl"
+		"%{prj.name}/vendors/glm2/glm/**.inl",
+		"%{prj.name}/vendors/stb/**.cpp",
+		"%{prj.name}/vendors/stb/**.h"
 	}
 	
 	includedirs {
@@ -50,7 +53,8 @@ project "MeGameEngine"
 		"%{includeDir.GLFW}",
 		"%{includeDir.GLAD}",
 		"%{includeDir.IMGUI}",
-		"%{includeDir.GLM}"
+		"%{includeDir.GLM}",
+		"%{includeDir.STB}",
 	}
 	
 	links {
@@ -102,6 +106,7 @@ project "Sandbox"
 		"%{includeDir.GLM}",
 		"%{includeDir.GLFW}",
 		"%{includeDir.GLAD}",
+		"%{includeDir.STB}",
 	}
 	
 	links {

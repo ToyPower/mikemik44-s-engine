@@ -7,6 +7,9 @@
     <Filter Include="src\main">
       <UniqueIdentifier>{E19E33CF-CD6B-8EDA-F684-7C82E2B0C368}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\main\dateentry">
+      <UniqueIdentifier>{006729B1-EC4A-EA06-55AB-E45941AED488}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\main\entry">
       <UniqueIdentifier>{62F2E5B7-4EC0-D9BD-3754-4AE423C1B522}</UniqueIdentifier>
     </Filter>
@@ -22,8 +25,38 @@
     <Filter Include="src\main\platform">
       <UniqueIdentifier>{75C457CF-E1DA-5565-2A52-E18696A726ED}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\main\platform\opengl">
+      <UniqueIdentifier>{69508BD5-5575-DA55-7EC0-BFE56A44D973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\platform\opengl\buffers">
+      <UniqueIdentifier>{050122CB-F151-0D0D-1AB6-FBCE0666A076}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\platform\opengl\renderer">
+      <UniqueIdentifier>{4FB66036-BB24-B6B5-040E-71B570BBAB51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\platform\opengl\shaders">
+      <UniqueIdentifier>{626611C9-4EB7-FC0A-771B-EBCC63CB8F74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\platform\opengl\texture">
+      <UniqueIdentifier>{E966B510-D5B7-A052-FE1B-8F14EACB33BC}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\main\platform\windows">
       <UniqueIdentifier>{CFAB10DF-3B6E-4469-841E-D3F5F01F1D47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\renderer">
+      <UniqueIdentifier>{C7CB34AA-33E2-3240-7C59-BE61E8AE03C8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\renderer\buffers">
+      <UniqueIdentifier>{63FAC7C8-CFBC-FB52-186D-8ADF846ED430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\renderer\data">
+      <UniqueIdentifier>{B041A985-9C3B-D2D7-85A8-68E871413844}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\renderer\renderer">
+      <UniqueIdentifier>{6DDBC5E8-59EB-71B9-C2A4-D6D7AED36052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\renderer\shaders">
+      <UniqueIdentifier>{C05FB7C6-2C22-EB50-75D2-79DDE1D3C32E}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\main\window">
       <UniqueIdentifier>{C81843DE-34A4-B0A2-3DB5-3397A9BF0CA3}</UniqueIdentifier>
@@ -49,11 +82,8 @@
     <Filter Include="vendors\glm2\glm\gtx">
       <UniqueIdentifier>{D89E232C-C42D-ADF5-6D4C-C1F059BABD9B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\main\renderer">
-      <UniqueIdentifier>{b2b2af8a-99a9-45d1-93b4-64e00293c3d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\main\platform\opengl">
-      <UniqueIdentifier>{223667c4-d8cc-4e6b-921c-e5d53af42563}</UniqueIdentifier>
+    <Filter Include="vendors\stb">
+      <UniqueIdentifier>{DE7B29C6-4A31-A2BB-D325-9C923FDA98BF}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="src\main\MouseButtonCodes.h">
       <Filter>src\main</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\dateentry\TimeStep.h">
+      <Filter>src\main\dateentry</Filter>
     </ClInclude>
     <ClInclude Include="src\main\entry\Application.h">
       <Filter>src\main\entry</Filter>
@@ -99,11 +132,68 @@
     <ClInclude Include="src\main\macro.h">
       <Filter>src\main</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\platform\opengl\buffers\OpenGLVertex.h">
+      <Filter>src\main\platform\opengl\buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\platform\opengl\buffers\OpenGlVertexArray.h">
+      <Filter>src\main\platform\opengl\buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\platform\opengl\renderer\OpenGLContext.h">
+      <Filter>src\main\platform\opengl\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\platform\opengl\renderer\OpenGLRendererAPI.h">
+      <Filter>src\main\platform\opengl\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\platform\opengl\shaders\OpenGLShader.h">
+      <Filter>src\main\platform\opengl\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\platform\opengl\texture\OpenGLTexture.h">
+      <Filter>src\main\platform\opengl\texture</Filter>
+    </ClInclude>
     <ClInclude Include="src\main\platform\windows\WindowsInput.h">
       <Filter>src\main\platform\windows</Filter>
     </ClInclude>
     <ClInclude Include="src\main\platform\windows\WindowsWindow.h">
       <Filter>src\main\platform\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\buffers\Buffers.h">
+      <Filter>src\main\renderer\buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\buffers\VertexArray.h">
+      <Filter>src\main\renderer\buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\data\Camera.h">
+      <Filter>src\main\renderer\data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\data\Material.h">
+      <Filter>src\main\renderer\data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\data\Mesh.h">
+      <Filter>src\main\renderer\data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\data\Transform.h">
+      <Filter>src\main\renderer\data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\data\Vertex.h">
+      <Filter>src\main\renderer\data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\renderer\GraphicsContext.h">
+      <Filter>src\main\renderer\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\renderer\Renderer.h">
+      <Filter>src\main\renderer\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\renderer\RendererApi.h">
+      <Filter>src\main\renderer\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\renderer\RendererContent.h">
+      <Filter>src\main\renderer\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\renderer\Texture.h">
+      <Filter>src\main\renderer\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\shaders\Shader.h">
+      <Filter>src\main\renderer\shaders</Filter>
     </ClInclude>
     <ClInclude Include="src\main\specialincludes.h">
       <Filter>src\main</Filter>
@@ -1359,28 +1449,9 @@
     <ClInclude Include="vendors\glm2\glm\vector_relational.hpp">
       <Filter>vendors\glm2\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\renderer\GraphicsContext.h">
-      <Filter>src\main\renderer</Filter>
+    <ClInclude Include="vendors\stb\STBImage.h">
+      <Filter>vendors\stb</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\platform\opengl\renderer\OpenGLContext.h">
-      <Filter>src\main\platform\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="src\main\renderer\shaders\Shader.h" />
-    <ClInclude Include="src\main\renderer\buffers\Buffers.h" />
-    <ClInclude Include="src\main\platform\opengl\buffers\OpenGLVertex.h" />
-    <ClInclude Include="src\main\renderer\renderer\Renderer.h" />
-    <ClInclude Include="src\main\renderer\buffers\VertexArray.h" />
-    <ClInclude Include="src\main\platform\opengl\buffers\OpenGlVertexArray.h" />
-    <ClInclude Include="src\main\renderer\renderer\RendererApi.h" />
-    <ClInclude Include="src\main\renderer\renderer\RendererContent.h" />
-    <ClInclude Include="src\main\platform\opengl\renderer\OpenGLRendererAPI.h" />
-    <ClInclude Include="src\main\renderer\data\Camera.h" />
-    <ClInclude Include="src\main\dateentry\TimeStep.h" />
-    <ClInclude Include="src\main\renderer\data\Transform.h" />
-    <ClInclude Include="src\main\renderer\data\Material.h" />
-    <ClInclude Include="src\main\renderer\data\Mesh.h" />
-    <ClInclude Include="src\main\renderer\data\Vertex.h" />
-    <ClInclude Include="src\main\platform\opengl\shaders\OpenGLShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\hzpch.cpp">
@@ -1407,23 +1478,59 @@
     <ClCompile Include="src\main\logging\Log.cpp">
       <Filter>src\main\logging</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\platform\opengl\buffers\OpenGLVertex.cpp">
+      <Filter>src\main\platform\opengl\buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\platform\opengl\buffers\OpenGLVertexArray.cpp">
+      <Filter>src\main\platform\opengl\buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\platform\opengl\renderer\OpenGLContext.cpp">
+      <Filter>src\main\platform\opengl\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\platform\opengl\renderer\OpenGLRendererAPI.cpp">
+      <Filter>src\main\platform\opengl\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\platform\opengl\shaders\OpenGLSahder.cpp">
+      <Filter>src\main\platform\opengl\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\platform\opengl\texture\OpenGLTexture.cpp">
+      <Filter>src\main\platform\opengl\texture</Filter>
+    </ClCompile>
     <ClCompile Include="src\main\platform\windows\WindowsInput.cpp">
       <Filter>src\main\platform\windows</Filter>
     </ClCompile>
     <ClCompile Include="src\main\platform\windows\WindowsWindow.cpp">
       <Filter>src\main\platform\windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\platform\opengl\renderer\OpenGLContext.cpp" />
-    <ClCompile Include="src\main\renderer\shaders\Shader.cpp" />
-    <ClCompile Include="src\main\platform\opengl\buffers\OpenGLVertex.cpp" />
-    <ClCompile Include="src\main\renderer\buffers\Buffers.cpp" />
-    <ClCompile Include="src\main\renderer\renderer\Renderer.cpp" />
-    <ClCompile Include="src\main\renderer\buffers\VertexArray.cpp" />
-    <ClCompile Include="src\main\platform\opengl\buffers\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\main\renderer\renderer\RendererApi.cpp" />
-    <ClCompile Include="src\main\renderer\renderer\RendererContent.cpp" />
-    <ClCompile Include="src\main\platform\opengl\renderer\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="src\main\renderer\data\Camera.cpp" />
-    <ClCompile Include="src\main\platform\opengl\shaders\OpenGLSahder.cpp" />
+    <ClCompile Include="src\main\renderer\buffers\Buffers.cpp">
+      <Filter>src\main\renderer\buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\renderer\buffers\VertexArray.cpp">
+      <Filter>src\main\renderer\buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\renderer\data\Camera.cpp">
+      <Filter>src\main\renderer\data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\renderer\renderer\Renderer.cpp">
+      <Filter>src\main\renderer\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\renderer\renderer\RendererApi.cpp">
+      <Filter>src\main\renderer\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\renderer\renderer\RendererContent.cpp">
+      <Filter>src\main\renderer\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\renderer\renderer\Texture.cpp">
+      <Filter>src\main\renderer\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\renderer\shaders\Shader.cpp">
+      <Filter>src\main\renderer\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\stb\STBImage.cpp">
+      <Filter>vendors\stb</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\test.png" />
   </ItemGroup>
 </Project>
