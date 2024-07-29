@@ -147,6 +147,7 @@
     <ClInclude Include="src\main\platform\opengl\renderer\OpenGLRendererAPI.h" />
     <ClInclude Include="src\main\platform\opengl\buffers\OpenGLVertex.h" />
     <ClInclude Include="src\main\platform\opengl\buffers\OpenGlVertexArray.h" />
+    <ClInclude Include="src\main\platform\opengl\shaders\OpenGLShader.h" />
     <ClInclude Include="src\main\renderer\data\Camera.h" />
     <ClInclude Include="src\main\renderer\data\Material.h" />
     <ClInclude Include="src\main\renderer\data\Mesh.h" />
@@ -610,6 +611,7 @@
     <ClCompile Include="src\main\platform\opengl\renderer\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\main\platform\opengl\buffers\OpenGLVertex.cpp" />
     <ClCompile Include="src\main\platform\opengl\buffers\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\main\platform\opengl\shaders\OpenGLSahder.cpp" />
     <ClCompile Include="src\main\platform\windows\WindowsInput.cpp" />
     <ClCompile Include="src\main\platform\windows\WindowsWindow.cpp" />
     <ClCompile Include="src\main\renderer\buffers\Buffers.cpp" />

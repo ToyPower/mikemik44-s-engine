@@ -75,7 +75,7 @@ public:
 
 			}
 		)";
-		shader.reset(new ME::Shader(a, b));
+		shader.reset(ME::Shader::create(a, b));
 
 		const std::string& a2 = R"(#version 410 core
 			layout(location = 0) in vec3 position;
@@ -97,7 +97,7 @@ public:
 
 			}
 		)";
-		shader2.reset(new ME::Shader(a2, b2));
+		shader2.reset(ME::Shader::create(a2, b2));
 	
 	};
 

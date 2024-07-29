@@ -1380,6 +1380,7 @@
     <ClInclude Include="src\main\renderer\data\Material.h" />
     <ClInclude Include="src\main\renderer\data\Mesh.h" />
     <ClInclude Include="src\main\renderer\data\Vertex.h" />
+    <ClInclude Include="src\main\platform\opengl\shaders\OpenGLShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\hzpch.cpp">
@@ -1423,5 +1424,6 @@
     <ClCompile Include="src\main\renderer\renderer\RendererContent.cpp" />
     <ClCompile Include="src\main\platform\opengl\renderer\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\main\renderer\data\Camera.cpp" />
+    <ClCompile Include="src\main\platform\opengl\shaders\OpenGLSahder.cpp" />
   </ItemGroup>
 </Project>
