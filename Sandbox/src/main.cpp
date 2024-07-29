@@ -28,26 +28,29 @@ class ExampleLayer : public ME::Layer {
 
 public:
 
-	ME::PerspectiveCamera cam = ME::PerspectiveCamera(40.0f, 800, 600);
-	ME::Mesh m1, m2;
+	ME::PerspectiveCamera cam = ME::PerspectiveCamera(90.0f, 800, 600);
+	ME::Ref<ME::Material> mat = ME::Ref<ME::Material>(new ME::Material({ {1,0,1,1} }));
 	ME::Ref<ME::Shader> shader, shader2;
-	
+	std::vector<ME::Mesh> grid;
 	ExampleLayer() : Layer("ExampleLayer") {
 		
-		cam.setPosition({ 0,0,3 });
-		m1.addVertex(create({ -0.5f, -0.5f, 0.0f }, { 1,0,0,1 }));
-		m1.addVertex(create({ 0.0f, 0.5f, 0.0f }, { 0,1,0,1 }));
-		m1.addVertex(create({ 0.5f, -0.5f, 0.0f }, { 0,0,1,1 }));
-		m1.addTriangle(0, 1, 2);
-		m1.getTransform().setPos({ 0,0,0.001 });
+		cam.setPosition({ 0,0,0.5 });
 		
+		for (uint32_t i = 0; i < 20; i++) {
+			for (uint32_t j = 0; j < 20; j++) {
+				ME::Mesh m2;
+				m2.addVertex(create({ -0.5,-0.5f,0.0f }));
+				m2.addVertex(create({ -0.5,0.5f,0.0f }));
+				m2.addVertex(create({ 0.5,0.5f,0.0f }));
+				m2.addVertex(create({ 0.5,-0.5f,0.0f }));
+				m2.addSquare(0, 1, 2, 3);
+				m2.getTransform().setScale({ 0.1,0.1,0.1 });
+				m2.getTransform().setPos({ i * 0.11f,j * 0.11f,0 });
+				m2.setMaterial(mat);
+				grid.push_back(m2);
+			}
+		}
 		
-		m2.addVertex(create({ -0.75,-0.75f,0.0f }));
-		m2.addVertex(create({ -0.75,0.75f,0.0f }));
-		m2.addVertex(create({ 0.75,0.75f,0.0f }));
-		m2.addVertex(create({ 0.75,-0.75f,0.0f }));
-		m2.getMaterial().albeto.g = 0;
-		m2.addSquare(0, 1, 2, 3);
 
 		const std::string& a = R"(#version 410 core
 			layout(location = 0) in vec3 position;
@@ -104,15 +107,8 @@ public:
 	virtual void onGUIRender() override {
 		
 		ImGui::Begin("Control");
-		glm::vec3& ref = m1.getTransform().getPosition();
-		ImGui::DragFloat3("Position", (float*)&ref, 0.01);
-		ImGui::DragFloat3("Rotation", (float*)&m1.getTransform().getRotation(), 1);
-		ImGui::DragFloat3("Scale", (float*)&m1.getTransform().getScale(), 0.01);
-		ImGui::Separator();
+		ImGui::ColorEdit3("Color", (float*)&grid[0].getMaterial()->albeto, 0.01F);
 		
-		ImGui::ColorEdit3("Albedo 2", (float*)&m1.getMaterial().albeto, 0.01);
-		ImGui::ColorEdit3("Albedo", (float*)&m2.getMaterial().albeto, 0.01);
-
 		ImGui::End();
 		
 	}
@@ -143,18 +139,6 @@ public:
 			cam.move(cam.getRight(), 0.1 * offset * mov);
 		}
 
-		if (ME::Input::isKeyPress(ME_KEY_UP)) {
-			m1.getTransform().move({0,1,0}, 0.1 * offset * mov);
-		}
-		if (ME::Input::isKeyPress(ME_KEY_DOWN)) {
-			m1.getTransform().move({0,-1,0}, 0.1 * offset * mov);
-		}
-		if (ME::Input::isKeyPress(ME_KEY_LEFT)) {
-			m1.getTransform().move({-1,0,0}, 0.1 * offset * mov);
-		}
-		if (ME::Input::isKeyPress(ME_KEY_RIGHT)) {
-			m1.getTransform().move({1,0,0}, 0.1 * offset * mov);
-		}
 		
 	}
 	
@@ -164,10 +148,9 @@ public:
 		RC::setClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		RC::clear();
 		R::beginScene(cam);
-		
-		R::submit(shader2, m2);
-		
-		R::submit(shader, m1);
+		for (ME::Mesh m : grid) {
+			R::submit(shader2, m);
+		}
 		
 		R::endScene();
 	}

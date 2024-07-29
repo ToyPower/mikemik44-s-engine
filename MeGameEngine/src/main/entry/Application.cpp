@@ -72,7 +72,7 @@ namespace ME {
 
 	Application::Application() {
 		s_instance = this;
-		m_window = scope<Window>(Window::create());
+		m_window = std::unique_ptr<Window>(Window::create());
 	
 		EventCaller::addEventListener(FE_BIND(onEvent), "window*");
 		m_imguilayer = new ImGuiLayer();

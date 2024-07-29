@@ -1,4 +1,5 @@
 #pragma once
+#include <memory.h>
 #ifdef UNNNN
 #ifdef ME_PLATFORM_WINDOWS
 	#ifdef ME_BUILD_DLL

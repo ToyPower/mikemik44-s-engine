@@ -11,12 +11,13 @@ namespace ME {
 		
 	};
 	
-	static std::map<const std::string, Material> mats = {};
-	static Material getMaterialFromBase(const std::string& mat) {
-		std::map<const std::string, Material>::iterator find = mats.find(mat);
+	static std::map<const std::string, Ref<Material>> mats = {};
+	static Ref<Material> getMaterialFromBase(const std::string& mat) {
+		auto find = mats.find(mat);
 		if (find != mats.end()) {
 			return mats[find->first];
 		}
-		return Material();
+		
+		return Ref<Material>();
 	}
 }

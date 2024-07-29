@@ -10,12 +10,12 @@ namespace ME {
 	
 	class Mesh {
 	public:
-		Mesh(Transform& trans = Transform(), Material& mat = Material()) : trans(trans), mat(mat){}
+		Mesh(Transform& trans = Transform(), Ref<Material> mat = Ref<Material>()) : trans(trans), mat(mat){}
 		
 		void loadFromString(const std::string& str) {
 
 		}
-		void setMaterial(const Material& mat) {
+		void setMaterial(Ref<Material> mat) {
 			this->mat = mat;
 		}
 
@@ -31,9 +31,9 @@ namespace ME {
 			return trans;
 		}
 
-		Material& getMaterial() {
-			if (&this->mat == &getMaterialFromBase("Base")) {
-				this->mat = Material();
+		Ref<Material> getMaterial() {
+			if (this->mat == getMaterialFromBase("Base")) {
+				this->mat = Ref<Material>();
 			}
 			return mat;
 		}
@@ -89,7 +89,7 @@ namespace ME {
 		}
 	private:
 		Transform trans;
-		Material mat = getMaterialFromBase("Base");
+		Ref<Material> mat = getMaterialFromBase("Base");
 		BufferLayout tmp;
 		std::vector<float> vertices = {};
 		std::vector<uint32_t> indices = {};

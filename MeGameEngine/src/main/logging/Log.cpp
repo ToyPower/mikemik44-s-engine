@@ -2,9 +2,9 @@
 #include "Log.h"
 
 namespace ME {
-	Ref<spdlog::logger> Log::m_coreLogger;
-	Ref<spdlog::logger> Log::m_clientLogger;
-	std::vector<Ref<spdlog::logger>> Log::m_Loggers;
+	std::shared_ptr<spdlog::logger> Log::m_coreLogger;
+	std::shared_ptr<spdlog::logger> Log::m_clientLogger;
+	std::vector<std::shared_ptr<spdlog::logger>> Log::m_Loggers;
 	std::vector<const char*> Log::m_Loggernames;
 	void Log::init() {
 		
@@ -15,14 +15,14 @@ namespace ME {
 		m_clientLogger = spdlog::stdout_color_mt("Game");
 		m_clientLogger->set_level(spdlog::level::trace);
 	}
-	Ref<spdlog::logger>& Log::GetLogger(const char* name) {
+	std::shared_ptr<spdlog::logger>& Log::GetLogger(const char* name) {
 		for (uint32_t i = 0; i < m_Loggernames.size(); i++) {
 			if (name == m_Loggernames[i]) {
 				return m_Loggers[i];
 			}
 		}
 		spdlog::set_pattern("%^%n-%T: %v%$");
-		Ref<spdlog::logger> log = spdlog::stdout_color_mt(name);
+		std::shared_ptr<spdlog::logger> log = spdlog::stdout_color_mt(name);
 		log->set_level(spdlog::level::trace);
 
 		m_Loggers.push_back(log);

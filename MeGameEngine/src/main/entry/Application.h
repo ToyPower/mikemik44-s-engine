@@ -20,7 +20,7 @@ namespace ME {
 		inline Window& getWindow() { return *m_window;  }
 		inline static Application& getInstance() { return *s_instance; }
 	private:
-		scope<Window> m_window;
+		std::unique_ptr<Window> m_window;
 		ImGuiLayer* m_imguilayer;
 		bool m_running = true;
 		LayerStack m_st;
