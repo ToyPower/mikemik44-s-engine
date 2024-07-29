@@ -1,16 +1,19 @@
 #include "hzpch.h"
 #include "Application.h"
-
+#include <GLFW/glfw3.h>
 namespace ME {
 #define FE_BIND(x) std::bind(&Application::x, this, std::placeholders::_1)
 	Application* Application::s_instance = nullptr;
 	void Application::run() {
-		
+		m_lastFrame = (float)glfwGetTime();
+
 		while (m_running) {
 			if (m_window != nullptr) {
-
+				float time = (float)glfwGetTime();
+				TimeStep timestep = time - m_lastFrame;
+				m_lastFrame = time;
 				for (auto layer : m_st) {
-					layer->onUpdate();
+					layer->onUpdate(timestep);
 					layer->onRender();
 				}
 				m_imguilayer->begin();
@@ -70,6 +73,7 @@ namespace ME {
 	Application::Application() {
 		s_instance = this;
 		m_window = std::unique_ptr<Window>(Window::create());
+	
 		EventCaller::addEventListener(FE_BIND(onEvent), "window*");
 		m_imguilayer = new ImGuiLayer();
 		pushOverlay(m_imguilayer);

@@ -3,6 +3,7 @@
 #include "WindowsInput.h"
 #include "../../Input.h"
 #include "main/platform/opengl/renderer/OpenGLContext.h"
+#include "glad/glad.h"
 namespace ME {
 
 	void errorcallback(int error, const char* desc) {
@@ -60,6 +61,8 @@ namespace ME {
 					glfwSetWindowSize(win, props.width, props.height);
 				}
 				else {
+					
+					glViewport(0, 0, width, height);
 					props.width = width;
 					props.height = height;
 				}

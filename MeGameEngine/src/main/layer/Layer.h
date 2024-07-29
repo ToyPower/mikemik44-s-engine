@@ -1,6 +1,7 @@
 #pragma once
 #include "../specialincludes.h"
 #include "../events/Event.h"
+#include "main/dateentry/TimeStep.h"
 namespace ME {
 
 	class ME_API Layer {
@@ -11,7 +12,7 @@ namespace ME {
 
 		virtual void onAttach() {};
 		virtual void onDetach() {};
-		virtual void onUpdate() {};
+		virtual void onUpdate(TimeStep step) {};
 		virtual void onRender() {};
 		virtual bool onEvent(Events& e) { return true; };
 		virtual void onGUIRender() {};

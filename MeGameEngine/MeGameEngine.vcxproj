@@ -143,10 +143,15 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\main\dateentry\TimeStep.h" />
     <ClInclude Include="src\main\platform\opengl\renderer\OpenGLRendererAPI.h" />
     <ClInclude Include="src\main\platform\opengl\buffers\OpenGLVertex.h" />
     <ClInclude Include="src\main\platform\opengl\buffers\OpenGlVertexArray.h" />
     <ClInclude Include="src\main\renderer\data\Camera.h" />
+    <ClInclude Include="src\main\renderer\data\Material.h" />
+    <ClInclude Include="src\main\renderer\data\Mesh.h" />
+    <ClInclude Include="src\main\renderer\data\Transform.h" />
+    <ClInclude Include="src\main\renderer\data\Vertex.h" />
     <ClInclude Include="src\main\renderer\renderer\GraphicsContext.h" />
     <ClInclude Include="src\main\platform\opengl\renderer\OpenGLContext.h" />
     <ClInclude Include="src\main\renderer\renderer\Renderer.h" />

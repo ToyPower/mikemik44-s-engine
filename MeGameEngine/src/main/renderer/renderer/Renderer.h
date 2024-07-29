@@ -3,6 +3,8 @@
 #include "main/renderer/buffers/VertexArray.h"
 #include "main/renderer/data/Camera.h"
 #include "main/renderer/shaders/Shader.h"
+#include "main/renderer/data/Material.h"
+#include "main/renderer/data/Mesh.h"
 namespace ME {
 
 	class Renderer {
@@ -10,7 +12,12 @@ namespace ME {
 	public:
 		static void beginScene(Camera& cam);
 		static void endScene();
-		static void submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& obj);
+		static void submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& obj, const glm::mat4& transform = glm::mat4(1.0f), const Material& mat = Material());
+		static void submit(const std::shared_ptr<Shader>& shader, Mesh& obj) {
+
+			Renderer::submit(shader, obj.getVertexArray(), obj.getTransform().getMeshMatrix(), obj.getMaterial());
+
+		}
 
 		static RendererAPI::API getAPI() { return RendererAPI::getAPI(); }
 	private:

@@ -12,4 +12,9 @@
 #include "main/renderer/buffers/VertexArray.h"
 #include "main/renderer/shaders/Shader.h"
 #include "main/renderer/data/Camera.h"
+#include "main/dateentry/TimeStep.h"
+#include "main/renderer/data/Transform.h"
+#include "main/renderer/data/Material.h"
+#include "main/renderer/data/Mesh.h"
+#include "main/renderer/data/Vertex.h"
 

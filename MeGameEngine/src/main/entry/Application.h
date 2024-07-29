@@ -5,6 +5,7 @@
 #include "../layer/Layer.h"
 #include "../layer/LayerStack.h"
 #include "../platform/windows/WindowsWindow.h"
+#include "main/dateentry/TimeStep.h"
 namespace ME {
 	
 	class ME_API Application
@@ -24,7 +25,8 @@ namespace ME {
 		bool m_running = true;
 		LayerStack m_st;
 		static Application* s_instance;
-		
+	
+		float m_lastFrame;
 
 	};
 	Application* CreateApplication();

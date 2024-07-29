@@ -3,75 +3,54 @@
 #include <glm/glm.hpp>
 
 #include <imgui/imgui.h>
+#include <any>
 #define R ME::Renderer
 #define RC ME::RendererContent
+ME::Vertex create(glm::vec3 pos, glm::vec4 color) {
+	ME::Vertex v(pos);
+	v.putData("color", color);
+	return v;
+}
+
+ME::Vertex create(glm::vec3 pos) {
+	ME::Vertex v(pos);
+	return v;
+}
+
 class ExampleLayer : public ME::Layer {
 
 public:
+
 	float aspect = 800.0 / 600.0;
-	ME::OthrographicCamera cam = ME::OthrographicCamera(-1.0f* aspect, 1.0f* aspect, -1.0f, 1.0f);
-	std::shared_ptr<ME::VertexArray> vertex, square;
+	ME::PerspectiveCamera cam = ME::PerspectiveCamera(40.0f, 800, 600);
+	ME::Mesh m1, m2;
 	std::shared_ptr<ME::Shader> shader, shader2;
 	ExampleLayer() : Layer("ExampleLayer") {
 		
-		float vertices[3 * 3 + 3 * 4] = {
-			-0.5f, -0.5f, 0.0f,  1, 0, 0,1,
-			0.0f, 0.5f, 0.0f,    0, 1, 0,1,
-			0.5f, -0.5f, 0.0f,    0, 0, 1,1,
-		};
-		ME::BufferLayout layout = {
-
-			{ME::ShaderType::Vec3, "m_Position"},
-			{ME::ShaderType::Vec4, "m_color"},
-
-		};
-
-		uint32_t indices[3] = {
-			0, 1, 2
-		};
-		auto buf = std::shared_ptr<ME::VertexBuffer>(ME::VertexBuffer::create(vertices, sizeof(vertices)));
-		buf->setLayout(layout);
-		auto ind = std::shared_ptr<ME::IndexBuffer>(ME::IndexBuffer::create(indices, sizeof(indices)));
-		vertex = std::shared_ptr<ME::VertexArray>(ME::VertexArray::create());
-		vertex->addVertexBuffer(buf);
-		vertex->setIndexBuffer(ind);
-
-
-
-
-		float vertices2[4*3] = {
-			-0.75f, -0.75f, 0.0f,
-			-0.75f, 0.75f, 0.0f,
-			0.75f, 0.75f, 0.0f,
-			0.75f, -0.75f, 0.0f
-		};
-		ME::BufferLayout layout2 = {
-
-			{ME::ShaderType::Vec3, "m_Position"},
-			
-		};
-
-		uint32_t indices2[6] = {
-			0, 1, 2,
-			0, 2, 3
-		};
-		auto buf2 = std::shared_ptr<ME::VertexBuffer>(ME::VertexBuffer::create(vertices2, sizeof(vertices2)));
-		buf2->setLayout(layout2);
-		auto ind2 = std::shared_ptr<ME::IndexBuffer>(ME::IndexBuffer::create(indices2, sizeof(indices2)));
-		square = std::shared_ptr<ME::VertexArray>(ME::VertexArray::create());
-		square->addVertexBuffer(buf2);
-		square->setIndexBuffer(ind2);
+		cam.setPosition({ 0,0,3 });
+		m1.addVertex(create({ -0.5f, -0.5f, 0.0f }, { 1,0,0,1 }));
+		m1.addVertex(create({ 0.0f, 0.5f, 0.0f }, { 0,1,0,1 }));
+		m1.addVertex(create({ 0.5f, -0.5f, 0.0f }, { 0,0,1,1 }));
+		m1.addTriangle(0, 1, 2);
 		
+		m2.addVertex(create({ -0.75,-0.75f,0.0f }));
+		m2.addVertex(create({ -0.75,0.75f,0.0f }));
+		m2.addVertex(create({ 0.75,0.75f,0.0f }));
+		m2.addVertex(create({ 0.75,-0.75f,0.0f }));
+		m2.getMaterial().albeto.g = 0;
+		m2.addSquare(0, 1, 2, 3);
+
 		const std::string& a = R"(#version 410 core
 			layout(location = 0) in vec3 position;
 			layout(location = 1) in vec4 color1;
 			uniform mat4 u_proj;
-
-			out vec4 color;
+			uniform mat4 u_mesh;
+			uniform vec4 u_color;
+			out vec4 color; 
 
 			void main() {
-				color = color1;
-				gl_Position = u_proj * vec4(position,1);
+				color = color1 * u_color;
+				gl_Position = u_proj * u_mesh * vec4(position,1);
 			}
 		)";
 		const std::string& b = R"(#version 410 core
@@ -89,10 +68,11 @@ public:
 			layout(location = 0) in vec3 position;
 			out vec4 color;
 			uniform mat4 u_proj;
-
+			uniform mat4 u_mesh;
+			uniform vec4 u_color;
 			void main() {
-				color = vec4(0.2f, 0.3f, 0.0f,1.0f);
-				gl_Position = u_proj * vec4(position,1);
+				color = vec4(1,1,1,1.0f) * u_color;
+				gl_Position = u_proj * u_mesh * vec4(position,1);
 			}
 		)";
 		const std::string& b2 = R"(#version 410 core
@@ -110,45 +90,58 @@ public:
 
 	virtual void onGUIRender() override {
 		
+		ImGui::Begin("Control");
+		glm::vec3& ref = m1.getTransform().getPosition();
+		ImGui::DragFloat3("Position", (float*)&ref, 0.01);
+		ImGui::DragFloat3("Rotation", (float*)&m1.getTransform().getRotation(), 1);
+		ImGui::DragFloat3("Scale", (float*)&m1.getTransform().getScale(), 0.01);
+
+		ImGui::ColorEdit3("Color", (float*)&m2.getMaterial().albeto, 0.01);
+
+		ImGui::End();
+		//ME_CLIENT_INFO("{0}", trans.getPosition().y);
 
 	}
 
-	void onUpdate() override {
+	void onUpdate(ME::TimeStep step) override {
+		//trans.rotate({ 0,0,1 }, 1);
 		float offset = (1.0f / 144.0f) * 60.0f;
+		float mov = step * 10* 8;
+		float rot = step *180;
 		if (ME::Input::isKeyPress(ME_KEY_W)) {
-			cam.move(cam.getForward(), 0.1 * offset);
+			cam.move(cam.getForward(), 0.1 * offset * mov);
 		}
 
 		if (ME::Input::isKeyPress(ME_KEY_Q)) {
-			cam.rotate({ 0,0,1 }, 2 * offset);
+			cam.rotate({ -1,0,0 }, 2 * offset * rot);
 		}
 
 		if (ME::Input::isKeyPress(ME_KEY_E)) {
-			cam.rotate({ 0,0,-1 }, 2 * offset);
+			cam.rotate({ 1,0,0 }, 2 * offset * rot);
 		}
 		if (ME::Input::isKeyPress(ME_KEY_S)) {
-			cam.move(cam.getBackward(), 0.1 * offset);
+			cam.move(cam.getBackward(), 0.1 * offset * mov);
 		}
 		if (ME::Input::isKeyPress(ME_KEY_A)) {
-			cam.move(cam.getLeft(), 0.1 * offset);
+			cam.move(cam.getLeft(), 0.1 * offset * mov);
 		}
 		if (ME::Input::isKeyPress(ME_KEY_D)) {
-			cam.move(cam.getRight(), 0.1 * offset);
+			cam.move(cam.getRight(), 0.1 * offset * mov);
 		}
 
 		if (ME::Input::isKeyPress(ME_KEY_UP)) {
-			cam.move({0,-1,0}, 0.1 * offset);
+			m1.getTransform().move({0,1,0}, 0.1 * offset * mov);
 		}
 		if (ME::Input::isKeyPress(ME_KEY_DOWN)) {
-			cam.move({0,1,0}, 0.1 * offset);
+			m1.getTransform().move({0,-1,0}, 0.1 * offset * mov);
 		}
 		if (ME::Input::isKeyPress(ME_KEY_LEFT)) {
-			cam.move({1,0,0}, 0.1 * offset);
+			m1.getTransform().move({-1,0,0}, 0.1 * offset * mov);
 		}
 		if (ME::Input::isKeyPress(ME_KEY_RIGHT)) {
-			cam.move({-1,0,0}, 0.1 * offset);
+			m1.getTransform().move({1,0,0}, 0.1 * offset * mov);
 		}
-		//ME_CLIENT_INFO("ExampleLayer::onUpdate");
+		
 	}
 	
 	bool init = false;
@@ -158,15 +151,19 @@ public:
 		RC::clear();
 		R::beginScene(cam);
 		
-		R::submit(shader2, square);
+		R::submit(shader2, m2);
 		
-		R::submit(shader, vertex);
+		R::submit(shader, m1);
 		
 		R::endScene();
 	}
 
 	bool onEvent(ME::Events& e) override {
-	
+		
+		if (e.name() == "windowResize") {
+			
+			cam.onResize(std::any_cast<int>(e.getParam("width")), std::any_cast<int>(e.getParam("height")));
+		}
 		return true;
 	}
 };
