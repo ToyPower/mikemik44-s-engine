@@ -1530,7 +1530,4 @@
       <Filter>vendors\stb</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="assets\textures\test.png" />
-  </ItemGroup>
 </Project>

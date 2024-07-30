@@ -1,7 +1,6 @@
 #include <hzpch.h>
 #include "OpenGLContext.h"
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
+#include <glfw/glfw3.h>
 namespace ME {
 
 	OpenGLContext::OpenGLContext(GLFWwindow* window)  : m_window(window){

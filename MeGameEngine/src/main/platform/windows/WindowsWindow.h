@@ -1,7 +1,7 @@
 #pragma once
 #include "hzpch.h"
 #include "../../window/window.h"
-#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 #include "main/renderer/renderer/GraphicsContext.h"
 struct GLFWwindow;
 namespace ME {

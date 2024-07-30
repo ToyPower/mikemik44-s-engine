@@ -1,6 +1,6 @@
 #include <hzpch.h>
 #include "WindowsInput.h"
-#include <GLFW/glfw3.h>
+#include <glfw/glfw3.h>
 #include "main/entry/Application.h"
 namespace ME {
 	Input* Input::s_instance = new WindowsInput();

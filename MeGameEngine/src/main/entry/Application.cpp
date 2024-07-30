@@ -1,6 +1,6 @@
 #include "hzpch.h"
 #include "Application.h"
-#include <GLFW/glfw3.h>
+#include <glfw/glfw3.h>
 #include "main/renderer/renderer/Renderer.h"
 namespace ME {
 #define FE_BIND(x) std::bind(&Application::x, this, std::placeholders::_1)

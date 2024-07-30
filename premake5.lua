@@ -9,10 +9,7 @@ workspace "MyGameEngine"
 		"Dist"
 	}
 	startproject "Sandbox"
-	defines {
-		"_CRT_SECURE_NO_WARNINGS",
-		"GLFW_INCLUDE_NONE"
-	}
+	
 outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 includeDir = {}
 includeDir["GLFW"] = "MeGameEngine/vendors/glfw/include"
@@ -28,6 +25,10 @@ group "dependecies"
 group ""
 
 project "MeGameEngine"
+	defines {
+		"_CRT_SECURE_NO_WARNINGS",
+		"GLFW_INCLUDE_NONE"
+	}
 	location "MeGameEngine"
 	kind "StaticLib"
 	language "c++"
@@ -86,6 +87,10 @@ project "MeGameEngine"
 		optimize "speed"
 			
 project "Sandbox"
+	defines {
+		"_CRT_SECURE_NO_WARNINGS",
+		"GLFW_INCLUDE_NONE"
+	}
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "c++"

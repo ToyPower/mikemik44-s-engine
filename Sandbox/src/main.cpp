@@ -32,7 +32,7 @@ public:
 	ME::Ref<ME::Material> mat = ME::Ref<ME::Material>(new ME::Material({ {1,1,1,1} })), mat2 = ME::Ref<ME::Material>(new ME::Material({ {1,1,1,1} }));
 	ME::Ref<ME::Shader> shader;
 	std::vector<ME::Mesh> grid;
-
+	ME::ShaderLibrary lib;
 	ExampleLayer() : Layer("ExampleLayer") {
 		mat->tex = ME::Texture2D::create("assets/textures/ChernoLogo.png");
 		mat2->tex = ME::Texture2D::create("assets/textures/test.png");
@@ -71,35 +71,8 @@ public:
 			}
 		}
 		
-
-		const std::string& a = R"(#version 410 core
-			layout(location = 0) in vec3 position;
-			layout(location = 1) in vec4 color1;
-			layout(location = 2) in vec2 texCoord;
-			uniform mat4 u_proj;
-			uniform mat4 u_mesh;
-			uniform vec4 u_color;
-			out vec4 color; 
-			out vec2 v_texCoord;
-			void main() {
-				color = color1 * u_color;
-				
-				v_texCoord = texCoord;
-				gl_Position = u_proj * u_mesh * vec4(position,1);
-			}
-		)";
-		const std::string& b = R"(#version 410 core
-			in vec4 color;
-			in vec2 v_texCoord;
-			uniform sampler2D u_tex;	
-			void main() {
-			
-				gl_FragColor = texture(u_tex, v_texCoord) * color;
-
-			}
-		)";
-		shader.reset(ME::Shader::create(a, b));
-
+		
+		lib.load("main", ("assets/shaders/data.shader"));
 	
 	};
 
@@ -148,7 +121,7 @@ public:
 		RC::clear();
 		R::beginScene(cam);
 		for (ME::Mesh m : grid) {
-			R::submit(shader, m);
+			R::submit(lib.get("main"), m);
 		}
 		
 		R::endScene();

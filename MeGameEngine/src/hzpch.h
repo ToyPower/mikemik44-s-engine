@@ -18,5 +18,5 @@
 
 #ifdef ME_PLATFORM_WINDOWS
 #include <Windows.h>
-#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 #endif
