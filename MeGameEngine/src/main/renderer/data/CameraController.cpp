@@ -29,16 +29,31 @@ namespace ME {
 		float offset = 1;
 		float mov = step  * 8;
 		float rot = step * 180;
+		if (doRotation) {
+			if (ME::Input::isKeyPress(ME_KEY_E)) {
+				if (is2D) {
+					cam->rotate({ 0,0,1 }, 2 * offset * rot);
+				}
+				else {
+					cam->rotate({ 1,0,0 }, 2 * offset * rot);
+				}
+			}
+
+			if (ME::Input::isKeyPress(ME_KEY_Q)) {
+				if (is2D) {
+					cam->rotate({ 0,0,-1 }, 2 * offset * rot);
+				}
+				else {
+					cam->rotate({ -1,0,0 }, 2 * offset * rot);
+				}
+			}
+		}
+
+		
 		if (ME::Input::isKeyPress(ME_KEY_W)) {
+
 			cam->move(cam->getForward(), 0.1 * offset * mov);
-		}
 
-		if (ME::Input::isKeyPress(ME_KEY_Q)) {
-			cam->rotate({ -1,0,0 }, 2 * offset * rot);
-		}
-
-		if (ME::Input::isKeyPress(ME_KEY_E)) {
-			cam->rotate({ 1,0,0 }, 2 * offset * rot);
 		}
 		if (ME::Input::isKeyPress(ME_KEY_S)) {
 			cam->move(cam->getBackward(), 0.1 * offset * mov);
@@ -49,13 +64,15 @@ namespace ME {
 		if (ME::Input::isKeyPress(ME_KEY_D)) {
 			cam->move(cam->getRight(), 0.1 * offset * mov);
 		}
+		
+		if (!is2D && allowYMovement) {
+			if (ME::Input::isKeyPress(ME_KEY_SPACE)) {
+				cam->move(cam->getUp(), 0.1 * offset * mov);
+			}
 
-		if (ME::Input::isKeyPress(ME_KEY_SPACE)) {
-			cam->move(cam->getUp(), 0.1 * offset * mov);
-		}
-
-		if (ME::Input::isKeyPress(ME_KEY_LEFT_SHIFT)) {
-			cam->move(cam->getDown(), 0.1 * offset * mov);
+			if (ME::Input::isKeyPress(ME_KEY_LEFT_SHIFT)) {
+				cam->move(cam->getDown(), 0.1 * offset * mov);
+			}
 		}
 
 	}
