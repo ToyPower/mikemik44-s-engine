@@ -10,6 +10,7 @@ namespace ME {
 	
 	class Mesh {
 	public:
+	
 		Mesh(Transform& trans = Transform(), Ref<Material> mat = Ref<Material>()) : trans(trans), mat(mat){
 			mat = (getMaterialFromBase("Base"));
 		}
@@ -49,7 +50,7 @@ namespace ME {
 			uint32_t place = vertices.size();
 			
 			pos.addData(vertices);
-		
+			actPos.push_back(glm::vec3(pos.getPos().x, pos.getPos().y, pos.getPos().z));
 			uint32_t placee = vertices.size();
 			tmp = pos.getLayout();
 			return new uint32_t[2]{ place, placee };
@@ -94,11 +95,16 @@ namespace ME {
 			}
 			return res;
 		}
+		std::vector < glm::vec3>& getActPos() { return actPos; }
+		std::vector<float>& getVertices() {
+			return vertices;
+		}
 	private:
 		Transform trans;
 		Ref<Material> mat;
 		BufferLayout tmp;
 		std::vector<float> vertices = {};
+		std::vector<glm::vec3> actPos = {};
 		std::vector<uint32_t> indices = {};
 		Ref<VertexArray> res;
 		uint32_t si = 0;

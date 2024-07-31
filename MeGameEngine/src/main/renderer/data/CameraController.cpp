@@ -21,8 +21,8 @@ namespace ME {
 
 	void CameraController::update(TimeStep& step) {
 
-		float offset = (1.0f / 144.0f) * 60.0f;
-		float mov = step * 10 * 8;
+		float offset = 1;
+		float mov = step  * 8;
 		float rot = step * 180;
 		if (ME::Input::isKeyPress(ME_KEY_W)) {
 			cam->move(cam->getForward(), 0.1 * offset * mov);

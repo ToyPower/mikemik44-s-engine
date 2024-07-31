@@ -42,7 +42,7 @@ namespace ME {
 		{
 			GLint maxLength = 0;
 			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
-			ME_CORE_INFO("ERROR");
+			ME_CORE_ERROR("ERROR");
 			// The maxLength includes the NULL character
 			std::vector<GLchar> infoLog(maxLength+1);
 			glGetProgramInfoLog(program, maxLength, &maxLength, &infoLog[0]);
@@ -64,7 +64,7 @@ namespace ME {
 	void OpenGLShader::compile(const std::unordered_map<GLenum, std::string>& data) {
 		GLuint pro = glCreateProgram();
 		
-		ME_CORE_INFO("{0}", data.size());
+		//ME_CORE_INFO("{0}", data.size());
 		//ME_CORE_ASSORT(data.size() <= 3, "We only support up to 3 shaders!")
 		std::array<GLuint,3> allShaders;
 		int shaderIndex = 0;

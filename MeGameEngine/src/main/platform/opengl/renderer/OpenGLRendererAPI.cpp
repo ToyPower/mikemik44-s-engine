@@ -11,18 +11,21 @@ namespace ME {
 	}
 
 	void OpenGLRendererAPI::init() {
-		glEnable(GL_BLEND);
+		
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		//glEnable(GL_CULL_FACE);
+		glEnable(GL_BLEND);
 	}
 
 	void OpenGLRendererAPI::setClearColor(glm::vec4& color) {
 		glClearColor(color.r, color.g, color.b, color.a);
 	}
 	void OpenGLRendererAPI::drawIndex(const Ref<VertexArray>& obj) {
-
+		
+		
 		glDrawElements(GL_TRIANGLES, obj->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
-
+	
 	}
 
 }

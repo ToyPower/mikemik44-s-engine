@@ -1,9 +1,9 @@
 
 #include <MeCore.h>
 #include <glm/glm.hpp>
-
 #include <imgui/imgui.h>
 #include <any>
+#include <vector>
 #define R ME::Renderer
 #define RC ME::RendererContent
 ME::Vertex create(glm::vec3 pos, glm::vec4 color) {
@@ -60,7 +60,7 @@ public:
 				m2.addSquare(0, 1, 2, 3);
 				
 				m2.getTransform().setScale({ 0.1,0.1,0.1 });
-				m2.getTransform().setPos({ i * 0.11f,0,(1-j) * -0.101f });
+				m2.getTransform().setPos({ i * 0.11f,0,(1-j) * -0.111f });
 				if (j == 1) {
 					m2.setMaterial(mat);
 				}
@@ -88,17 +88,83 @@ public:
 	void onUpdate(ME::TimeStep step) override {
 		cam->update(step);
 	}
-	
+	float* calcW(std::vector<glm::vec3>& vertices, ME::Mesh& m2) {
+		float w = 0, x = 0, y = 0;
+		
+		for (int i = 0; i < vertices.size(); i++) {
+			glm::vec4 v2 = glm::vec4(vertices[i].x, vertices[i].y, vertices[i].z, 1);
+			glm::vec4 v = (cam->getCamera()->getViewProjection() * m2.getTransform().getMeshMatrix()) * v2;
+			
+			w += (float)floor(v.w * 100);
+			x += (float)floor(v.x * 100);
+			y += (float)floor(v.y * 100);
+		}
+		
+		w /= (float)vertices.size();
+		x /= (float)vertices.size();
+		y /= (float)vertices.size();
+
+		return new float[3] {w, x, y};
+	}
+	bool contains(const std::vector<int> data, const int find) {
+		return std::find(data.begin(), data.end(), find) != data.end();
+	}
 	bool init = false;
 	void onRender() override {
 		
 		RC::setClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		RC::clear();
 		R::beginScene(cam->getCamera());
-		for (ME::Mesh m : grid) {
-			R::submit(lib.get("main"), m);
+		std::vector<int> used;
+		for (int i = 0; i < grid.size(); i++) {
+			ME::Mesh m = grid[i];
+			float* w = calcW(m.getActPos(), m);
+			int id = i;
+			bool s = std::find(used.begin(), used.end(), id) != used.end();
+			for (int j = 0; j < grid.size(); j++) {
+				
+				ME::Mesh m2 = grid[j];
+				
+				bool s = contains(used, id);
+				bool s2 = contains(used, j);
+				float* w2 = calcW(m2.getActPos(), m2);
+				
+				if (s) {
+					
+					
+					w = w2;
+					m = m2;
+					id = j;
+					
+				}
+				else if (!s2) {
+					if (w[0] < w2[0]) {
+						w = w2;
+						m = m2;
+						id = j;
+					}
+					else if (w[0] == w2[0]) {
+						if (w[1] > w2[1]) {
+							w = w2;
+							m = m2;
+							id = j;
+						}
+						else if (w[1] == w2[1]) {
+							if (w[2] > w2[2]) {
+								w = w2;
+								m = m2;
+								id = j;
+							}
+						}
+					}
+				}
+				
+			}
+
+			used.push_back(id);
+			R::submit(lib.get("main"), grid[id]);
 		}
-		
+		//ME_CORE_INFO("");
 		R::endScene();
 	}
 

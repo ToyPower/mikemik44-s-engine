@@ -12,6 +12,7 @@ void main() {
 	color = color1 * u_color;			
 	v_texCoord = texCoord;
 	gl_Position = u_proj * u_mesh * vec4(position,1);
+	
 }
 
 #type pixel
@@ -20,7 +21,10 @@ in vec4 color;
 in vec2 v_texCoord;
 uniform sampler2D u_tex;	
 void main() {
-			
-	gl_FragColor = texture(u_tex, v_texCoord) * color;
+	vec4 col = texture(u_tex, v_texCoord) * color;		
+	if (col.a == 0) {
+		discard;
+	}
+	gl_FragColor = col;
 
 }

@@ -32,7 +32,7 @@ glm::mat4 getRoll1(float angle) {
 	return glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0, 0, 1));
 }
 glm::mat4 rotatea1(const glm::vec3& rot) {
-	return getYaw1(rot.x) * getPitch1(rot.y) * getRoll1(rot.z);
+	return getYaw1(rot.x) * getPitch1(rot.y)* getRoll1(rot.z);
 }
 glm::vec3 rotate3(const glm::vec3& vec, const glm::mat4& matrix) {
 	glm::vec4 tmp = glm::vec4(vec, 1);
