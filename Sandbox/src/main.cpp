@@ -58,6 +58,8 @@ public:
 				m2.addSquare(4, 0, 1, 5);
 				m2.addSquare(3, 7, 6, 2);
 				m2.addSquare(0, 1, 2, 3);
+				m2.addSquare(5, 6, 2, 1);
+				m2.addSquare(0, 3, 7, 4);
 				
 				m2.getTransform().setScale({ 0.1,0.1,0.1 });
 				m2.getTransform().setPos({ i * 0.11f,0,(1-j) * -0.111f });

@@ -50,6 +50,14 @@ namespace ME {
 			cam->move(cam->getRight(), 0.1 * offset * mov);
 		}
 
+		if (ME::Input::isKeyPress(ME_KEY_SPACE)) {
+			cam->move(cam->getUp(), 0.1 * offset * mov);
+		}
+
+		if (ME::Input::isKeyPress(ME_KEY_LEFT_SHIFT)) {
+			cam->move(cam->getDown(), 0.1 * offset * mov);
+		}
+
 	}
 
 }

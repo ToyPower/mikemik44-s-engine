@@ -68,8 +68,10 @@ namespace ME {
 		left = rotate3(left, rotation);
 		right = rotate3(right, rotation);
 		
-		up = forward;
-		down = backward;
+		up = glm::vec3(0,1,0);
+		down = glm::vec3(0,-1,0);
+		up = rotate3(up, rotation);
+		down = rotate3(down, rotation);
 		view = glm::lookAtLH(pos, pos + forward, glm::vec3(0, 1, 0));
 		fin = m_projection * view;
 		forward *= -1;

@@ -36,6 +36,7 @@ namespace ME {
 		virtual const glm::vec3 getDown() const override { return down; }
 		virtual const glm::vec3 getLeft() const override { return right; }
 		virtual const glm::vec3 getRight() const override { return left; }
+		
 		virtual void setPosition(const glm::vec3& pos)  override { this->pos = pos; updateData();
 		}
 		virtual void setRotation(glm::vec3 rot)  override { this->rot = rot; updateData();
