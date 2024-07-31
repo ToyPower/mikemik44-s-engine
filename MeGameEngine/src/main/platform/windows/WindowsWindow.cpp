@@ -106,7 +106,7 @@ namespace ME {
 		});
 
 		glfwSetMouseButtonCallback(m_window, [](GLFWwindow* win, int button, int action, int mod) {
-			const char* name;
+			const char* name = nullptr;
 			switch (action) {
 				case GLFW_PRESS: {
 					name = "windowButtonPress";
@@ -115,6 +115,9 @@ namespace ME {
 				case GLFW_RELEASE: {
 					name = "windowButtonRelease";
 					break;
+				}
+				default: {
+					name = "WindowButton";
 				}
 			}
 			Events& e1 = Events(name);

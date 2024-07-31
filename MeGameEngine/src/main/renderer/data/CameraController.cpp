@@ -5,12 +5,17 @@
 namespace ME {
 
 	bool CameraController::onEvent(Events& e) {
-
+		if (e.name() == "windowMouseScroll") {
+			return onMouseScrolled(e);
+		}
+		else if (e.name() == "windowResize") {
+			return onWindowResized(e);
+		}
 		return true;
 	}
 
 	bool CameraController::onWindowResized(Events& e) {
-		cam->onResize(std::any_cast<float>(e.getParam("width")), std::any_cast<float>(e.getParam("height")));
+		cam->onResize((float)std::any_cast<int>(e.getParam("width")), (float)std::any_cast<int>(e.getParam("height")));
 		return true;
 	}
 
