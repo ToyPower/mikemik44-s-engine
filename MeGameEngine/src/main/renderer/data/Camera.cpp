@@ -42,14 +42,18 @@ glm::vec3 rotate3(const glm::vec3& vec, const glm::mat4& matrix) {
 
 namespace ME {
 
-	PerspectiveCamera::PerspectiveCamera(float fov, float width, float height, float near1, float far1) : m_projection(glm::perspectiveFov(fov, width, height, near1, far1)), far1(far1), near1(near1), fov(fov) {
+	PerspectiveCamera::PerspectiveCamera(float fov, float width, float height, float near1, float far1) : m_projection(glm::perspectiveFov(fov, width, height, near1, far1)), far1(far1), near1(near1), fov(fov), m_width(width), m_height(height) {
 		view = glm::mat4(1.0f);
 		fin = m_projection * view;
 	}
 
 	void PerspectiveCamera::onResize(float width, float height) {
-		m_projection = glm::perspectiveFov(fov, width, height, near1, far1);
-		fin = m_projection * view;
+		if (this->m_width != width || this->m_height != height) {
+			this->m_width = width;
+			this->m_height = height;
+			m_projection = glm::perspectiveFov(fov, width, height, near1, far1);
+			fin = m_projection * view;
+		}
 	}
 
 	void PerspectiveCamera::updateData() {

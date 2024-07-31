@@ -1,9 +1,10 @@
 #pragma once
 #include "hzpch.h"
+#include "main/events/Event.h"
 #include "../specialincludes.h"
 namespace ME {
 
-	class ME_API EventCaller {
+	class EventCaller {
 
 	private:
 		static std::vector<std::vector<std::function<bool(Events&)>>> eventMethods;
@@ -36,14 +37,14 @@ namespace ME {
 				return false;
 			}
 		}
-		static bool callEvent(Events& e) {
+		static bool callEvent(Events& ee) {
 			for (int i = eventMethodName.size()-1; i >= 0; i--) {
 				const char* name = eventMethodName[i];
-				if (strcmp(name,e.name()) == 0 || strcmp(name,"*") == 0 || std::string(name).find("*") != std::string::npos && inform(std::string(name), std::string(e.name()))) {
+				if (strcmp(name,ee.name()) == 0 || strcmp(name,"*") == 0 || std::string(name).find("*") != std::string::npos && inform(std::string(name), std::string(ee.name()))) {
 					auto values = eventMethods[i];
 				
 					for (int j = 0; j < values.size(); j++) {
-						bool res = values[j](e);
+						bool res = values[j](ee);
 						if (!res) {
 							return res;
 						}

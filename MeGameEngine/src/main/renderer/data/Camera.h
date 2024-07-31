@@ -60,7 +60,7 @@ namespace ME {
 		glm::vec3 pos = { 0,0,0 };
 		glm::vec3 rot = { 0, 0, 0 };
 		float fov = 40.0f, near1 = 0.1f, far1 = 100.0f;
-	
+		float m_width, m_height;
 	};
 
 	class OthrographicCamera : public Camera {

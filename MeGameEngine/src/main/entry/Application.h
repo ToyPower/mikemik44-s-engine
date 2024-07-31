@@ -19,6 +19,7 @@ namespace ME {
 		void pushOverlay(Layer* layer);
 		inline Window& getWindow() { return *m_window;  }
 		inline static Application& getInstance() { return *s_instance; }
+
 	private:
 		std::unique_ptr<Window> m_window;
 		ImGuiLayer* m_imguilayer;

@@ -2,7 +2,7 @@
 #include "hzpch.h"
 #include "../specialincludes.h"
 namespace ME {
-	class ME_API Events {
+	class Events {
 	public:
 		Events(const char* name) {
 			this->m_name = name;

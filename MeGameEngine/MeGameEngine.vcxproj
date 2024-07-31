@@ -169,6 +169,7 @@
     <ClInclude Include="src\main\renderer\buffers\Buffers.h" />
     <ClInclude Include="src\main\renderer\buffers\VertexArray.h" />
     <ClInclude Include="src\main\renderer\data\Camera.h" />
+    <ClInclude Include="src\main\renderer\data\CameraController.h" />
     <ClInclude Include="src\main\renderer\data\Material.h" />
     <ClInclude Include="src\main\renderer\data\Mesh.h" />
     <ClInclude Include="src\main\renderer\data\Transform.h" />
@@ -621,6 +622,7 @@
     <ClCompile Include="src\main\renderer\buffers\Buffers.cpp" />
     <ClCompile Include="src\main\renderer\buffers\VertexArray.cpp" />
     <ClCompile Include="src\main\renderer\data\Camera.cpp" />
+    <ClCompile Include="src\main\renderer\data\CameraController.cpp" />
     <ClCompile Include="src\main\renderer\renderer\Renderer.cpp" />
     <ClCompile Include="src\main\renderer\renderer\RendererApi.cpp" />
     <ClCompile Include="src\main\renderer\renderer\RendererContent.cpp" />

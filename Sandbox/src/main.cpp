@@ -28,16 +28,16 @@ class ExampleLayer : public ME::Layer {
 
 public:
 
-	ME::PerspectiveCamera cam = ME::PerspectiveCamera(90.0f, 800, 600, 0.001);
+	ME::Ref<ME::CameraController> cam;
 	ME::Ref<ME::Material> mat = ME::Ref<ME::Material>(new ME::Material({ {1,1,1,1} })), mat2 = ME::Ref<ME::Material>(new ME::Material({ {1,1,1,1} }));
 	ME::Ref<ME::Shader> shader;
 	std::vector<ME::Mesh> grid;
 	ME::ShaderLibrary lib;
-	ExampleLayer() : Layer("ExampleLayer") {
+	ExampleLayer() : Layer("ExampleLayer"), cam(ME::Ref<ME::CameraController>(new ME::CameraController(new ME::PerspectiveCamera(90.0f, ME::Application::getInstance().getWindow().getWidth(), ME::Application::getInstance().getWindow().getHeight(), 0.001)))) {
 		mat->tex = ME::Texture2D::create("assets/textures/ChernoLogo.png");
 		mat2->tex = ME::Texture2D::create("assets/textures/test.png");
 		mat2->albeto.g = 0;
-		cam.setPosition({ 0,0,0.5 });
+		cam->getCamera()->setPosition({ 0,0,0.5 });
 		for (uint32_t i = 0; i < 1; i++) {
 		
 			for (uint32_t j = 0; j < 2; j++) {
@@ -86,32 +86,7 @@ public:
 	}
 
 	void onUpdate(ME::TimeStep step) override {
-		
-		float offset = (1.0f / 144.0f) * 60.0f;
-		float mov = step * 10* 8;
-		float rot = step *180;
-		if (ME::Input::isKeyPress(ME_KEY_W)) {
-			cam.move(cam.getForward(), 0.1 * offset * mov);
-		}
-
-		if (ME::Input::isKeyPress(ME_KEY_Q)) {
-			cam.rotate({ -1,0,0 }, 2 * offset * rot);
-		}
-
-		if (ME::Input::isKeyPress(ME_KEY_E)) {
-			cam.rotate({ 1,0,0 }, 2 * offset * rot);
-		}
-		if (ME::Input::isKeyPress(ME_KEY_S)) {
-			cam.move(cam.getBackward(), 0.1 * offset * mov);
-		}
-		if (ME::Input::isKeyPress(ME_KEY_A)) {
-			cam.move(cam.getLeft(), 0.1 * offset * mov);
-		}
-		if (ME::Input::isKeyPress(ME_KEY_D)) {
-			cam.move(cam.getRight(), 0.1 * offset * mov);
-		}
-
-		
+		cam->update(step);
 	}
 	
 	bool init = false;
@@ -119,7 +94,7 @@ public:
 		
 		RC::setClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		RC::clear();
-		R::beginScene(cam);
+		R::beginScene(cam->getCamera());
 		for (ME::Mesh m : grid) {
 			R::submit(lib.get("main"), m);
 		}
@@ -128,10 +103,8 @@ public:
 	}
 
 	bool onEvent(ME::Events& e) override {
-		
-		if (e.name() == "windowResize") {
-			
-			cam.onResize(std::any_cast<int>(e.getParam("width")), std::any_cast<int>(e.getParam("height")));
+		if (!cam->onEvent(e)) {
+			return false;
 		}
 		return true;
 	}

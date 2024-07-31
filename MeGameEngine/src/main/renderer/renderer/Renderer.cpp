@@ -4,8 +4,8 @@
 #include "main/platform/opengl/shaders/OpenGLShader.h"
 namespace ME {
 	Renderer::SceneData* Renderer::m_inform = new Renderer::SceneData;
-	void Renderer::beginScene(Camera& cam) {
-		m_inform->proj = cam.getViewProjection();
+	void Renderer::beginScene(Ref<Camera> cam) {
+		m_inform->proj = cam->getViewProjection();
 	}
 	void Renderer::endScene() {
 
