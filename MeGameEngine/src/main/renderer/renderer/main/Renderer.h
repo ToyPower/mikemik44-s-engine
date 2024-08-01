@@ -1,10 +1,10 @@
 #pragma once
-#include "RendererApi.h"
+#include "main/renderer/renderer/apistuff/RendererApi.h"
 #include "main/renderer/buffers/VertexArray.h"
-#include "main/renderer/data/Camera.h"
+#include "main/renderer/data/camera/Camera.h"
 #include "main/renderer/shaders/Shader.h"
-#include "main/renderer/data/Material.h"
-#include "main/renderer/data/Mesh.h"
+#include "main/renderer/data/meshdata/Material.h"
+#include "main/renderer/data/meshdata/Mesh.h"
 namespace ME {
 
 	class Renderer {

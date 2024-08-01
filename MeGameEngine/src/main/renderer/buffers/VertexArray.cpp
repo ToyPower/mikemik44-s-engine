@@ -1,6 +1,6 @@
 #include <hzpch.h>
 #include "VertexArray.h"
-#include "main/renderer/renderer/Renderer.h"
+#include "main/renderer/renderer/main/Renderer.h"
 #include "main/platform/opengl/buffers/OpenGLVertexArray.h"
 namespace ME {
 

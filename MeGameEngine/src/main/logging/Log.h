@@ -1,6 +1,5 @@
 #pragma once
 #include "hzpch.h"
-#include "../macro.h"
 #include "spdlog/spdlog.h"
 #include <spdlog/sinks/stdout_color_sinks.h>
 namespace ME {

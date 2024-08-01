@@ -1,6 +1,6 @@
 #pragma once
-#include "../specialincludes.h"
-#include "Layer.h"
+#include <hzpch.h>
+#include "main/layer/Layer.h"
 
 namespace ME {
 

@@ -1,8 +1,8 @@
 #include <hzpch.h>
 #include "CameraController.h"
-#include "main/Input.h"
+#include "main/input/Input.h"
 #include <math.h>
-#include "main/KeyCodes.h"
+#include "main/dataentry/KeyCodes.h"
 namespace ME {
 
 	bool CameraController::onEvent(Events& e) {

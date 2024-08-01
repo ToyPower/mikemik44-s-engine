@@ -1,7 +1,7 @@
 #include "hzpch.h"
 #include "WindowsWindow.h"
 #include "WindowsInput.h"
-#include "../../Input.h"
+#include "main/input/Input.h"
 #include "main/platform/opengl/renderer/OpenGLContext.h"
 #include "glfw/glfw3.h"
 namespace ME {

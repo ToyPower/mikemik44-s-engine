@@ -1,8 +1,7 @@
 #pragma once
 #include <hzpch.h>
 #include "camera.h"
-#include "main/macro.h"
-#include "main/dateentry/TimeStep.h"
+#include "main/dataentry/TimeStep.h"
 #include "main/events/EventCaller.h"
 namespace ME {
 

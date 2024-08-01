@@ -93,16 +93,16 @@
     <ClInclude Include="src\hzpch.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\Input.h">
+    <ClInclude Include="src\main\input\Input.h">
       <Filter>src\main</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\KeyCodes.h">
+    <ClInclude Include="src\main\dataentry\KeyCodes.h">
       <Filter>src\main</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\MouseButtonCodes.h">
+    <ClInclude Include="src\main\dataentry\MouseButtonCodes.h">
       <Filter>src\main</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\dateentry\TimeStep.h">
+    <ClInclude Include="src\main\dataentry\TimeStep.h">
       <Filter>src\main\dateentry</Filter>
     </ClInclude>
     <ClInclude Include="src\main\entry\Application.h">
@@ -117,19 +117,19 @@
     <ClInclude Include="src\main\events\EventCaller.h">
       <Filter>src\main\events</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\layer\ImGuiLayer.h">
+    <ClInclude Include="src\main\layer\imgui\ImGuiLayer.h">
       <Filter>src\main\layer</Filter>
     </ClInclude>
     <ClInclude Include="src\main\layer\Layer.h">
       <Filter>src\main\layer</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\layer\LayerStack.h">
+    <ClInclude Include="src\main\layer\stack\LayerStack.h">
       <Filter>src\main\layer</Filter>
     </ClInclude>
     <ClInclude Include="src\main\logging\Log.h">
       <Filter>src\main\logging</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\macro.h">
+    <ClInclude Include="src\main\corefiles\macro.h">
       <Filter>src\main</Filter>
     </ClInclude>
     <ClInclude Include="src\main\platform\opengl\buffers\OpenGLVertex.h">
@@ -162,34 +162,34 @@
     <ClInclude Include="src\main\renderer\buffers\VertexArray.h">
       <Filter>src\main\renderer\buffers</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\data\Camera.h">
+    <ClInclude Include="src\main\renderer\data\camera\Camera.h">
       <Filter>src\main\renderer\data</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\data\CameraController.h">
+    <ClInclude Include="src\main\renderer\data\camera\CameraController.h">
       <Filter>src\main\renderer\data</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\data\Material.h">
+    <ClInclude Include="src\main\renderer\data\meshdata\Material.h">
       <Filter>src\main\renderer\data</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\data\Mesh.h">
+    <ClInclude Include="src\main\renderer\data\meshdata\Mesh.h">
       <Filter>src\main\renderer\data</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\data\Transform.h">
+    <ClInclude Include="src\main\renderer\data\meshdata\Transform.h">
       <Filter>src\main\renderer\data</Filter>
     </ClInclude>
     <ClInclude Include="src\main\renderer\data\Vertex.h">
       <Filter>src\main\renderer\data</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\renderer\GraphicsContext.h">
+    <ClInclude Include="src\main\renderer\renderer\apistuff\GraphicsContext.h">
       <Filter>src\main\renderer\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\renderer\Renderer.h">
+    <ClInclude Include="src\main\renderer\renderer\main\Renderer.h">
       <Filter>src\main\renderer\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\renderer\RendererApi.h">
+    <ClInclude Include="src\main\renderer\renderer\apistuff\RendererApi.h">
       <Filter>src\main\renderer\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\renderer\RendererContent.h">
+    <ClInclude Include="src\main\renderer\renderer\main\RendererContent.h">
       <Filter>src\main\renderer\renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\main\renderer\renderer\Texture.h">
@@ -198,7 +198,7 @@
     <ClInclude Include="src\main\renderer\shaders\Shader.h">
       <Filter>src\main\renderer\shaders</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\specialincludes.h">
+    <ClInclude Include="src\main\corefiles\specialincludes.h">
       <Filter>src\main</Filter>
     </ClInclude>
     <ClInclude Include="src\main\window\window.h">
@@ -1466,16 +1466,16 @@
     <ClCompile Include="src\main\events\EventCaller.cpp">
       <Filter>src\main\events</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\layer\ImGuiBuild.cpp">
+    <ClCompile Include="src\main\layer\imgui\ImGuiBuild.cpp">
       <Filter>src\main\layer</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\layer\ImGuiLayer.cpp">
+    <ClCompile Include="src\main\layer\imgui\ImGuiLayer.cpp">
       <Filter>src\main\layer</Filter>
     </ClCompile>
     <ClCompile Include="src\main\layer\Layer.cpp">
       <Filter>src\main\layer</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\layer\LayerStack.cpp">
+    <ClCompile Include="src\main\layer\stack\LayerStack.cpp">
       <Filter>src\main\layer</Filter>
     </ClCompile>
     <ClCompile Include="src\main\logging\Log.cpp">
@@ -1511,19 +1511,19 @@
     <ClCompile Include="src\main\renderer\buffers\VertexArray.cpp">
       <Filter>src\main\renderer\buffers</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\renderer\data\Camera.cpp">
+    <ClCompile Include="src\main\renderer\data\camera\Camera.cpp">
       <Filter>src\main\renderer\data</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\renderer\data\CameraController.cpp">
+    <ClCompile Include="src\main\renderer\data\camera\CameraController.cpp">
       <Filter>src\main\renderer\data</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\renderer\renderer\Renderer.cpp">
+    <ClCompile Include="src\main\renderer\renderer\main\Renderer.cpp">
       <Filter>src\main\renderer\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\renderer\renderer\RendererApi.cpp">
+    <ClCompile Include="src\main\renderer\renderer\apistuff\RendererApi.cpp">
       <Filter>src\main\renderer\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\renderer\renderer\RendererContent.cpp">
+    <ClCompile Include="src\main\renderer\renderer\main\RendererContent.cpp">
       <Filter>src\main\renderer\renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\main\renderer\renderer\Texture.cpp">

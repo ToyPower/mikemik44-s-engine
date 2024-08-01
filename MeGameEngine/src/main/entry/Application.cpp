@@ -1,7 +1,7 @@
 #include "hzpch.h"
 #include "Application.h"
 #include <glfw/glfw3.h>
-#include "main/renderer/renderer/Renderer.h"
+#include "main/renderer/renderer/main/Renderer.h"
 namespace ME {
 #define FE_BIND(x) std::bind(&Application::x, this, std::placeholders::_1)
 	Application* Application::s_instance = nullptr;

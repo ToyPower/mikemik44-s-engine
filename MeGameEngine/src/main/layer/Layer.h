@@ -1,7 +1,7 @@
 #pragma once
-#include "../specialincludes.h"
+#include <hzpch.h>
 #include "../events/Event.h"
-#include "main/dateentry/TimeStep.h"
+#include "main/dataentry/TimeStep.h"
 namespace ME {
 
 	class ME_API Layer {

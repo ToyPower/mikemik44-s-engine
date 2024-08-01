@@ -1,11 +1,10 @@
 #pragma once
 #include "hzpch.h"
-#include "main/layer/ImGuiLayer.h"
-#include "../macro.h"
-#include "../layer/Layer.h"
-#include "../layer/LayerStack.h"
-#include "../platform/windows/WindowsWindow.h"
-#include "main/dateentry/TimeStep.h"
+#include "main/layer/imgui/ImGuiLayer.h"
+#include "main/layer/Layer.h"
+#include "main/layer/stack/LayerStack.h"
+#include "main/platform/windows/WindowsWindow.h"
+#include "main/dataentry/TimeStep.h"
 namespace ME {
 	
 	class ME_API Application
