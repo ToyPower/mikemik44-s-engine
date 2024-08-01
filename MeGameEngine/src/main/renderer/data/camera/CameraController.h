@@ -26,7 +26,7 @@ namespace ME {
 		bool onMouseScrolled(Events& e);
 		bool onWindowResized(Events& e);
 	private:
-		float zoom = 1;
+		float zoom1 = 1;
 		Ref<Camera> cam;
 		bool is2D;
 		float camSpeed = 1;

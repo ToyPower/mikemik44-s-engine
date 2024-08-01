@@ -44,15 +44,15 @@ namespace ME {
 		virtual void setNear(float near1) { this->near1 = near1; updatePerspective(); }
 		virtual void setFar(float far1) { this->far1 = far1; updatePerspective(); }
 		void updatePerspective() {
-			m_projection = glm::perspectiveFov(glm::radians(fov), m_width, m_height, near1, far1);
+			m_projection = glm::perspectiveFov(glm::radians(fov*zoom1), m_width, m_height, near1, far1);
 			fin = m_projection * view;
 		}
 		virtual void zoom(float zoomValue) override {
-			this->fov = std::min(150.0f, std::max(this->fov - zoomValue,10.0f));
+			this->zoom1 = std::clamp(this->fov - zoomValue,0.15f, 10.0f);
 			updatePerspective();
 		}
 		virtual void setZoom(float zoomValue) override {
-			this->fov = std::min(150.0f, std::max(zoomValue, 10.0f));
+			this->zoom1 = std::clamp(zoomValue, 0.15f, 10.0f);
 			updatePerspective();
 		}
 		virtual void setPosition(const glm::vec3& pos)  override { this->pos = pos; updateData();
@@ -87,7 +87,7 @@ namespace ME {
 		glm::vec3 forward = { 0,-1,0 }, left = { 1,0,0 },	right = { -1,0,0 }, backward = { 0,1,0 }, up = { 0,-1,0 }, down = { 0,1,0 };
 		glm::vec3 pos = { 0,0,0 };
 		glm::vec3 rot = { 0, 0, 0 };
-		float fov = 40.0f, near1 = 0.1f, far1 = 100.0f;
+		float fov = 40.0f, near1 = 0.1f, far1 = 100.0f, zoom1 = 1.0f;
 		float m_width, m_height;
 	};
 
@@ -122,11 +122,12 @@ namespace ME {
 			fin = m_projection * view;
 		}
 		virtual void zoom(float zoomValue) override {
-			this->zoom1 = std::min(10.0f, std::max(0.15f, this->zoom1 - zoomValue));
+			this->zoom1 = std::clamp(this->zoom1 - zoomValue, 0.15f, 10.0f);
 			updatePerspective();
 		}
 		virtual void setZoom(float zoomValue) override {
-			this->zoom1 = std::min(10.0f, std::max(0.15f, zoomValue));;
+			this->zoom1 = std::clamp(zoomValue, 0.15f, 10.0f);
+			
 			updatePerspective();
 		}
 		virtual void onResize(float width, float height) override {

@@ -21,15 +21,13 @@ namespace ME {
 	}
 
 	bool CameraController::onMouseScrolled(Events& e) {
-		zoom -= (float)std::any_cast<double>(e.getParam("yoff")) * 0.25f;
-		zoom = std::max(0.15f, std::min(10.0f, zoom));
-		if (is2D) {
-			cam->setZoom(zoom);
-		}
-		else {
-			cam->setZoom(90 * zoom);
-		}
-		camSpeed = zoom;
+		zoom1 -= (float)std::any_cast<double>(e.getParam("yoff")) * 0.25f;
+	
+		zoom1 = std::clamp(zoom1, 0.15f, 10.0f);
+	
+		cam->setZoom(zoom1);
+	
+		camSpeed = zoom1;
 		return true;
 	}
 

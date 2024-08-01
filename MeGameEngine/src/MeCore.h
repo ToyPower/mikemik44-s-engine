@@ -1,7 +1,6 @@
 #pragma once
 #include "main/entry/Application.h"
 #include "main/layer/Layer.h"
-#include "main/entry/Entry.h"
 #include "main/corefiles/specialincludes.h"
 #include "main/input/Input.h"
 #include "main/dataentry/KeyCodes.h"
@@ -22,3 +21,6 @@
 
 
 #include "main/events/EventCaller.h"
+
+
+#define mptr glm::value_ptr
