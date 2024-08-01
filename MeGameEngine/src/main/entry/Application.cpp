@@ -13,9 +13,11 @@ namespace ME {
 				float time = (float)glfwGetTime();
 				TimeStep timestep = time - m_lastFrame;
 				m_lastFrame = time;
-				for (auto layer : m_st) {
-					layer->onUpdate(timestep);
-					layer->onRender();
+				if (!m_window->isMinized()) {
+					for (auto layer : m_st) {
+						layer->onUpdate(timestep);
+						layer->onRender();
+					}
 				}
 				m_imguilayer->begin();
 				for (auto layer : m_st) {
@@ -40,11 +42,13 @@ namespace ME {
 	}
 
 	bool Application::onEvent(Events& ee) {
-		
+		if (m_window->isMinized()) {
+			return true;
+		}
 		if (strcmp(ee.name(), "windowShutdown") == 0) {
 			bool suc = true;
 			for (auto it = m_st.end(); it != m_st.begin();) {
-
+				
 				if (!(*--it)->onEvent(ee)) {
 					suc = false;
 				}

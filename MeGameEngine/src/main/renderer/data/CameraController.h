@@ -19,15 +19,20 @@ namespace ME {
 		void enableRotation() { this->doRotation = true; }
 		void enableYMovement() { this->allowYMovement = true; }
 		void disableYMovement() { this->allowYMovement = false; }
-		
+		void setMovementSpeed(float speed) { this->movementSpeed = speed; }
+		void setRotationSpeed(float speed) { this->rotationSpeed = speed; }
 		void update(TimeStep& timeStep);
 
 		bool onEvent(Events& e);
 		bool onMouseScrolled(Events& e);
 		bool onWindowResized(Events& e);
 	private:
+		float zoom = 1;
 		Ref<Camera> cam;
 		bool is2D;
+		float camSpeed = 1;
+		float movementSpeed = 64;
+		float rotationSpeed = 180;
 		bool allowYMovement;
 		bool doRotation;
 	};

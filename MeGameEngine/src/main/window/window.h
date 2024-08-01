@@ -21,7 +21,7 @@ namespace ME {
 		
 		virtual unsigned int getWidth() const = 0;
 		virtual unsigned int getHeight() const = 0;
-
+		virtual bool isMinized() = 0;
 		virtual void assignEvents() = 0;
 		virtual void setVSync(bool enabled) = 0;
 		virtual bool isVSync() const = 0;

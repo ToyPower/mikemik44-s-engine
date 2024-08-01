@@ -33,7 +33,7 @@ public:
 	ME::Ref<ME::Shader> shader;
 	std::vector<ME::Mesh> grid;
 	ME::ShaderLibrary lib;
-	ExampleLayer() : Layer("ExampleLayer"), cam(ME::Ref<ME::CameraController>(new ME::CameraController(new ME::PerspectiveCamera(90.0f, ME::Application::getInstance().getWindow().getWidth(), ME::Application::getInstance().getWindow().getHeight(), 0.001)))) {
+	ExampleLayer() : Layer("ExampleLayer"), cam(ME::Ref<ME::CameraController>(new ME::CameraController(new ME::PerspectiveCamera(90.0, ME::Application::getInstance().getWindow().getWidth(),  ME::Application::getInstance().getWindow().getHeight())))) {
 		mat->tex = ME::Texture2D::create("assets/textures/ChernoLogo.png");
 		mat2->tex = ME::Texture2D::create("assets/textures/test.png");
 		mat2->albeto.g = 0;
@@ -61,8 +61,8 @@ public:
 				m2.addSquare(5, 6, 2, 1);
 				m2.addSquare(0, 3, 7, 4);
 				
-				m2.getTransform().setScale({ 0.1,0.1,0.1 });
-				m2.getTransform().setPos({ i * 0.11f,0,(1-j) * -0.111f });
+				//m2.getTransform().setScale({ 0.1,0.1,0.1 });
+				m2.getTransform().setPos({ i * 0.11f,0,(1-j) * -1.1f });
 				if (j == 1) {
 					m2.setMaterial(mat);
 				}

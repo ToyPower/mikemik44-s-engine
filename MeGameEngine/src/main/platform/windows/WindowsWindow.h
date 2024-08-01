@@ -22,9 +22,10 @@ namespace ME {
 
 		void setVSync(bool enabled) override;
 		bool isVSync() const override;
-		
+		virtual bool isMinized() { return minimized; }
 		inline virtual void* Window::getNativeWindow() const  { return m_window; }
 	private:
+		bool minimized = false;
 		virtual void init(const WindowProps& props);
 		virtual void shutdown();
 	private:

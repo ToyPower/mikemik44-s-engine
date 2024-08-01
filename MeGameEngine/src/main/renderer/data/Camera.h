@@ -1,5 +1,7 @@
 #pragma once
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <math.h>
 namespace ME {
 	class Camera {
 	public:
@@ -20,6 +22,8 @@ namespace ME {
 		virtual glm::vec3 getPosition() = 0;
 		virtual void onResize(float width, float height) = 0;
 		virtual glm::vec3 getRotation() = 0;
+		virtual void zoom(float zoomValue) = 0;
+		virtual void setZoom(float zoomValue) = 0;
 	};
 
 	class PerspectiveCamera : public Camera {
@@ -36,17 +40,40 @@ namespace ME {
 		virtual const glm::vec3 getDown() const override { return down; }
 		virtual const glm::vec3 getLeft() const override { return right; }
 		virtual const glm::vec3 getRight() const override { return left; }
-		
+		virtual void setFov(float fov) { this->fov = fov; updatePerspective(); }
+		virtual void setNear(float near1) { this->near1 = near1; updatePerspective(); }
+		virtual void setFar(float far1) { this->far1 = far1; updatePerspective(); }
+		void updatePerspective() {
+			m_projection = glm::perspectiveFov(glm::radians(fov), m_width, m_height, near1, far1);
+			fin = m_projection * view;
+		}
+		virtual void zoom(float zoomValue) override {
+			this->fov = std::min(150.0f, std::max(this->fov - zoomValue,10.0f));
+			updatePerspective();
+		}
+		virtual void setZoom(float zoomValue) override {
+			this->fov = std::min(150.0f, std::max(zoomValue, 10.0f));
+			updatePerspective();
+		}
 		virtual void setPosition(const glm::vec3& pos)  override { this->pos = pos; updateData();
 		}
-		virtual void setRotation(glm::vec3 rot)  override { this->rot = rot; updateData();
+		virtual void setRotation(glm::vec3 rot)  override { this->rot = rot; updateData(); checkRot(this->rot);
 		}
 		virtual void move(const glm::vec3& movement, float amt = 1) override {
 			this->pos += movement * amt;
 			updateData();
 		}
+		void checkRot(glm::vec3& ref) {
+			if (ref.x >= 360) ref.x -= 360;
+			if (ref.y >= 360) ref.y -= 360;
+			if (ref.z >= 360) ref.z -= 360;
+			if (ref.x < 0) ref.x += 360;
+			if (ref.y < 0) ref.y += 360;
+			if (ref.z < 0) ref.z += 360;
+		}
 		virtual void rotate(const glm::vec3& angles, float amt = 1) override {
 			this->rot += (angles * amt);
+			checkRot(this->rot);
 			updateData();
 		}
 		virtual glm::vec3 getPosition() override {
@@ -67,8 +94,9 @@ namespace ME {
 	class OthrographicCamera : public Camera {
 
 	public:
-		OthrographicCamera(float left = -1.0f, float right = 1.0f, float bottom = -1.0f, float top = 1.0f);
-		virtual void onResize(float width, float height) override {}
+		OthrographicCamera(float aspect);
+		OthrographicCamera(float width, float height);
+		
 		virtual const glm::mat4 getProjection() const override { return m_projection; }
 		virtual const glm::mat4 getView() const  override { return view; }
 		virtual const glm::mat4 getViewProjection() const override { return fin; }
@@ -76,8 +104,8 @@ namespace ME {
 		virtual const glm::vec3 getBackward() const override { return backward; }
 		virtual const glm::vec3 getUp() const override { return up; }
 		virtual const glm::vec3 getDown() const override { return down; }
-		virtual const glm::vec3 getLeft() const override { return left; }
-		virtual const glm::vec3 getRight() const override { return right; }
+		virtual const glm::vec3 getLeft() const override { return right; }
+		virtual const glm::vec3 getRight() const override { return left; }
 		virtual void setPosition(const glm::vec3& pos)  override { this->pos = pos; updateData();}
 		virtual void setRotation(glm::vec3 rot)  override { this->rot = rot.z; updateData();}
 		virtual void move(const glm::vec3& movement, float amt = 1) override {
@@ -85,17 +113,36 @@ namespace ME {
 			updateData();
 		}
 		virtual void rotate(const glm::vec3& angles, float amt = 1) override {
-			this->rot = angles.z * amt;
+			this->rot += amt * angles.z;
+		
 			updateData();
+		}
+		void updatePerspective() {
+			m_projection = glm::ortho(-aspect * zoom1, aspect * zoom1, zoom1, -zoom1);
+			fin = m_projection * view;
+		}
+		virtual void zoom(float zoomValue) override {
+			this->zoom1 = std::min(10.0f, std::max(0.15f, this->zoom1 - zoomValue));
+			updatePerspective();
+		}
+		virtual void setZoom(float zoomValue) override {
+			this->zoom1 = std::min(10.0f, std::max(0.15f, zoomValue));;
+			updatePerspective();
+		}
+		virtual void onResize(float width, float height) override {
+			aspect = width / height;
+			updatePerspective();
 		}
 		virtual glm::vec3 getPosition() override { return pos; }
 		virtual glm::vec3 getRotation() override { return glm::vec3(0, 0, rot);  }
 		void updateData();
-	private: 
+	private:
+		float aspect = 1;
 		glm::mat4 m_projection, view, fin;
 		glm::vec3 forward = { 0,-1,0 }, left = { 1,0,0 }, right = { -1,0,0 }, backward = { 0,1,0 }, up = { 0,-1,0 }, down = { 0,1,0 };
 		glm::vec3 pos = { 0,0,0 };
 		float rot = 0.0f;
+		float zoom1 = 0;
 		
 	};
 

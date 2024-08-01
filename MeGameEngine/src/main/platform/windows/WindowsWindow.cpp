@@ -25,7 +25,7 @@ namespace ME {
 	WindowsWindow::~WindowsWindow() {
 		shutdown();
 	}
-
+	static WindowsWindow* inst;
 	void WindowsWindow::init(const WindowProps& props) {
 	
 		m_data.title = props.title;
@@ -48,15 +48,26 @@ namespace ME {
 		
 		glfwSetWindowUserPointer(m_window, &m_data);
 		setVSync(true);
-
+		inst = this;
 		glfwSetWindowSizeCallback(m_window, [](GLFWwindow* win, int width, int height) {
-				Events& e1 = Events("windowResize");
-				e1.putParam("Window", win);
+			WindowsWindow* in1 = inst;
+			if (width == 0 || height == 0) {
+				in1->minimized = true;
+				return;
+			}
+			else {
+				in1->minimized = false;
+
+			}
+			Events& e1 = Events("windowResize");
+			
+			e1.putParam("Window", win);
 				e1.putParam("width", width);
 				e1.putParam("height", height);
 				WindowProps& props = *(WindowProps*)glfwGetWindowUserPointer(win);
 				e1.putParam("oldWidth", props.width);
 				e1.putParam("oldHeight", props.height);
+				ME_CORE_INFO("{0}, {1}", width, height);
 				if (!EventCaller::callEvent(e1)) {
 					glfwSetWindowSize(win, props.width, props.height);
 				}
@@ -72,6 +83,7 @@ namespace ME {
 			e1.putParam("window", win);
 			EventCaller::callEvent(e1);
 		});
+		
 		glfwSetCharCallback(m_window, [](GLFWwindow* window, unsigned int key) {
 			Events& e1 = Events("windowKeyTyped");
 			e1.putParam("window", window);
@@ -168,7 +180,7 @@ namespace ME {
 		if (m_window != nullptr) {
 			glfwPollEvents();
 		}
-		if (m_window != nullptr) {
+		if (m_window != nullptr && !minimized) {
 			m_context->swapBuffers();
 		}
 	}

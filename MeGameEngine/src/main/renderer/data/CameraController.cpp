@@ -1,6 +1,7 @@
 #include <hzpch.h>
 #include "CameraController.h"
 #include "main/Input.h"
+#include <math.h>
 #include "main/KeyCodes.h"
 namespace ME {
 
@@ -20,15 +21,23 @@ namespace ME {
 	}
 
 	bool CameraController::onMouseScrolled(Events& e) {
-
+		zoom -= (float)std::any_cast<double>(e.getParam("yoff")) * 0.25f;
+		zoom = std::max(0.15f, std::min(10.0f, zoom));
+		if (is2D) {
+			cam->setZoom(zoom);
+		}
+		else {
+			cam->setZoom(90 * zoom);
+		}
+		camSpeed = zoom;
 		return true;
 	}
 
 	void CameraController::update(TimeStep& step) {
 
 		float offset = 1;
-		float mov = step  * 8;
-		float rot = step * 180;
+		float mov = step  * movementSpeed * camSpeed;
+		float rot = step * rotationSpeed;
 		if (doRotation) {
 			if (ME::Input::isKeyPress(ME_KEY_E)) {
 				if (is2D) {
@@ -51,12 +60,20 @@ namespace ME {
 
 		
 		if (ME::Input::isKeyPress(ME_KEY_W)) {
-
-			cam->move(cam->getForward(), 0.1 * offset * mov);
-
+			if (is2D) {
+				cam->move(cam->getUp(), 0.1 * offset * mov);
+			}
+			else {
+				cam->move(cam->getForward(), 0.1 * offset * mov);
+			}
 		}
 		if (ME::Input::isKeyPress(ME_KEY_S)) {
-			cam->move(cam->getBackward(), 0.1 * offset * mov);
+			if (is2D) {
+				cam->move(cam->getDown(), 0.1 * offset * mov);
+			}
+			else {
+				cam->move(cam->getBackward(), 0.1 * offset * mov);
+			}
 		}
 		if (ME::Input::isKeyPress(ME_KEY_A)) {
 			cam->move(cam->getLeft(), 0.1 * offset * mov);
