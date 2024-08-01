@@ -33,7 +33,7 @@ public:
 	ME::Ref<ME::Shader> shader;
 	std::vector<ME::Mesh> grid;
 	ME::ShaderLibrary lib;
-	ExampleLayer() : Layer("ExampleLayer"), cam(ME::Ref<ME::CameraController>(new ME::CameraController(new ME::PerspectiveCamera(90.0, ME::Application::getInstance().getWindow().getWidth(),  ME::Application::getInstance().getWindow().getHeight())))) {
+	ExampleLayer() : Layer("ExampleLayer"), cam(ME::Ref<ME::CameraController>(new ME::CameraController(new ME::PerspectiveCamera(90.0, ME::Application::getInstance().getWidth(),  ME::Application::getInstance().getHeight())))) {
 		mat->tex = ME::Texture2D::create("assets/textures/ChernoLogo.png");
 		mat2->tex = ME::Texture2D::create("assets/textures/test.png");
 		mat2->albeto.g = 0;
