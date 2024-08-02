@@ -18,7 +18,7 @@
 #include "main/renderer/data/Vertex.h"
 #include "main/renderer/data/camera/CameraController.h"
 #include "main/renderer/renderer/Texture.h"
-
+#include "main/renderer/2D/Renderer2D.h"
 
 #include "main/events/EventCaller.h"
 

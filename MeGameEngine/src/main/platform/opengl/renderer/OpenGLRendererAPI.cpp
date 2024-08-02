@@ -11,11 +11,22 @@ namespace ME {
 	}
 
 	void OpenGLRendererAPI::init() {
-		
-		glEnable(GL_DEPTH_TEST);
+		if (depthEnable) {
+			glEnable(GL_DEPTH_TEST);
+		}
 		glDepthFunc(GL_LESS);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_BLEND);
+	}
+
+	void OpenGLRendererAPI::setDepthEnabled(const bool& state) {
+		this->depthEnable = state;
+		if (depthEnable) {
+			glEnable(GL_DEPTH_TEST);
+		}
+		else {
+			glDisable(GL_DEPTH_TEST);
+		}
 	}
 
 	void OpenGLRendererAPI::setClearColor(glm::vec4& color) {

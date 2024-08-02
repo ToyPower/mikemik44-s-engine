@@ -58,8 +58,16 @@ namespace ME {
 			this->pos += movement * amt;
 		}
 
+		void move(const glm::vec2 movement, float amt = 1) {
+			this->pos += glm::vec3(movement,0)* amt;
+		}
+
 		void setPos(const glm::vec3& pos) {
 			this->pos = pos;
+		}
+
+		void setPos(const glm::vec2& pos) {
+			this->pos = glm::vec3(pos,1);
 		}
 
 		void rotate(const glm::vec3& angles, float amt = 1) {
@@ -73,6 +81,9 @@ namespace ME {
 
 		void setScale(const glm::vec3& scale) {
 			this->scale = scale;
+		}
+		void setScale(const glm::vec2& scale) {
+			this->scale = glm::vec3(scale, 1);
 		}
 		bool match(glm::vec3 a, glm::vec3 b) {
 			return a.x == b.x && a.y == b.y && a.z == b.z;

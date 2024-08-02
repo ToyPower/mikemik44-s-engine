@@ -10,7 +10,14 @@ namespace ME {
 	
 	class Mesh {
 	public:
-	
+		void clear() {
+			vertices.clear();
+			indices.clear();
+			this->trans.setPos({ 0,0,0 });
+			this->trans.setRotation({ 0,0,0 });
+			this->trans.setScale({ 1,1,1 });
+			updated = true;
+		}
 		Mesh(Transform& trans = Transform(), Ref<Material> mat = Ref<Material>()) : trans(trans), mat(mat){
 			mat = (getMaterialFromBase("Base"));
 		}

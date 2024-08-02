@@ -31,7 +31,7 @@ public:
 
 	ME::Ref<ME::CameraController> cam;
 	ME::Ref<ME::Material> mat = ME::Ref<ME::Material>(new ME::Material({ {1,1,1,1} })), mat2 = ME::Ref<ME::Material>(new ME::Material({ {1,1,1,1} }));
-	std::vector<ME::Mesh> grid;
+	std::vector<ME::Ref<ME::Mesh>> grid;
 	ME::ShaderLibrary lib;
 
 	ExampleLayer() : Layer("ExampleLayer"), cam(ME::Ref<ME::CameraController>(new ME::CameraController(new ME::PerspectiveCamera(90.0, ME::Application::getInstance().getWidth(), ME::Application::getInstance().getHeight())))) {
@@ -42,33 +42,33 @@ public:
 		for (uint32_t i = 0; i < 1; i++) {
 
 			for (uint32_t j = 0; j < 2; j++) {
-				ME::Mesh m2 = ME::Mesh();
+				ME::Ref<ME::Mesh> m2 = ME::Ref<ME::Mesh>(new ME::Mesh());
 
-				m2.addVertex(create({ -0.5,-0.5f,0.0f }, { 1,1,1,1 }, { 0,0 }));
-				m2.addVertex(create({ -0.5,0.5f,0.0f }, { 1,1,1,1 }, { 0,1 }));
-				m2.addVertex(create({ 0.5,0.5f,0.0f }, { 1,1,1,1 }, { 1,1 }));
-				m2.addVertex(create({ 0.5,-0.5f,0.0f }, { 1,1,1,1 }, { 1,0 }));
+				m2->addVertex(create({ -0.5,-0.5f,0.0f }, { 1,1,1,1 }, { 0,0 }));
+				m2->addVertex(create({ -0.5,0.5f,0.0f }, { 1,1,1,1 }, { 0,1 }));
+				m2->addVertex(create({ 0.5,0.5f,0.0f }, { 1,1,1,1 }, { 1,1 }));
+				m2->addVertex(create({ 0.5,-0.5f,0.0f }, { 1,1,1,1 }, { 1,0 }));
 
-				m2.addVertex(create({ -0.5,-0.5f,-1.0f }, { 1,1,1,1 }, { 1,0 }));
-				m2.addVertex(create({ -0.5,0.5f,-1.0f }, { 1,1,1,1 }, { 1,1 }));
-				m2.addVertex(create({ 0.5,0.5f,-1.0f }, { 1,1,1,1 }, { 0,1 }));
-				m2.addVertex(create({ 0.5,-0.5f,-1.0f }, { 1,1,1,1 }, { 0,0 }));
+				m2->addVertex(create({ -0.5,-0.5f,-1.0f }, { 1,1,1,1 }, { 1,0 }));
+				m2->addVertex(create({ -0.5,0.5f,-1.0f }, { 1,1,1,1 }, { 1,1 }));
+				m2->addVertex(create({ 0.5,0.5f,-1.0f }, { 1,1,1,1 }, { 0,1 }));
+				m2->addVertex(create({ 0.5,-0.5f,-1.0f }, { 1,1,1,1 }, { 0,0 }));
 
 
-				m2.addSquare(7, 6, 5, 4);
-				m2.addSquare(4, 0, 1, 5);
-				m2.addSquare(3, 7, 6, 2);
-				m2.addSquare(0, 1, 2, 3);
-				m2.addSquare(5, 6, 2, 1);
-				m2.addSquare(0, 3, 7, 4);
+				m2->addSquare(7, 6, 5, 4);
+				m2->addSquare(4, 0, 1, 5);
+				m2->addSquare(3, 7, 6, 2);
+				m2->addSquare(0, 1, 2, 3);
+				m2->addSquare(5, 6, 2, 1);
+				m2->addSquare(0, 3, 7, 4);
 
 				//m2.getTransform().setScale({ 0.1,0.1,0.1 });
-				m2.getTransform().setPos({ i * 0.11f,0,(1 - j) * -1.1f });
+				m2->getTransform().setPos({ i * 0.11f,0,(1 - j) * -1.1f });
 				if (j == 1) {
-					m2.setMaterial(mat);
+					m2->setMaterial(mat);
 				}
 				else {
-					m2.setMaterial(mat2);
+					m2->setMaterial(mat2);
 				}
 				grid.push_back(m2);
 			}
@@ -82,7 +82,7 @@ public:
 	virtual void onGUIRender() override {
 
 		ImGui::Begin("Control");
-		ImGui::ColorEdit3("Color", (float*)&grid[0].getMaterial()->albeto, 0.01F);
+		ImGui::ColorEdit3("Color", (float*)&grid[0]->getMaterial()->albeto, 0.01F);
 
 		ImGui::End();
 
@@ -91,12 +91,12 @@ public:
 	void onUpdate(ME::TimeStep step) override {
 		cam->update(step);
 	}
-	float* calcW(std::vector<glm::vec3>& vertices, ME::Mesh& m2) {
+	float* calcW(std::vector<glm::vec3>& vertices, ME::Ref<ME::Mesh>& m2) {
 		float w = 0, x = 0, y = 0;
 
 		for (int i = 0; i < vertices.size(); i++) {
 			glm::vec4 v2 = glm::vec4(vertices[i].x, vertices[i].y, vertices[i].z, 1);
-			glm::vec4 v = (cam->getCamera()->getViewProjection() * m2.getTransform().getMeshMatrix()) * v2;
+			glm::vec4 v = (cam->getCamera()->getViewProjection() * m2->getTransform().getMeshMatrix()) * v2;
 
 			w += (float)floor(v.w * 100);
 			x += (float)floor(v.x * 100);
@@ -120,17 +120,17 @@ public:
 		R::beginScene(cam->getCamera());
 		std::vector<int> used;
 		for (int i = 0; i < grid.size(); i++) {
-			ME::Mesh m = grid[i];
-			float* w = calcW(m.getActPos(), m);
+			ME::Ref<ME::Mesh> m = grid[i];
+			float* w = calcW(m->getActPos(), m);
 			int id = i;
 			bool s = std::find(used.begin(), used.end(), id) != used.end();
 			for (int j = 0; j < grid.size(); j++) {
 
-				ME::Mesh m2 = grid[j];
+				ME::Ref<ME::Mesh> m2 = grid[j];
 
 				bool s = contains(used, id);
 				bool s2 = contains(used, j);
-				float* w2 = calcW(m2.getActPos(), m2);
+				float* w2 = calcW(m2->getActPos(), m2);
 
 				if (s) {
 

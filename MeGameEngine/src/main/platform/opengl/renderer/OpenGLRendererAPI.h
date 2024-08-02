@@ -10,6 +10,9 @@ namespace ME {
 		virtual void setClearColor(float r = 0, float g = 0, float b = 0, float a = 1.0f) override;
 		virtual void setClearColor(glm::vec4& color = glm::vec4(0,0,0,1)) override;
 		virtual void drawIndex(const Ref<VertexArray>& obj) override;
+		virtual void setDepthEnabled(const bool& state);
+	private:
+		bool depthEnable = true;
 	};
 
 }

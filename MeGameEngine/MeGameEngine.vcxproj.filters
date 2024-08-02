@@ -1455,6 +1455,7 @@
     <ClInclude Include="vendors\stb\STBImage.h">
       <Filter>vendors\stb</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\renderer\2D\Renderer2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\hzpch.cpp">
@@ -1535,5 +1536,6 @@
     <ClCompile Include="vendors\stb\STBImage.cpp">
       <Filter>vendors\stb</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\renderer\2D\Renderer2D.cpp" />
   </ItemGroup>
 </Project>

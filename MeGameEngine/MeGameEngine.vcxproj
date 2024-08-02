@@ -143,6 +143,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\main\renderer\2D\Renderer2D.h" />
     <ClInclude Include="src\MeCore.h" />
     <ClInclude Include="src\hzpch.h" />
     <ClInclude Include="src\main\input\Input.h" />
@@ -619,6 +620,7 @@
     <ClCompile Include="src\main\platform\opengl\texture\OpenGLTexture.cpp" />
     <ClCompile Include="src\main\platform\windows\WindowsInput.cpp" />
     <ClCompile Include="src\main\platform\windows\WindowsWindow.cpp" />
+    <ClCompile Include="src\main\renderer\2D\Renderer2D.cpp" />
     <ClCompile Include="src\main\renderer\buffers\Buffers.cpp" />
     <ClCompile Include="src\main\renderer\buffers\VertexArray.cpp" />
     <ClCompile Include="src\main\renderer\data\camera\Camera.cpp" />

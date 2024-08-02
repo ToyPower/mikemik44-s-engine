@@ -10,6 +10,11 @@ namespace ME {
 		inline static void init() {
 			s_api->init();
 		}
+
+		inline static void setDepthEnabled(const bool& state) {
+			s_api->setDepthEnabled(state);
+		}
+
 		inline static void drawIndex(const Ref<VertexArray>& arr) {
 			s_api->drawIndex(arr);
 		}
@@ -24,8 +29,9 @@ namespace ME {
 		inline static void setClearColor(glm::vec4& color = glm::vec4(0,0,0,1)) {
 			s_api->setClearColor(color);
 		}
+	
 	private:
 		static RendererAPI* s_api;
 	};
-
+	
 }
