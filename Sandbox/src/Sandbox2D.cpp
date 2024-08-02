@@ -23,14 +23,17 @@ void Sandbox2D::onRender() {
 	R::clear();
 	R::beginScene(cam->getCamera());
 	
-	R::drawQuad({ -1.0f, 0,-1 }, { 0.8f, 0.8f }, color);
-	R::drawQuad({ 0.5f, 0.5f }, { 0.5f, 0.75f }, tex);
+	R::drawQuad({ -1.0f, 0 }, { 0.8f, 0.8f }, color);
+	R::drawQuad({ 0.5f, 0.5f }, { 0.5f, 0.75f }, color2);
+	R::drawQuad({ 0, 0, 0.1 }, { 10, 10 }, tex, color3);
 	
 	R::endScene();
 }
 
 void Sandbox2D::onGUIRender() {
 	ImGui::Begin("Settings");
-	ImGui::ColorEdit4("Sphere color", glm::value_ptr(color));
+	ImGui::ColorEdit4("color 1", glm::value_ptr(color));
+	ImGui::ColorEdit4("color 2", glm::value_ptr(color2));
+	ImGui::ColorEdit4("color 3", glm::value_ptr(color3));
 	ImGui::End();
 }

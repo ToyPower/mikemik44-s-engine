@@ -25,7 +25,7 @@ public:
 	virtual void onGUIRender() override;
 private:
 	ME::Ref<ME::CameraController> cam;
-	glm::vec4 color = {1,0,0,1};
+	glm::vec4 color = { 1,0,0,1 }, color2 = { 0.2, 0.3, 0.8, 1 }, color3 = { 1,1,1,1 };
 	//TEMP
 	ME::Ref<ME::Texture> tex;
 	ME::Ref<ME::Shader> shader;

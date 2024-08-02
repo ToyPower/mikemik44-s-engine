@@ -24,7 +24,6 @@ namespace ME {
 			return;
 		}
 		
-		RendererContent::setDepthEnabled(false);
 		storage = new Renderer2DStorage();
 		storage->mesh = Ref<Mesh>(new Mesh());
 		storage->mesh->addVertex(Vertex({ -0.5f, -0.5f, 0.0f }));
