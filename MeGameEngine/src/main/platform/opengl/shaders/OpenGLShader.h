@@ -13,14 +13,14 @@ namespace ME {
 		virtual void bind() const override;
 		virtual void unbind() const override;
 		virtual const std::string& getName() { return m_name; }
-		void setUniformMat4(const std::string& name, const glm::mat4& m);
-		void setUniformMat3(const std::string& name, const glm::mat3& m);
-		void setUniformFloat(const std::string& name, const float m);
-		void setUniformVec2(const std::string& name, const glm::vec2& m);
-		void setUniformVec3(const std::string& name, const glm::vec3& m);
-		void setUniformVec4(const std::string& name, const glm::vec4& m);
-		void setUniformBool(const std::string& name, const bool m);
-		void setUniformInt(const std::string& name, const int m);
+		void setUniformMat4(const std::string& name, const glm::mat4& m) override;
+		void setUniformMat3(const std::string& name, const glm::mat3& m) override;
+		void setUniformFloat(const std::string& name, const float m) override;
+		void setUniformVec2(const std::string& name, const glm::vec2& m) override;
+		void setUniformVec3(const std::string& name, const glm::vec3& m) override;
+		void setUniformVec4(const std::string& name, const glm::vec4& m) override;
+		void setUniformBool(const std::string& name, const bool m) override;
+		void setUniformInt(const std::string& name, const int m) override;
 
 	private:
 		std::unordered_map<GLenum, std::string> preProcess(const std::string& source);

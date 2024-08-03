@@ -26,6 +26,9 @@ namespace ME {
 		glTextureParameteri(tex, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTextureParameteri(tex, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
+		glTextureParameteri(tex, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+		glTextureParameteri(tex, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+
 		glTextureSubImage2D(tex, 0, 0, 0, width, height, format2, GL_UNSIGNED_BYTE, data);
 
 		stbi_image_free(data);

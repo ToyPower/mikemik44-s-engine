@@ -201,7 +201,7 @@ namespace ME {
 	}
 	void OpenGLShader::setUniformBool(const std::string& name, const bool m) {
 		GLint loc = glGetUniformLocation(program, name.c_str());
-		glUniform1i (loc, m ? 1 : 0);
+		glUniform1i(loc, m ? 1 : 0);
 	}
 	void OpenGLShader::setUniformInt(const std::string& name, const int m) {
 		GLint loc = glGetUniformLocation(program, name.c_str());

@@ -15,8 +15,11 @@ namespace ME {
 		RendererContent::init();
 	}
 
-	void Renderer::submit(const Ref<Shader>& shader, const Ref<VertexArray>& obj, const glm::mat4& transform, const Ref<Material> mat) {
-		shader->bind();
+	void Renderer::submit(const Ref<Shader>& shader, const Ref<VertexArray>& obj, const glm::mat4& transform, const Ref<Material> mat, const bool& hasBindedAlready) {
+		if (!hasBindedAlready) {
+			shader->bind();
+		}
+		
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->setUniformInt("u_tex", 0);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->setUniformMat4("u_mesh", transform);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->setUniformMat4("u_proj", m_inform->proj);
@@ -25,7 +28,9 @@ namespace ME {
 		obj->bind();
 		RendererContent::drawIndex(obj);
 		obj->unbind();
-		shader->unbind();
+		if (!hasBindedAlready) {
+			shader->unbind();
+		}
 	}
 
 }

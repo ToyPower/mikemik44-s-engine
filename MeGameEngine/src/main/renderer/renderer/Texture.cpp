@@ -1,7 +1,7 @@
 #include <hzpch.h>
 #include "Texture.h"
 
-#include "main/renderer/renderer/Renderer.h";
+#include "main/renderer/renderer/main/Renderer.h";
 #include "main/platform/opengl/texture/OpenGLTexture.h"
 namespace ME {
 

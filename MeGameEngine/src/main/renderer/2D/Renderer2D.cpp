@@ -11,7 +11,6 @@ namespace ME {
 		Ref<Mesh> mesh;
 		Ref<Mesh> tex_mesh;
 		Ref<Shader> shader;
-		Ref<Shader> tex_shade;
 	};
 	static Renderer2DStorage* storage = nullptr;
 	
@@ -40,8 +39,7 @@ namespace ME {
 		storage->tex_mesh->addSquare(0, 1, 2, 3);
 
 
-		storage->shader = Shader::create("assets/shaders/color_shader.shader");
-		storage->tex_shade = Shader::create("assets/shaders/data.shader");
+		storage->shader = Shader::create("assets/shaders/data.shader");
 		
 	}
 
@@ -73,8 +71,11 @@ namespace ME {
 		
 		storage->tex_mesh->getMaterial()->albeto = color;
 		storage->tex_mesh->getMaterial()->tex = texture2D;
-
-		Renderer::submit(storage->tex_shade, storage->tex_mesh);
+		storage->shader->bind();
+		storage->shader->setUniformBool("u_hasTexture", true);
+		Renderer::submit(storage->shader, storage->tex_mesh, true);
+		storage->shader->setUniformBool("u_hasTexture", false);
+		storage->shader->unbind();
 
 	}
 
