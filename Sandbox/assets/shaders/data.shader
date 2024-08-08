@@ -18,13 +18,12 @@ void main() {
 #version 410 core
 in vec4 color;
 in vec2 v_texCoord;
-uniform int u_hasTexture;
+uniform float u_tileFactor = 1;
 uniform sampler2D u_tex;	
 void main() {
 	vec4 col = color;
-	if (u_hasTexture == 1) {
-		col *= texture(u_tex, v_texCoord);
-	}
+	col *= texture(u_tex, v_texCoord*u_tileFactor);
+	
 	if (col.a == 0) {
 		discard;
 	}

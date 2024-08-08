@@ -16,18 +16,29 @@ void Sandbox2D::onDetach() {
 }
 
 void Sandbox2D::onUpdate(ME::TimeStep step) {
+	this->tim.restart();
+	ME::Timer tim("update");
 	cam->update(step);
+	tim.stop(true);
 }
 
 void Sandbox2D::onRender() {
+	ME::Timer tim("Renderer");
 	R::clear();
 	R::beginScene(cam->getCamera());
 	
+	ME::Timer tim2("Rendering Time");
+	R::rotate(-45);
 	R::drawQuad({ -1.0f, 0 }, { 0.8f, 0.8f }, color);
+	R::setRotation(0);
 	R::drawQuad({ 0.5f, 0.5f }, { 0.5f, 0.75f }, color2);
-	R::drawQuad({ 0, 0, 0.1 }, { 10, 10 }, tex, color3);
 	
+	R::drawQuad({ 0, 0, 0.1 }, { 10, 10 }, tex, color3, 10);
+
 	R::endScene();
+	tim2.stop(true);
+	tim.stop(true);
+	this->tim.stop();
 }
 
 void Sandbox2D::onGUIRender() {
@@ -35,5 +46,12 @@ void Sandbox2D::onGUIRender() {
 	ImGui::ColorEdit4("color 1", glm::value_ptr(color));
 	ImGui::ColorEdit4("color 2", glm::value_ptr(color2));
 	ImGui::ColorEdit4("color 3", glm::value_ptr(color3));
+	for (ME::TimerResult tr : ME::TimerResult::allResults) {
+		char label[50] = {};
+		strcpy(label, tr.name);
+		strcat(label, " %.3fms");
+		ImGui::Text(label, tr.timer);
+	}
+	ME::TimerResult::clearTimerResult();
 	ImGui::End();
 }

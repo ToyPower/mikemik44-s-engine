@@ -1456,6 +1456,7 @@
       <Filter>vendors\stb</Filter>
     </ClInclude>
     <ClInclude Include="src\main\renderer\2D\Renderer2D.h" />
+    <ClInclude Include="src\main\dataentry\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\hzpch.cpp">
@@ -1537,5 +1538,6 @@
       <Filter>vendors\stb</Filter>
     </ClCompile>
     <ClCompile Include="src\main\renderer\2D\Renderer2D.cpp" />
+    <ClCompile Include="src\main\dataentry\Timer.cpp" />
   </ItemGroup>
 </Project>

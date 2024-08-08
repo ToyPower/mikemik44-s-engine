@@ -6,6 +6,7 @@
 #include <any>
 #include <vector>
 
+
 class Sandbox2D : public ME::Layer{
 
 public:
@@ -30,4 +31,5 @@ private:
 	ME::Ref<ME::Texture> tex;
 	ME::Ref<ME::Shader> shader;
 	std::vector<ME::Mesh> grid;
+	ME::Timer tim = ME::Timer("Overall");
 };

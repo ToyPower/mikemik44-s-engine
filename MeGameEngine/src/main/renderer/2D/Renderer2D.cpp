@@ -6,9 +6,11 @@ ME::Vertex create2(const glm::vec3& pos, const glm::vec2& texCoord) {
 	return v;
 }
 namespace ME {
+	float Renderer2D::rot = 0;
+	glm::vec3 Renderer2D::pos = glm::vec3(0,0,0);
 
+	Ref<Texture> Renderer2D::whiteTex = nullptr;
 	struct Renderer2DStorage {
-		Ref<Mesh> mesh;
 		Ref<Mesh> tex_mesh;
 		Ref<Shader> shader;
 	};
@@ -22,14 +24,10 @@ namespace ME {
 		if (storage != nullptr) {
 			return;
 		}
-		
+		whiteTex = Texture2D::create(1, 1);
+		uint32_t whiteTexData = 0xffffffff;
+		whiteTex->setPixels(&whiteTexData, sizeof(uint32_t));
 		storage = new Renderer2DStorage();
-		storage->mesh = Ref<Mesh>(new Mesh());
-		storage->mesh->addVertex(Vertex({ -0.5f, -0.5f, 0.0f }));
-		storage->mesh->addVertex(Vertex({ -0.5f, 0.5f, 0.0f }));
-		storage->mesh->addVertex(Vertex({ 0.5f, 0.5f, 0.0f }));
-		storage->mesh->addVertex(Vertex({ 0.5f, -0.5f, 0.0f }));
-		storage->mesh->addSquare(0, 1, 2, 3);
 
 		storage->tex_mesh = Ref<Mesh>(new Mesh());
 		storage->tex_mesh->addVertex(create2({ -0.5f, -0.5f, 0.0f }, {0, 1}));
@@ -37,7 +35,7 @@ namespace ME {
 		storage->tex_mesh->addVertex(create2({ 0.5f, 0.5f, 0.0f }, {1,0}));
 		storage->tex_mesh->addVertex(create2({ 0.5f, -0.5f, 0.0f }, {1,1}));
 		storage->tex_mesh->addSquare(0, 1, 2, 3);
-
+		storage->tex_mesh->getMaterial()->tex = whiteTex;
 
 		storage->shader = Shader::create("assets/shaders/data.shader");
 		
@@ -53,30 +51,32 @@ namespace ME {
 	}
 
 	void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color) {
-		storage->mesh->getMaterial()->tex = nullptr;
-		storage->mesh->getTransform().setPos(position);
-		storage->mesh->getTransform().setScale(size);
-		storage->mesh->getMaterial()->albeto = color;
-		Renderer::submit(storage->shader, storage->mesh);
+		
+		storage->tex_mesh->getTransform().setPos(position+pos);
+		storage->tex_mesh->getTransform().setRotation(glm::vec3(0,0,rot));
+		storage->tex_mesh->getTransform().setScale(size);
+		storage->tex_mesh->getMaterial()->albeto = color;
+		Renderer::submit(storage->shader, storage->tex_mesh);
 
 	}
 
-	void Renderer2D::drawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture> texture2D, const glm::vec4& color) {
-		drawQuad(glm::vec3(position, 1), size, texture2D, color);
+	void Renderer2D::drawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture> texture2D, const glm::vec4& color, float tileFactor) {
+		drawQuad(glm::vec3(position, 1), size, texture2D, color, tileFactor);
 	}
 
-	void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture> texture2D, const glm::vec4& color) {
-		storage->tex_mesh->getTransform().setPos(position);
+	void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture> texture2D, const glm::vec4& color, float tileFactor) {
+		storage->tex_mesh->getTransform().setPos(position + pos);
+		storage->tex_mesh->getTransform().setRotation(glm::vec3(0, 0, rot));
 		storage->tex_mesh->getTransform().setScale(size);
 		
 		storage->tex_mesh->getMaterial()->albeto = color;
 		storage->tex_mesh->getMaterial()->tex = texture2D;
 		storage->shader->bind();
-		storage->shader->setUniformBool("u_hasTexture", true);
+		storage->shader->setUniformFloat("u_tileFactor", tileFactor);
 		Renderer::submit(storage->shader, storage->tex_mesh, true);
-		storage->shader->setUniformBool("u_hasTexture", false);
 		storage->shader->unbind();
-
+		storage->tex_mesh->getMaterial()->tex = whiteTex;
+		
 	}
 
 

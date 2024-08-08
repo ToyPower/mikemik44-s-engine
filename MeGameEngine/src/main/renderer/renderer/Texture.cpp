@@ -17,5 +17,17 @@ namespace ME {
 		return nullptr;
 	}
 
+	Ref<Texture2D> Texture2D::create(const int& width, const int& height) {
+		switch (Renderer::getAPI()) {
+		case RendererAPI::API::none:
+			ME_CORE_ASSORT(false, "Render API None is not supported!");
+			return nullptr;
+		case RendererAPI::API::opengl:
+			return std::make_shared<OpenGLTexture>(width,height);
+		}
+		ME_CORE_ASSORT(false, "Unknown Render API");
+		return nullptr;
+	}
+
 }
 
