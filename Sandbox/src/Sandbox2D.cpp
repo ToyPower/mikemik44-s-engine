@@ -29,11 +29,11 @@ void Sandbox2D::onRender() {
 	
 	ME::Timer tim2("Rendering Time");
 	R::rotate(-45);
-	R::drawQuad({ -1.0f, 0 }, { 0.8f, 0.8f }, color);
+	R::drawQuadCentered({ -1.0f, 0, 1 }, { 0.8f, 0.8f }, color);
 	R::setRotation(0);
-	R::drawQuad({ 0.5f, 0.5f }, { 0.5f, 0.75f }, color2);
+	R::drawQuadCentered({ 0.5f, 0.5f, 1 }, { 0.5f, 0.75f }, color2);
 	
-	R::drawQuad({ 0, 0, 0.1 }, { 10, 10 }, tex, color3, 10);
+	R::drawQuadCentered({ 0, 0, 0.1 }, { 10, 10 }, tex, color3, 10);
 
 	R::endScene();
 	tim2.stop(true);
