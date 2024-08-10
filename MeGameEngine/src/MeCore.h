@@ -22,5 +22,7 @@
 
 #include "main/events/EventCaller.h"
 #include "main/dataentry/Timer.h"
+#include "main/dataentry/Randoms.h"
+#include "main/dataentry/RandomUtil.h"
 
 #define mptr glm::value_ptr

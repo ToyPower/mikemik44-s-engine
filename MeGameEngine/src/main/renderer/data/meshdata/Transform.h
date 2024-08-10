@@ -119,7 +119,7 @@ namespace ME {
 				fin = translate * ro;
 			}
 			else if(alt) {
-				fin = translate * ro;
+				fin = translate * scalar;
 			}
 			
 			return fin;

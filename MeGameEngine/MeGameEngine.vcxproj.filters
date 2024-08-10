@@ -1457,6 +1457,8 @@
     </ClInclude>
     <ClInclude Include="src\main\renderer\2D\Renderer2D.h" />
     <ClInclude Include="src\main\dataentry\Timer.h" />
+    <ClInclude Include="src\main\dataentry\Randoms.h" />
+    <ClInclude Include="src\main\dataentry\RandomUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\hzpch.cpp">
@@ -1539,5 +1541,7 @@
     </ClCompile>
     <ClCompile Include="src\main\renderer\2D\Renderer2D.cpp" />
     <ClCompile Include="src\main\dataentry\Timer.cpp" />
+    <ClCompile Include="src\main\dataentry\Randoms.cpp" />
+    <ClCompile Include="src\main\dataentry\RandomUtil.cpp" />
   </ItemGroup>
 </Project>

@@ -143,6 +143,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\main\dataentry\Randoms.h" />
+    <ClInclude Include="src\main\dataentry\RandomUtil.h" />
     <ClInclude Include="src\main\renderer\2D\Renderer2D.h" />
     <ClInclude Include="src\main\dataentry\Timer.h" />
     <ClInclude Include="src\MeCore.h" />
@@ -606,6 +608,8 @@
     <ClCompile Include="src\hzpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\main\dataentry\Randoms.cpp" />
+    <ClCompile Include="src\main\dataentry\RandomUtil.cpp" />
     <ClCompile Include="src\main\dataentry\Timer.cpp" />
     <ClCompile Include="src\main\entry\Application.cpp" />
     <ClCompile Include="src\main\events\EventCaller.cpp" />

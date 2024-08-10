@@ -7,13 +7,16 @@
 #include "main/entry/Entry.h"
 //#include "Sandbox.h"
 #include "Sandbox2D.h"
+ #include "Flappy.h"
 
 class Sandbox : public ME::Application {
 public:
 	
 	Sandbox() {
+		
 		//pushLayer(new ExampleLayer());
-		pushLayer(new Sandbox2D());
+		//pushLayer(new Sandbox2D());
+		pushLayer(new Flappy());
 	}
 	~Sandbox() {
 

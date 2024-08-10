@@ -22,9 +22,11 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Sandbox2D.cpp" />
+    <ClCompile Include="src\Flappy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Sandbox2D.h" />
     <ClInclude Include="src\Sandbox.h" />
+    <ClInclude Include="src\Flappy.h" />
   </ItemGroup>
 </Project>

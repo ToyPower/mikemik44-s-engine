@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Flappy.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Sandbox2D.cpp" />
   </ItemGroup>
@@ -143,6 +144,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Flappy.h" />
     <ClInclude Include="src\Sandbox.h" />
     <ClInclude Include="src\Sandbox2D.h" />
   </ItemGroup>
