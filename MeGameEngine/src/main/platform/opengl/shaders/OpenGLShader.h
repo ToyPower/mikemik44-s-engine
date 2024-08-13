@@ -13,6 +13,7 @@ namespace ME {
 		virtual void bind() const override;
 		virtual void unbind() const override;
 		virtual const std::string& getName() { return m_name; }
+		virtual void setUnfiromIntArray(const std::string& name, int* values, uint32_t size) override;
 		void setUniformMat4(const std::string& name, const glm::mat4& m) override;
 		void setUniformMat3(const std::string& name, const glm::mat3& m) override;
 		void setUniformFloat(const std::string& name, const float m) override;

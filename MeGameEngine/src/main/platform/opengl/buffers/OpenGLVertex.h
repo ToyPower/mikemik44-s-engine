@@ -7,19 +7,21 @@ namespace ME {
 	class OpenGLVertexBuffer : public VertexBuffer {
 
 	public:
+		OpenGLVertexBuffer(uint32_t size);
 		OpenGLVertexBuffer(float* vertices, uint32_t size);
+
 		virtual ~OpenGLVertexBuffer() override;
 	
 		void bind() override;
 		void unbind() override;
+		virtual void setData(const void* data, uint32_t size) override;
 		virtual const void setLayout(BufferLayout& layout) override { 
 			m_layout = layout;
-			
 		}
 		virtual const BufferLayout& getLayout() const override { return m_layout; }
 	private:
 		
-		uint32_t vertexBuffer, va;
+		uint32_t vertexBuffer;
 		BufferLayout m_layout;
 	};
 

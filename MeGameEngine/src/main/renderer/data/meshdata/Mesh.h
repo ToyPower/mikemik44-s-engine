@@ -94,11 +94,11 @@ namespace ME {
 			if (updated) {
 				updated = false;
 
-				Ref<VertexBuffer> buf = Ref<VertexBuffer>(VertexBuffer::create(vertices.data(), vertices.size() * sizeof(vertices.data())));
+				Ref<VertexBuffer> buf = VertexBuffer::create(vertices.data(), vertices.size() * sizeof(vertices.data()));
 				buf->setLayout(tmp);
-				res.reset(VertexArray::create());
+				res = VertexArray::create();
 				res->addVertexBuffer(buf);
-				res->setIndexBuffer(Ref<IndexBuffer>(IndexBuffer::create(indices.data(), indices.size())));
+				res->setIndexBuffer(IndexBuffer::create(indices.data(), indices.size()));
 			}
 			return res;
 		}

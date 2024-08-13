@@ -7,6 +7,7 @@ namespace ME {
 	class VertexArray {
 
 	public:
+		VertexArray() {}
 		virtual ~VertexArray() {}
 		virtual void bind() = 0;
 		virtual void unbind() = 0;
@@ -15,7 +16,7 @@ namespace ME {
 		
 		virtual const std::vector<Ref<VertexBuffer>>& getVertexBuffers() const = 0;
 		virtual const Ref<IndexBuffer>& getIndexBuffer() const = 0;
-		static VertexArray* create();
+		static Ref<VertexArray> create();
 	};
 
 }

@@ -78,13 +78,13 @@ namespace ME {
 		backward *= -1;
 	}
 
-	OthrographicCamera::OthrographicCamera(float aspect) : zoom1(1.0f), aspect(aspect), m_projection(glm::ortho(-aspect, aspect, 1.0f, -1.0f)) {
+	OthrographicCamera::OthrographicCamera(float aspect) : zoom1(1.0f), aspect(aspect), m_projection(glm::ortho(-aspect, aspect, -1.0f, 1.0f)) {
 		view = glm::mat4(1.0f);
 		fin = m_projection * view;
 
 	}
 
-	OthrographicCamera::OthrographicCamera(float width, float height) : zoom1(1.0f), aspect(width/height), m_projection(glm::ortho(-width/height, width/height, 1.0f, -1.0f)) {
+	OthrographicCamera::OthrographicCamera(float width, float height) : zoom1(1.0f), aspect(width/height), m_projection(glm::ortho(-width/height, width/height, -1.0f, 1.0f)) {
 		view = glm::mat4(1.0f);
 		fin = m_projection * view;
 

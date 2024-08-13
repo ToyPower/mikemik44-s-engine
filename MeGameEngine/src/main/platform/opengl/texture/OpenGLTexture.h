@@ -11,6 +11,7 @@ namespace ME {
 		virtual ~OpenGLTexture() override;
 		virtual uint32_t getWidth() override { return width; }
 		virtual uint32_t getHeight() override { return height; }
+		virtual bool operator==(const Texture& other) const override { return tex == ((OpenGLTexture&)other).tex; }
 		virtual void bind(uint32_t slot = 0) override;
 		virtual void unbind(uint32_t slot = 0) override;
 	private:

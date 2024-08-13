@@ -7,7 +7,7 @@ namespace ME {
 	struct Material {
 		
 		glm::vec4 albeto = glm::vec4(1,1,1,1);
-		Ref<Texture> tex;
+		Ref<Texture> tex = nullptr;
 
 	};
 	

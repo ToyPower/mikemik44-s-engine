@@ -9,9 +9,9 @@ namespace ME {
 
 	public:
 		
-
-		static void beginScene(Ref<Camera> cam) { Renderer::beginScene(cam); };
-		static void endScene() { Renderer::endScene(); }
+		static void flush();
+		static void beginScene(Ref<Camera> cam);
+		static void endScene();
 		static void clear(glm::vec4 color = glm::vec4(0, 0, 0,1)) { ME::RendererContent::setClearColor(color); ME::RendererContent::clear(); };
 		static void init();
 		static void shutdown();

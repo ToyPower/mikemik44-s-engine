@@ -100,10 +100,10 @@ namespace ME {
 		virtual const glm::mat4 getProjection() const override { return m_projection; }
 		virtual const glm::mat4 getView() const  override { return view; }
 		virtual const glm::mat4 getViewProjection() const override { return fin; }
-		virtual const glm::vec3 getForward() const override { return forward; }
-		virtual const glm::vec3 getBackward() const override { return backward; }
-		virtual const glm::vec3 getUp() const override { return up; }
-		virtual const glm::vec3 getDown() const override { return down; }
+		virtual const glm::vec3 getForward() const override { return backward; }
+		virtual const glm::vec3 getBackward() const override { return forward; }
+		virtual const glm::vec3 getUp() const override { return down; }
+		virtual const glm::vec3 getDown() const override { return up; }
 		virtual const glm::vec3 getLeft() const override { return right; }
 		virtual const glm::vec3 getRight() const override { return left; }
 		virtual void setPosition(const glm::vec3& pos)  override { this->pos = pos; updateData();}
@@ -118,7 +118,7 @@ namespace ME {
 			updateData();
 		}
 		void updatePerspective() {
-			m_projection = glm::ortho(-aspect * zoom1, aspect * zoom1, zoom1, -zoom1);
+			m_projection = glm::ortho(-aspect * zoom1, aspect * zoom1, -zoom1, zoom1);
 			fin = m_projection * view;
 		}
 		virtual void zoom(float zoomValue) override {

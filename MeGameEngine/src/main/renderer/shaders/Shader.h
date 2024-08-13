@@ -11,6 +11,7 @@ namespace ME {
 		virtual void unbind() const = 0;
 		virtual const std::string& getName() = 0;
 		virtual void setUniformMat4(const std::string& name, const glm::mat4& m) = 0;
+		virtual void setUnfiromIntArray(const std::string& name, int* values, uint32_t size) = 0;
 		virtual void setUniformMat3(const std::string& name, const glm::mat3& m) = 0;
 		virtual void setUniformFloat(const std::string& name, const float m) = 0;
 		virtual void setUniformVec2(const std::string& name, const glm::vec2& m) = 0;

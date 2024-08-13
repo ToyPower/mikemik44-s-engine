@@ -15,8 +15,8 @@ namespace ME {
 			s_api->setDepthEnabled(state);
 		}
 
-		inline static void drawIndex(const Ref<VertexArray>& arr) {
-			s_api->drawIndex(arr);
+		inline static void drawIndex(const Ref<VertexArray>& arr, uint32_t indexCount = 0) {
+			s_api->drawIndex(arr, indexCount);
 		}
 		inline static void clear() {
 			s_api->clear();

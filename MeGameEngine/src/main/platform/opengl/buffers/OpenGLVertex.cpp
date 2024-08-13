@@ -4,10 +4,22 @@
 namespace ME {
 
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size) : m_layout(BufferLayout()) {
-		
+
 		glGenBuffers(1, &vertexBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void OpenGLVertexBuffer::setData(const void* data, uint32_t size) {
+		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+	}
+
+	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size) : m_layout(BufferLayout()) {
+		glGenBuffers(1, &vertexBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 

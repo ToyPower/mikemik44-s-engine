@@ -17,7 +17,7 @@ namespace ME {
 		virtual void clear() = 0;
 		virtual void setClearColor(float r = 0.0f, float g = 0.0f, float b = 0.0f, float a = 1.0f) = 0;
 		virtual void setClearColor(glm::vec4& clearColor  = glm::vec4(0,0,0,1)) = 0;
-		virtual void drawIndex(const Ref<VertexArray>& arr) = 0;
+		virtual void drawIndex(const Ref<VertexArray>& arr, uint32_t indexCount = 0) = 0;
 		virtual void setDepthEnabled(const bool& state) = 0;
 		inline static API getAPI() { return m_api; }
 	private:

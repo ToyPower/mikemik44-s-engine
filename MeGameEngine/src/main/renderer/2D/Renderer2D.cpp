@@ -1,5 +1,6 @@
 #include <hzpch.h>
 #include "Renderer2D.h"
+#include <main/platform/opengl/shaders/OpenGLShader.h>
 ME::Vertex create2(const glm::vec3& pos, const glm::vec2& texCoord) {
 	ME::Vertex v(pos);
 	v.putData("texCoord", texCoord);
@@ -9,50 +10,97 @@ namespace ME {
 	float Renderer2D::rot = 0;
 	glm::vec3 Renderer2D::pos = glm::vec3(0,0,0);
 
-	Ref<Texture> Renderer2D::whiteTex = nullptr;
-	struct Renderer2DStorage {
-		Ref<Mesh> tex_mesh, tex_mesh_center;
-		Ref<Shader> shader;
-	};
-	static Renderer2DStorage* storage = nullptr;
 	
+	struct QuadVertex {
+
+		glm::vec3 position;
+		glm::vec4 color;
+		glm::vec2 texCoord;
+		float texIndex;
+		float tileFactor = 1;
+
+	};
+	struct Render2DData {
+		const uint32_t maxQuads = 10000;
+		const uint32_t maxVert = maxQuads * 4;
+		const uint32_t maxInd = maxQuads * 6;
+		static const uint32_t maxTextures = 32;
+	
+		std::array<Ref<Texture>, maxTextures> texSlots;
+		uint32_t texSlotIndex = 1;
+		Ref<VertexArray> vertexArray;
+		Ref<VertexBuffer> vertexBuffer;
+		
+		Ref<Shader> shader;
+		uint32_t indexCount = 0;
+		QuadVertex* bufferBase = nullptr;
+		QuadVertex* bufferPointer = nullptr;
+	};
+	
+	static Render2DData qdata;
+	static bool hinit = false;
 	bool Renderer2D::hasInit() {
-		return storage == nullptr;
+		return hinit;
 	}
 
 	void Renderer2D::init() {
-		if (storage != nullptr) {
+		if (hinit) {
 			return;
 		}
-		whiteTex = Texture2D::create(1, 1);
+		qdata.vertexArray = VertexArray::create();
+
+		qdata.vertexBuffer = VertexBuffer::create(qdata.maxVert * sizeof(QuadVertex));
+		qdata.vertexBuffer->setLayout(BufferLayout({
+			{ShaderType::Vec3, "position"},
+			{ShaderType::Vec4, "colour"},
+			{ShaderType::Vec2, "texCoords"},
+			{ShaderType::Float, "texIndex"},
+			{ShaderType::Float, "tileFactor"},
+			}));
+		qdata.vertexArray->addVertexBuffer(qdata.vertexBuffer);
+		
+		qdata.bufferBase = new QuadVertex[qdata.maxVert];
+
+		uint32_t* qind = new uint32_t[qdata.maxInd];
+		
+		uint32_t offset = 0;
+		for (uint32_t i = 0; i < qdata.maxInd; i += 6) {
+
+			qind[i + 0] = offset + 0;
+			qind[i + 1] = offset + 1;
+			qind[i + 2] = offset + 2;
+
+			qind[i + 3] = offset + 0;
+			qind[i + 4] = offset + 2;
+			qind[i + 5] = offset + 3;
+			
+
+			offset += 4;
+		}
+		Ref<IndexBuffer> indexBuffer = IndexBuffer::create(qind, qdata.maxInd);
+		qdata.vertexArray->setIndexBuffer(indexBuffer);
+		delete[] qind;
+		
+		hinit = true;
+		Ref<Texture2D> whiteTex = Texture2D::create(1, 1);
 		uint32_t whiteTexData = 0xffffffff;
 		whiteTex->setPixels(&whiteTexData, sizeof(uint32_t));
-		storage = new Renderer2DStorage();
-
-		storage->tex_mesh = Ref<Mesh>(new Mesh());
-		storage->tex_mesh->addVertex(create2({ 0.0f, 0.0f, 0.0f }, { 0, 1 }));
-		storage->tex_mesh->addVertex(create2({ 0.0f, 1.0f, 0.0f }, { 0,0 }));
-		storage->tex_mesh->addVertex(create2({ 1.0f, 1.0f, 0.0f }, { 1,0 }));
-		storage->tex_mesh->addVertex(create2({ 1.0f, 0.0f, 0.0f }, { 1,1 }));
-		storage->tex_mesh->addSquare(0, 1, 2, 3);
-		storage->tex_mesh->getMaterial()->tex = whiteTex;
-
-
-		storage->tex_mesh_center = Ref<Mesh>(new Mesh());
-		storage->tex_mesh_center->addVertex(create2({ -0.5f, -0.5f, 0.0f }, { 0, 1 }));
-		storage->tex_mesh_center->addVertex(create2({ -0.5f, 0.5f, 0.0f }, { 0,0 }));
-		storage->tex_mesh_center->addVertex(create2({ 0.5f, 0.5f, 0.0f }, { 1,0 }));
-		storage->tex_mesh_center->addVertex(create2({ 0.5f, -0.5f, 0.0f }, { 1,1 }));
-		storage->tex_mesh_center->addSquare(0, 1, 2, 3);
-		storage->tex_mesh_center->getMaterial()->tex = whiteTex;
-
-		storage->shader = Shader::create("assets/shaders/data.shader");
+		whiteTex->bind();
+		qdata.texSlots[0] = whiteTex;
+		qdata.texSlotIndex = 1;
+		qdata.shader = Shader::create("assets/shaders/data.shader");
 		
+		int32_t samplers[qdata.maxTextures ];
+		for (uint32_t i = 0; i < qdata.maxTextures; i++) {
+			samplers[i] = i;
+		}
+		qdata.shader->bind();
+		qdata.shader->setUnfiromIntArray("u_tex", samplers, qdata.maxTextures);
+
 	}
 
 	void Renderer2D::shutdown() {
-		delete storage;
-		storage = nullptr;
+		
 	}
 
 	void Renderer2D::drawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color) {
@@ -61,11 +109,30 @@ namespace ME {
 
 	void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color) {
 
-		storage->tex_mesh->getTransform().setPos(position + pos);
-		storage->tex_mesh->getTransform().setRotation(glm::vec3(0, 0, rot));
-		storage->tex_mesh->getTransform().setScale(size);
-		storage->tex_mesh->getMaterial()->albeto = color;
-		Renderer::submit(storage->shader, storage->tex_mesh);
+		qdata.bufferPointer->position = { position.x+pos.x,position.y+pos.y, position.z };
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 0,0 };
+		qdata.bufferPointer->texIndex = 0;
+		qdata.bufferPointer++;
+
+		qdata.bufferPointer->position = { position.x+pos.x, position.y+size.y+pos.y,position.z};
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 0,1 };
+		qdata.bufferPointer->texIndex = 0;
+		qdata.bufferPointer++;
+
+		qdata.bufferPointer->position = { position.x+size.x+pos.x, position.y+pos.y + size.y, position.z};
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 1,1 };
+		qdata.bufferPointer->texIndex = 0;
+		qdata.bufferPointer++;
+
+		qdata.bufferPointer->position = { position.x+size.x+pos.x, position.y+pos.y, position.z};
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 1,0 };
+		qdata.bufferPointer->texIndex = 0;
+		qdata.bufferPointer++;
+		qdata.indexCount+=6;
 
 	}
 
@@ -74,17 +141,48 @@ namespace ME {
 	}
 
 	void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture> texture2D, const glm::vec4& color, float tileFactor) {
-		storage->tex_mesh->getTransform().setPos(position + pos);
-		storage->tex_mesh->getTransform().setRotation(glm::vec3(0, 0, rot));
-		storage->tex_mesh->getTransform().setScale(size);
+		float ti = 0.0f;
+		
+		for (uint32_t ts = 1; ts < qdata.texSlotIndex; ts++) {
+			if (*qdata.texSlots[ts].get() == *texture2D.get()) {
+				ti = (float)ts;
+				break;
+			}
+		}
 
-		storage->tex_mesh->getMaterial()->albeto = color;
-		storage->tex_mesh->getMaterial()->tex = texture2D;
-		storage->shader->bind();
-		storage->shader->setUniformFloat("u_tileFactor", tileFactor);
-		Renderer::submit(storage->shader, storage->tex_mesh, true);
-		storage->shader->unbind();
-		storage->tex_mesh->getMaterial()->tex = whiteTex;
+		if (ti == 0.0f) {
+			ti = (float)qdata.texSlotIndex;
+			qdata.texSlots[qdata.texSlotIndex] = texture2D;
+			qdata.texSlotIndex++;
+		}
+		qdata.bufferPointer->position = { position.x + pos.x,position.y + pos.y, position.z };
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 0,0 };
+		qdata.bufferPointer->texIndex = ti;
+		qdata.bufferPointer->tileFactor = tileFactor;
+		qdata.bufferPointer++;
+
+		qdata.bufferPointer->position = { position.x + pos.x, position.y + size.y + pos.y,position.z };
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 0,1 };
+		qdata.bufferPointer->texIndex = ti;
+		qdata.bufferPointer->tileFactor = tileFactor;
+		qdata.bufferPointer++;
+
+		qdata.bufferPointer->position = { position.x + size.x + pos.x, position.y + pos.y + size.y, position.z };
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 1,1 };
+		qdata.bufferPointer->texIndex = ti;
+		qdata.bufferPointer->tileFactor = tileFactor;
+		qdata.bufferPointer++;
+
+		qdata.bufferPointer->position = { position.x + size.x + pos.x, position.y + pos.y, position.z };
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 1,0 };
+		qdata.bufferPointer->texIndex = ti;
+		qdata.bufferPointer->tileFactor = tileFactor;
+		qdata.bufferPointer++;
+		qdata.indexCount += 6;
 
 	}
 
@@ -93,13 +191,62 @@ namespace ME {
 	}
 
 	void Renderer2D::drawQuadCentered(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color) {
+		qdata.bufferPointer->position = { position.x + pos.x - size.x / 2,position.y + pos.y - size.y / 2, position.z };
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 0,0 };
+		qdata.bufferPointer->texIndex = 0;
+		qdata.bufferPointer++;
 
-		storage->tex_mesh_center->getTransform().setPos(position + pos);
-		storage->tex_mesh_center->getTransform().setRotation(glm::vec3(0, 0, rot));
-		storage->tex_mesh_center->getTransform().setScale(size);
-		storage->tex_mesh_center->getMaterial()->albeto = color;
-		Renderer::submit(storage->shader, storage->tex_mesh_center);
+		qdata.bufferPointer->position = { position.x + pos.x - size.x / 2, position.y + size.y / 2 + pos.y,position.z };
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 0,1 };
+		qdata.bufferPointer->texIndex = 0;
+		qdata.bufferPointer++;
 
+		qdata.bufferPointer->position = { position.x + size.x / 2 + pos.x, position.y + pos.y + size.y / 2, position.z };
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 1,1 };
+		qdata.bufferPointer->texIndex = 0;
+		qdata.bufferPointer++;
+
+		qdata.bufferPointer->position = { position.x + size.x / 2 + pos.x, position.y - size.y / 2 + pos.y, position.z };
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 1,0 };
+		qdata.bufferPointer->texIndex = 0;
+		qdata.bufferPointer++;
+		qdata.indexCount += 6;
+		
+	}
+	void Renderer2D::beginScene(Ref<Camera> cam) { 
+		
+		Renderer::beginScene(cam); 
+		qdata.shader->bind();
+		qdata.vertexArray->bind();
+		qdata.shader->setUniformMat4("u_proj", cam->getViewProjection());
+		qdata.indexCount = 0;
+		qdata.bufferPointer = qdata.bufferBase;
+		qdata.texSlotIndex = 1;
+	}
+
+	void Renderer2D::endScene() { 
+	
+		Renderer::endScene();
+		uint32_t dataSize = (uint8_t*)qdata.bufferPointer - (uint8_t*)qdata.bufferBase;
+		qdata.vertexBuffer->setData(qdata.bufferBase, dataSize);
+		
+		flush();
+	}
+
+	void Renderer2D::flush() {
+		for (uint32_t ind = 0; ind < qdata.texSlotIndex; ind++) {
+			qdata.texSlots[ind]->bind(ind);
+		}
+		RendererContent::drawIndex(qdata.vertexArray, qdata.indexCount);
+		qdata.vertexArray->unbind();
+		qdata.shader->unbind();
+		for (uint32_t ind = 0; ind < qdata.texSlotIndex; ind++) {
+			qdata.texSlots[ind]->unbind(ind);
+		}
 	}
 
 	void Renderer2D::drawQuadCentered(const glm::vec2& position, const glm::vec2& size, const Ref<Texture> texture2D, const glm::vec4& color, float tileFactor) {
@@ -107,17 +254,48 @@ namespace ME {
 	}
 
 	void Renderer2D::drawQuadCentered(const glm::vec3& position, const glm::vec2& size, const Ref<Texture> texture2D, const glm::vec4& color, float tileFactor) {
-		storage->tex_mesh_center->getTransform().setPos(position + pos);
-		storage->tex_mesh_center->getTransform().setRotation(glm::vec3(0, 0, rot));
-		storage->tex_mesh_center->getTransform().setScale(size);
+		float ti = 0.0f;
 
-		storage->tex_mesh_center->getMaterial()->albeto = color;
-		storage->tex_mesh_center->getMaterial()->tex = texture2D;
-		storage->shader->bind();
-		storage->shader->setUniformFloat("u_tileFactor", tileFactor);
-		Renderer::submit(storage->shader, storage->tex_mesh_center, true);
-		storage->shader->unbind();
-		storage->tex_mesh_center->getMaterial()->tex = whiteTex;
+		for (uint32_t ts = 1; ts < qdata.texSlotIndex; ts++) {
+			if (*qdata.texSlots[ts].get() == *texture2D.get()) {
+				ti = (float)ts;
+				break;
+			}
+		}
+
+		if (ti == 0.0f) {
+			ti = (float)qdata.texSlotIndex;
+			qdata.texSlots[ti] = texture2D;
+			qdata.texSlotIndex++;
+		}
+		qdata.bufferPointer->position = { position.x + pos.x-size.x/2,position.y + pos.y-size.y/2, position.z };
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 0,0 };
+		qdata.bufferPointer->texIndex = ti;
+		qdata.bufferPointer->tileFactor = tileFactor;
+		qdata.bufferPointer++;
+
+		qdata.bufferPointer->position = { position.x + pos.x-size.x/2, position.y + size.y/2 + pos.y,position.z };
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 0,1 };
+		qdata.bufferPointer->texIndex = ti;
+		qdata.bufferPointer->tileFactor = tileFactor;
+		qdata.bufferPointer++;
+
+		qdata.bufferPointer->position = { position.x + size.x/2 + pos.x, position.y + pos.y + size.y/2, position.z };
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 1,1 };
+		qdata.bufferPointer->texIndex = ti;
+		qdata.bufferPointer->tileFactor = tileFactor;
+		qdata.bufferPointer++;
+
+		qdata.bufferPointer->position = { position.x + size.x/2 + pos.x, position.y - size.y/2+ pos.y, position.z };
+		qdata.bufferPointer->color = color;
+		qdata.bufferPointer->texCoord = { 1,0 };
+		qdata.bufferPointer->texIndex = ti;
+		qdata.bufferPointer->tileFactor = tileFactor;
+		qdata.bufferPointer++;
+		qdata.indexCount += 6;
 
 	}
 

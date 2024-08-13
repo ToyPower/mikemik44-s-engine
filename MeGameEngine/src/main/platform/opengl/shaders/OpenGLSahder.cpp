@@ -6,6 +6,11 @@
 
 namespace ME {
 
+	void OpenGLShader::setUnfiromIntArray(const std::string& name, int* values, uint32_t size) {
+		GLint location = glGetUniformLocation(program, name.c_str());
+		glUniform1iv(location, size, values);
+	 }
+
 	static GLenum convertToGLType(const std::string& type) {
 		
 		if (type == "frag" || type == "pixel") {

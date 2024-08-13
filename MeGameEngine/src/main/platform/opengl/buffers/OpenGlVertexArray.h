@@ -19,7 +19,7 @@ namespace ME {
 	private:
 		uint32_t id;
 		std::vector<Ref<VertexBuffer>> m_vbuffers;
-		Ref<IndexBuffer> m_ibuffer;
+		Ref<IndexBuffer> m_ibuffer = nullptr;
 		std::vector<uint32_t> locations = {};
 	};
 
