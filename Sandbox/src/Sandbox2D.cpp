@@ -30,13 +30,14 @@ void Sandbox2D::onRender() {
 	ME::Timer tim2("Rendering Time");
 
 	R::drawQuadCentered({ -1.0f, 0, 1 }, { 0.8f, 0.8f }, color);
-
+	
 	R::drawQuadCentered({ 0.5f, 0.5f, 1 }, { 0.5f, 0.75f }, color2);
 	
 	R::drawQuadCentered({ 0, 0, -0.1f }, { 10, 10 }, tex, color3, 1);
 
+	R::rotate(45);
 	R::drawQuadCentered({ -0.5, -0.5, 0.0f }, { 1, 1 }, tex, {1,1,1,1}, 20);
-
+	R::setRotation(0);
 	R::endScene();
 	tim2.stop(true);
 	tim.stop(true);

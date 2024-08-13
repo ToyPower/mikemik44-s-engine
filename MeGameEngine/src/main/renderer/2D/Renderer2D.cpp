@@ -30,7 +30,7 @@ namespace ME {
 		uint32_t texSlotIndex = 1;
 		Ref<VertexArray> vertexArray;
 		Ref<VertexBuffer> vertexBuffer;
-		
+		glm::vec4 quadVertices[4];
 		Ref<Shader> shader;
 		uint32_t indexCount = 0;
 		QuadVertex* bufferBase = nullptr;
@@ -96,7 +96,10 @@ namespace ME {
 		}
 		qdata.shader->bind();
 		qdata.shader->setUnfiromIntArray("u_tex", samplers, qdata.maxTextures);
-
+		qdata.quadVertices[0] = glm::vec4(-0.5f, -0.5f, 0, 1);
+		qdata.quadVertices[1] = glm::vec4(-0.5f, 0.5f, 0, 1);
+		qdata.quadVertices[2] = glm::vec4(0.5f, 0.5f, 0, 1);
+		qdata.quadVertices[3] = glm::vec4(0.5f, -0.5f, 0, 1);
 	}
 
 	void Renderer2D::shutdown() {
@@ -108,26 +111,29 @@ namespace ME {
 	}
 
 	void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color) {
-
-		qdata.bufferPointer->position = { position.x+pos.x,position.y+pos.y, position.z };
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position+pos+glm::vec3(size.x/2,size.y/2,0)) 
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rot), glm::vec3(0, 0, 1)) 
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+		
+		qdata.bufferPointer->position = transform * qdata.quadVertices[0];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 0,0 };
 		qdata.bufferPointer->texIndex = 0;
 		qdata.bufferPointer++;
 
-		qdata.bufferPointer->position = { position.x+pos.x, position.y+size.y+pos.y,position.z};
+		qdata.bufferPointer->position = transform * qdata.quadVertices[1];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 0,1 };
 		qdata.bufferPointer->texIndex = 0;
 		qdata.bufferPointer++;
 
-		qdata.bufferPointer->position = { position.x+size.x+pos.x, position.y+pos.y + size.y, position.z};
+		qdata.bufferPointer->position = transform * qdata.quadVertices[2];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 1,1 };
 		qdata.bufferPointer->texIndex = 0;
 		qdata.bufferPointer++;
 
-		qdata.bufferPointer->position = { position.x+size.x+pos.x, position.y+pos.y, position.z};
+		qdata.bufferPointer->position = transform * qdata.quadVertices[3];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 1,0 };
 		qdata.bufferPointer->texIndex = 0;
@@ -155,32 +161,30 @@ namespace ME {
 			qdata.texSlots[qdata.texSlotIndex] = texture2D;
 			qdata.texSlotIndex++;
 		}
-		qdata.bufferPointer->position = { position.x + pos.x,position.y + pos.y, position.z };
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position + pos+glm::vec3(size.x/2,size.y/2,0.0f)) * glm::rotate(glm::mat4(1.0f), glm::radians(rot), glm::vec3(0, 0, 1)) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+		qdata.bufferPointer->position = transform * qdata.quadVertices[0];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 0,0 };
 		qdata.bufferPointer->texIndex = ti;
-		qdata.bufferPointer->tileFactor = tileFactor;
 		qdata.bufferPointer++;
 
-		qdata.bufferPointer->position = { position.x + pos.x, position.y + size.y + pos.y,position.z };
+		qdata.bufferPointer->position = transform * qdata.quadVertices[1];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 0,1 };
 		qdata.bufferPointer->texIndex = ti;
-		qdata.bufferPointer->tileFactor = tileFactor;
 		qdata.bufferPointer++;
 
-		qdata.bufferPointer->position = { position.x + size.x + pos.x, position.y + pos.y + size.y, position.z };
+		qdata.bufferPointer->position = transform * qdata.quadVertices[2];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 1,1 };
 		qdata.bufferPointer->texIndex = ti;
-		qdata.bufferPointer->tileFactor = tileFactor;
 		qdata.bufferPointer++;
 
-		qdata.bufferPointer->position = { position.x + size.x + pos.x, position.y + pos.y, position.z };
+		qdata.bufferPointer->position = transform * qdata.quadVertices[3];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 1,0 };
 		qdata.bufferPointer->texIndex = ti;
-		qdata.bufferPointer->tileFactor = tileFactor;
 		qdata.bufferPointer++;
 		qdata.indexCount += 6;
 
@@ -191,25 +195,27 @@ namespace ME {
 	}
 
 	void Renderer2D::drawQuadCentered(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color) {
-		qdata.bufferPointer->position = { position.x + pos.x - size.x / 2,position.y + pos.y - size.y / 2, position.z };
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position + pos) * glm::rotate(glm::mat4(1.0f), glm::radians(rot), glm::vec3(0, 0, 1)) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+		qdata.bufferPointer->position = transform * qdata.quadVertices[0];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 0,0 };
 		qdata.bufferPointer->texIndex = 0;
 		qdata.bufferPointer++;
 
-		qdata.bufferPointer->position = { position.x + pos.x - size.x / 2, position.y + size.y / 2 + pos.y,position.z };
+		qdata.bufferPointer->position = transform * qdata.quadVertices[1];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 0,1 };
 		qdata.bufferPointer->texIndex = 0;
 		qdata.bufferPointer++;
 
-		qdata.bufferPointer->position = { position.x + size.x / 2 + pos.x, position.y + pos.y + size.y / 2, position.z };
+		qdata.bufferPointer->position = transform * qdata.quadVertices[2];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 1,1 };
 		qdata.bufferPointer->texIndex = 0;
 		qdata.bufferPointer++;
 
-		qdata.bufferPointer->position = { position.x + size.x / 2 + pos.x, position.y - size.y / 2 + pos.y, position.z };
+		qdata.bufferPointer->position = transform * qdata.quadVertices[3];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 1,0 };
 		qdata.bufferPointer->texIndex = 0;
@@ -268,28 +274,30 @@ namespace ME {
 			qdata.texSlots[ti] = texture2D;
 			qdata.texSlotIndex++;
 		}
-		qdata.bufferPointer->position = { position.x + pos.x-size.x/2,position.y + pos.y-size.y/2, position.z };
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position + pos) * glm::rotate(glm::mat4(1.0f), glm::radians(rot), glm::vec3(0, 0, 1))* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+		qdata.bufferPointer->position = transform * qdata.quadVertices[0];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 0,0 };
 		qdata.bufferPointer->texIndex = ti;
 		qdata.bufferPointer->tileFactor = tileFactor;
 		qdata.bufferPointer++;
 
-		qdata.bufferPointer->position = { position.x + pos.x-size.x/2, position.y + size.y/2 + pos.y,position.z };
+		qdata.bufferPointer->position = transform * qdata.quadVertices[1];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 0,1 };
 		qdata.bufferPointer->texIndex = ti;
 		qdata.bufferPointer->tileFactor = tileFactor;
 		qdata.bufferPointer++;
 
-		qdata.bufferPointer->position = { position.x + size.x/2 + pos.x, position.y + pos.y + size.y/2, position.z };
+		qdata.bufferPointer->position = transform * qdata.quadVertices[2];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 1,1 };
 		qdata.bufferPointer->texIndex = ti;
 		qdata.bufferPointer->tileFactor = tileFactor;
 		qdata.bufferPointer++;
 
-		qdata.bufferPointer->position = { position.x + size.x/2 + pos.x, position.y - size.y/2+ pos.y, position.z };
+		qdata.bufferPointer->position = transform * qdata.quadVertices[3];
 		qdata.bufferPointer->color = color;
 		qdata.bufferPointer->texCoord = { 1,0 };
 		qdata.bufferPointer->texIndex = ti;
