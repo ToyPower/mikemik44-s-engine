@@ -1459,6 +1459,7 @@
     <ClInclude Include="src\main\dataentry\Timer.h" />
     <ClInclude Include="src\main\dataentry\Randoms.h" />
     <ClInclude Include="src\main\dataentry\RandomUtil.h" />
+    <ClInclude Include="src\main\renderer\renderer\SubTexture2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\hzpch.cpp">
@@ -1543,5 +1544,6 @@
     <ClCompile Include="src\main\dataentry\Timer.cpp" />
     <ClCompile Include="src\main\dataentry\Randoms.cpp" />
     <ClCompile Include="src\main\dataentry\RandomUtil.cpp" />
+    <ClCompile Include="src\main\renderer\renderer\SubTexture2D.cpp" />
   </ItemGroup>
 </Project>

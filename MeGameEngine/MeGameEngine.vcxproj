@@ -147,6 +147,7 @@
     <ClInclude Include="src\main\dataentry\RandomUtil.h" />
     <ClInclude Include="src\main\renderer\2D\Renderer2D.h" />
     <ClInclude Include="src\main\dataentry\Timer.h" />
+    <ClInclude Include="src\main\renderer\renderer\SubTexture2D.h" />
     <ClInclude Include="src\MeCore.h" />
     <ClInclude Include="src\hzpch.h" />
     <ClInclude Include="src\main\input\Input.h" />
@@ -634,6 +635,7 @@
     <ClCompile Include="src\main\renderer\renderer\main\Renderer.cpp" />
     <ClCompile Include="src\main\renderer\renderer\apistuff\RendererApi.cpp" />
     <ClCompile Include="src\main\renderer\renderer\main\RendererContent.cpp" />
+    <ClCompile Include="src\main\renderer\renderer\SubTexture2D.cpp" />
     <ClCompile Include="src\main\renderer\renderer\Texture.cpp" />
     <ClCompile Include="src\main\renderer\shaders\Shader.cpp" />
     <ClCompile Include="vendors\stb\STBImage.cpp" />

@@ -29,6 +29,8 @@ private:
 	glm::vec4 color = { 1,0,0,1 }, color2 = { 0.2, 0.3, 0.8, 1 }, color3 = { 1,1,1,1 };
 	//TEMP
 	ME::Ref<ME::Texture> tex;
+	ME::Ref<ME::Texture> spriteSheet;
+	ME::Ref<ME::SubTexture2D> stairs, barrel, tree;
 	ME::Ref<ME::Shader> shader;
 	std::vector<ME::Mesh> grid;
 	ME::Timer tim = ME::Timer("Overall");

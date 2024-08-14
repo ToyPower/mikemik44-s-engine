@@ -16,7 +16,7 @@ void ParticleSystem::OnUpdate(ME::TimeStep ts)
 	{
 		if (!particle.Active)
 			continue;
-
+	
 		if (particle.LifeRemaining <= 0.0f)
 		{
 			particle.Active = false;
@@ -28,9 +28,9 @@ void ParticleSystem::OnUpdate(ME::TimeStep ts)
 		particle.Rotation += 0.01f * ts;
 	}
 }
-
 void ParticleSystem::OnRender(ME::Ref<ME::Camera>& camera)
 {
+	
 	ME::Renderer2D::beginScene(camera);
 	for (auto& particle : m_ParticlePool)
 	{

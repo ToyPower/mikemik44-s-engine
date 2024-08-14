@@ -3,6 +3,7 @@
 #include "main/renderer/renderer/main/Renderer.h"
 #include "main/renderer/renderer/main/RendererContent.h"
 #include "main/renderer/data/camera/Camera.h"
+#include "main/renderer/renderer/SubTexture2D.h"
 namespace ME {
 
 	class Renderer2D {
@@ -41,6 +42,13 @@ namespace ME {
 		static void setTranslation(const glm::vec3& position) {
 			pos = position;
 		}
+
+		static void drawQuadCentered(const glm::vec3& position, const glm::vec2& size, const Ref<SubTexture2D> texture2D, const glm::vec4& color = glm::vec4(1, 1, 1, 1), float tileFactor = 1.0f);
+		static void drawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<SubTexture2D> texture2D, const glm::vec4& color = glm::vec4(1, 1, 1, 1), float tileFactor = 1.0f);
+
+		static void drawQuadCentered(const glm::vec2& position, const glm::vec2& size, const Ref<SubTexture2D> texture2D, const glm::vec4& color = glm::vec4(1, 1, 1, 1), float tileFactor = 1.0f) { drawQuadCentered({ position.x, position.y, 0 }, size, texture2D, color, tileFactor); }
+		static void drawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<SubTexture2D> texture2D, const glm::vec4& color = glm::vec4(1, 1, 1, 1), float tileFactor = 1.0f) { drawQuad({ position.x, position.y, 0 }, size, texture2D, color, tileFactor); }
+
 
 		static void drawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture> texture2D, const glm::vec4& color = glm::vec4(1, 1, 1, 1), float tileFactor = 1.0f);
 		static void drawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture> texture2D, const glm::vec4& color = glm::vec4(1, 1, 1, 1), float tileFactor = 1.0f);
