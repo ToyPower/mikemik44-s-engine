@@ -5,7 +5,7 @@
 #include <imgui/imgui.h>
 #include <any>
 #include <vector>
-
+#include "Particle.h"
 
 class Sandbox2D : public ME::Layer{
 
@@ -32,4 +32,6 @@ private:
 	ME::Ref<ME::Shader> shader;
 	std::vector<ME::Mesh> grid;
 	ME::Timer tim = ME::Timer("Overall");
+	ParticleSystem m_ParticleSystem;
+	ParticleProps m_Particle;
 };

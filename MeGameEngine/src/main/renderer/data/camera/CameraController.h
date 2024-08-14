@@ -14,6 +14,8 @@ namespace ME {
 		Ref<Camera>& getCamera() {
 			return cam;
 		}
+
+		Bounds getBounds() { return this->cam->getBounds(); }
 		void disableRotation() { this->doRotation = false; }
 		void enableRotation() { this->doRotation = true; }
 		void enableYMovement() { this->allowYMovement = true; }

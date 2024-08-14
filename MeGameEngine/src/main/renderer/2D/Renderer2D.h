@@ -19,11 +19,21 @@ namespace ME {
 		static void drawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color);
 		static void drawQuadCentered(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color);
 		static void drawQuadCentered(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color);
-		static void rotate(float amt) {
-			rot += amt;
+		static void rotate(float amt, bool isRadians = true) {
+			if (isRadians) {
+				rot += amt;
+			}
+			else {
+				rot += glm::radians(amt);
+			}
 		}
-		static void setRotation(float angle) {
-			rot = angle;
+		static void setRotation(float angle, bool isRadians = true) {
+			if (!isRadians) {
+				rot = glm::radians(angle);
+			}
+			else {
+				rot = angle;
+			}
 		}
 		static void translate(const glm::vec3& movement) {
 			pos += movement;
@@ -37,10 +47,12 @@ namespace ME {
 		static void drawQuadCentered(const glm::vec2& position, const glm::vec2& size, const Ref<Texture> texture2D, const glm::vec4& color = glm::vec4(1, 1, 1, 1), float tileFactor = 1.0f);
 		static void drawQuadCentered(const glm::vec3& position, const glm::vec2& size, const Ref<Texture> texture2D, const glm::vec4& color = glm::vec4(1, 1, 1, 1), float tileFactor = 1.0f);
 		static bool hasInit();
+		static void flushAndReset();
 	private:
 		static Ref<Texture> whiteTex;
 		static float rot;
 		static glm::vec3 pos;
+		
 	};
 
 }

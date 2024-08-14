@@ -3,6 +3,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <math.h>
 namespace ME {
+	struct Bounds {
+		float left, right, top, bottom;
+		float getWidth() { return right - left; }
+		float getHeight() { return top - bottom; }
+
+	};
 	class Camera {
 	public:
 		virtual void updateData() = 0;
@@ -24,6 +30,7 @@ namespace ME {
 		virtual glm::vec3 getRotation() = 0;
 		virtual void zoom(float zoomValue) = 0;
 		virtual void setZoom(float zoomValue) = 0;
+		virtual Bounds getBounds() = 0;
 	};
 
 	class PerspectiveCamera : public Camera {
@@ -82,13 +89,14 @@ namespace ME {
 		virtual glm::vec3 getRotation() override { return rot; 
 		}
 		void updateData();
-
+		virtual Bounds getBounds() override { return m_bounds; };
 		glm::mat4 m_projection, m_rot, view, fin;
 		glm::vec3 forward = { 0,-1,0 }, left = { 1,0,0 },	right = { -1,0,0 }, backward = { 0,1,0 }, up = { 0,-1,0 }, down = { 0,1,0 };
 		glm::vec3 pos = { 0,0,0 };
 		glm::vec3 rot = { 0, 0, 0 };
 		float fov = 40.0f, near1 = 0.1f, far1 = 100.0f, zoom1 = 1.0f;
 		float m_width, m_height;
+		Bounds m_bounds;
 	};
 
 	class OthrographicCamera : public Camera {
@@ -118,6 +126,10 @@ namespace ME {
 			updateData();
 		}
 		void updatePerspective() {
+			m_bounds.left = -aspect * zoom1;
+			m_bounds.right = aspect * zoom1;
+			m_bounds.top = -zoom1;
+			m_bounds.bottom = zoom1;
 			m_projection = glm::ortho(-aspect * zoom1, aspect * zoom1, -zoom1, zoom1);
 			fin = m_projection * view;
 		}
@@ -134,6 +146,9 @@ namespace ME {
 			aspect = width / height;
 			updatePerspective();
 		}
+
+		virtual Bounds getBounds() override { return m_bounds; };
+
 		virtual glm::vec3 getPosition() override { return pos; }
 		virtual glm::vec3 getRotation() override { return glm::vec3(0, 0, rot);  }
 		void updateData();
@@ -144,6 +159,7 @@ namespace ME {
 		glm::vec3 pos = { 0,0,0 };
 		float rot = 0.0f;
 		float zoom1 = 0;
+		Bounds m_bounds;
 		
 	};
 

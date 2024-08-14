@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClCompile Include="src\Flappy.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Particle.cpp" />
     <ClCompile Include="src\Sandbox2D.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Flappy.h" />
+    <ClInclude Include="src\Particle.h" />
     <ClInclude Include="src\Sandbox.h" />
     <ClInclude Include="src\Sandbox2D.h" />
   </ItemGroup>

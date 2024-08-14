@@ -9,13 +9,13 @@ namespace ME {
 
 	public:
 		glm::mat4 getYaw(float angle) {
-			return glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0, 1, 0));
+			return glm::rotate(glm::mat4(1.0f), angle, glm::vec3(0, 1, 0));
 		}
 		glm::mat4 getPitch(float angle) {
-			return glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(1, 0, 0));
+			return glm::rotate(glm::mat4(1.0f), angle, glm::vec3(1, 0, 0));
 		}
 		glm::mat4 getRoll(float angle) {
-			return glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0, 0, 1));
+			return glm::rotate(glm::mat4(1.0f), angle, glm::vec3(0, 0, 1));
 		}
 		glm::mat4 rotatea(const glm::vec3& rot) {
 			return getYaw(rot.x) * getPitch(rot.y) * getRoll(rot.z);
@@ -70,13 +70,22 @@ namespace ME {
 			this->pos = glm::vec3(pos,1);
 		}
 
-		void rotate(const glm::vec3& angles, float amt = 1) {
-			this->rot += angles * amt;
+		void rotate(const glm::vec3& angles, float amt = 1, bool isRadians = true) {
+			if (!isRadians) {
+				this->rot += glm::radians(angles * amt);
+			}
+			else {
+				this->rot += angles * amt;
+			}
 		}
 
-		void setRotation(const glm::vec3& angles) {
-			this->rot = angles;
-			
+		void setRotation(const glm::vec3& angles, bool isRadians = true) {
+			if (!isRadians) {
+				this->rot = glm::radians(angles);
+			}
+			else {
+				this->rot = angles;
+			}
 		}
 
 		void setScale(const glm::vec3& scale) {

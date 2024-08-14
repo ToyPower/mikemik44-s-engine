@@ -23,10 +23,12 @@
     </ClCompile>
     <ClCompile Include="src\Sandbox2D.cpp" />
     <ClCompile Include="src\Flappy.cpp" />
+    <ClCompile Include="src\Particle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Sandbox2D.h" />
     <ClInclude Include="src\Sandbox.h" />
     <ClInclude Include="src\Flappy.h" />
+    <ClInclude Include="src\Particle.h" />
   </ItemGroup>
 </Project>

@@ -42,9 +42,13 @@ glm::vec3 rotate3(const glm::vec3& vec, const glm::mat4& matrix) {
 
 namespace ME {
 
-	PerspectiveCamera::PerspectiveCamera(float fov, float width, float height, float near1, float far1) : m_projection(glm::perspectiveFov(glm::radians(fov), width, height, near1, far1)), far1(far1), near1(near1), fov(fov), m_width(width), m_height(height) {
+	PerspectiveCamera::PerspectiveCamera(float fov, float width, float height, float near1, float far1) : m_projection(glm::perspectiveFov(glm::radians(fov), width, height, near1, far1)), far1(far1), near1(near1), fov(fov), m_width(width), m_height(height), m_bounds(Bounds()) {
 		view = glm::mat4(1.0f);
 		fin = m_projection * view;
+		m_bounds.left = -1;
+		m_bounds.right = 1;
+		m_bounds.top = -1.0f;
+		m_bounds.bottom = 1.0f;
 	}
 
 	void PerspectiveCamera::onResize(float width, float height) {
@@ -79,6 +83,10 @@ namespace ME {
 	}
 
 	OthrographicCamera::OthrographicCamera(float aspect) : zoom1(1.0f), aspect(aspect), m_projection(glm::ortho(-aspect, aspect, -1.0f, 1.0f)) {
+		m_bounds.left = -aspect;
+		m_bounds.right = aspect;
+		m_bounds.top = -1.0f;
+		m_bounds.bottom = 1.0f;
 		view = glm::mat4(1.0f);
 		fin = m_projection * view;
 
@@ -87,7 +95,10 @@ namespace ME {
 	OthrographicCamera::OthrographicCamera(float width, float height) : zoom1(1.0f), aspect(width/height), m_projection(glm::ortho(-width/height, width/height, -1.0f, 1.0f)) {
 		view = glm::mat4(1.0f);
 		fin = m_projection * view;
-
+		m_bounds.left = -width/height;
+		m_bounds.right = width/height;
+		m_bounds.top = -1.0f;
+		m_bounds.bottom = 1.0f;
 	}
 	
 	void OthrographicCamera::updateData() {
