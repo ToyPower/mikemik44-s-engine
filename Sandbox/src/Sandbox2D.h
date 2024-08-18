@@ -20,6 +20,7 @@ public:
 		if (!cam->onEvent(e)) {
 			return false;
 		}
+
 		return true;
 	}
 	
@@ -36,4 +37,5 @@ private:
 	ME::Timer tim = ME::Timer("Overall");
 	ParticleSystem m_ParticleSystem;
 	ParticleProps m_Particle;
+	
 };

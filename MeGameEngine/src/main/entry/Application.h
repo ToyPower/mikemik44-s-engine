@@ -10,12 +10,13 @@ namespace ME {
 	class ME_API Application
 	{
 	public:
-		Application();
+		Application(const std::string& name = "My App");
 		virtual ~Application();
 		void run();
 		bool onEvent(Events& e);
 		void pushLayer(Layer* layer);
 		void pushOverlay(Layer* layer);
+		void close();
 		inline Window& getWindow() { return *m_window;  }
 		inline static Application& getInstance() { return *s_instance; }
 		uint32_t getWidth() { return m_window->getWidth(); }
@@ -26,7 +27,6 @@ namespace ME {
 		bool m_running = true;
 		LayerStack m_st;
 		static Application* s_instance;
-	
 		float m_lastFrame;
 
 	};

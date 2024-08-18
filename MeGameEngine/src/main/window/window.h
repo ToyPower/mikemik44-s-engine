@@ -4,9 +4,9 @@
 namespace ME {
 	struct WindowProps {
 
-		std::string title;
-		unsigned int width;
-		unsigned int height;
+		std::string title = "My Engine";
+		uint32_t width = 800;
+		uint32_t height = 600;
 		bool vsync;
 		WindowProps(const std::string& title = "My Engine", unsigned int width = 800, unsigned int height = 600, bool sync = false) : title(title), width(width), height(height), vsync(sync) {}
 
@@ -18,8 +18,8 @@ namespace ME {
 
 		virtual void onUpdate() = 0;
 		
-		virtual unsigned int getWidth() const = 0;
-		virtual unsigned int getHeight() const = 0;
+		virtual uint32_t getWidth() const = 0;
+		virtual uint32_t getHeight() const = 0;
 		virtual bool isMinized() = 0;
 		virtual void assignEvents() = 0;
 		virtual void setVSync(bool enabled) = 0;

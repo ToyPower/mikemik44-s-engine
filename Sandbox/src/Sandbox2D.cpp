@@ -9,11 +9,8 @@ Sandbox2D::Sandbox2D() : Layer("Sandbox2D"), cam(new ME::CameraController(new ME
 void Sandbox2D::onAttach() {
 	ME::Renderer2D::init();
 	tex = ME::Ref<ME::Texture>(ME::Texture2D::create("assets/textures/test.png"));
+	cam->setZoom(5.0f);
 
-	spriteSheet = ME::Ref<ME::Texture>(ME::Texture2D::create("assets/game/textures/RPGpack_sheet_2X.png"));
-	stairs = ME::SubTexture2D::createFromCoords(spriteSheet, {7,6}, { 128,128 });
-	barrel = ME::SubTexture2D::createFromCoords(spriteSheet, { 8,2 }, { 128,128 });
-	tree = ME::SubTexture2D::createFromCoords(spriteSheet, { 2,1 }, { 128,128 }, {1,2});
 	m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
 	m_Particle.SizeBegin = 0.5f, m_Particle.SizeVariation = 0.3f, m_Particle.SizeEnd = 0.0f;
@@ -21,6 +18,12 @@ void Sandbox2D::onAttach() {
 	m_Particle.Velocity = { 0.0f, 0.0f };
 	m_Particle.VelocityVariation = { 3.0f, 1.0f };
 	m_Particle.Position = { 0.0f, 0.0f };
+
+	ME::FrameBufferSpecial spec;
+	spec.width = 800;
+	spec.height = 600;
+
+
 }
 
 void Sandbox2D::onDetach() {
@@ -55,9 +58,10 @@ void Sandbox2D::onUpdate(ME::TimeStep step) {
 }
 
 void Sandbox2D::onRender() {
+	
 	ME::Timer tim("Renderer");
 	R::clear();
-#ifdef ffff 
+#
 	R::beginScene(cam->getCamera());
 	
 	ME::Timer tim2("Rendering Time");
@@ -84,33 +88,14 @@ void Sandbox2D::onRender() {
 		}
 	}
 	R::endScene();
-#endif
-	m_ParticleSystem.OnRender(cam->getCamera());
-
-	R::beginScene(cam->getCamera());
-	R::drawQuadCentered({ 0.0f, 0.0f, 0.5f }, { 1, 1 }, stairs);
-	R::drawQuadCentered({ 1.0f, 0.0f, 0.5f }, { 1, 1 }, barrel);
-	R::drawQuadCentered({ 0.5f, 1.5f, 0.5f }, { 1, 2 }, tree);
-	R::endScene();
-
 	
-	
+
 	//tim2.stop(true);
 	tim.stop(true);
 	this->tim.stop();
 }
 
 void Sandbox2D::onGUIRender() {
-	ImGui::Begin("Settings");
-	ImGui::ColorEdit4("color 1", glm::value_ptr(color));
-	ImGui::ColorEdit4("color 2", glm::value_ptr(color2));
-	ImGui::ColorEdit4("color 3", glm::value_ptr(color3));
-	for (ME::TimerResult tr : ME::TimerResult::allResults) {
-		char label[50] = {};
-		strcpy(label, tr.name);
-		strcat(label, " %.3fms");
-		ImGui::Text(label, tr.timer);
-	}
-	ME::TimerResult::clearTimerResult();
-	ImGui::End();
+	
+
 }

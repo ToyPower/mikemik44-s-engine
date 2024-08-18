@@ -138,3 +138,56 @@ project "Sandbox"
 		defines "ME_Dist"
 		runtime "Release"
 		optimize "speed"
+		
+project "MENut"
+	defines {
+		"_CRT_SECURE_NO_WARNINGS",
+		"GLFW_INCLUDE_NONE"
+	}
+	location "MeNut"
+	kind "ConsoleApp"
+	language "c++"
+	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
+	cppdialect "C++17"
+	staticruntime "off"
+
+	files {
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+	
+	includedirs {
+		"MeGameEngine/vendors/stdlog/include",
+		"MeGameEngine/src",
+		"MeGameEngine/vendors",
+		"%{includeDir.GLM}",
+		"%{includeDir.GLFW}",
+		"%{includeDir.GLAD}",
+		"%{includeDir.STB}",
+	}
+	
+	links {
+		"MeGameEngine"
+	}
+	
+	filter "system:windows"
+		
+		systemversion "latest"
+		
+		defines {
+			"ME_PLATFORM_WINDOWS"
+		}
+		
+	filter "configurations:Debug"
+		defines "ME_Debug"
+		runtime "Debug"
+		symbols "on"
+	filter "configurations:Release"
+		defines "ME_Release"
+		runtime "Release"
+		optimize "speed"
+	filter "configurations:Dist"
+		defines "ME_Dist"
+		runtime "Release"
+		optimize "speed"

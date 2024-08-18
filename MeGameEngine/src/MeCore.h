@@ -25,4 +25,6 @@
 #include "main/dataentry/Randoms.h"
 #include "main/dataentry/RandomUtil.h"
 #include "main/renderer/renderer/SubTexture2D.h"
+#include "main/renderer/renderer/FrameBuffer.h"
+
 #define mptr glm::value_ptr

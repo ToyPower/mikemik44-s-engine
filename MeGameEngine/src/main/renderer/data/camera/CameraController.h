@@ -23,6 +23,8 @@ namespace ME {
 		void setMovementSpeed(float speed) { this->movementSpeed = speed; }
 		void setRotationSpeed(float speed) { this->rotationSpeed = speed; }
 		void update(TimeStep& timeStep);
+		void setZoom(float zoom) { this->zoom1 = zoom; this->cam->setZoom(zoom); }
+		void zoom(float zoom) { this->zoom1 += zoom; this->cam->setZoom(this->zoom1); }
 
 		bool onEvent(Events& e);
 		bool onMouseScrolled(Events& e);

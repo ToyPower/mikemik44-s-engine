@@ -19,6 +19,7 @@ namespace ME {
 						layer->onRender();
 					}
 				}
+				
 				m_imguilayer->begin();
 				for (auto layer : m_st) {
 					layer->onGUIRender();
@@ -30,6 +31,8 @@ namespace ME {
 		}
 
 	}
+
+	
 
 	void Application::pushLayer(Layer* layer) {
 		m_st.pushLayer(layer);
@@ -75,9 +78,13 @@ namespace ME {
 		
 	}
 
-	Application::Application() {
+	void Application::close() {
+		m_running = false;
+	}
+
+	Application::Application(const std::string& name) {
 		s_instance = this;
-		m_window = std::unique_ptr<Window>(Window::create());
+		m_window = std::unique_ptr<Window>(Window::create(WindowProps(name)));
 		Renderer::init();
 		EventCaller::addEventListener(FE_BIND(onEvent), "window*");
 		m_imguilayer = new ImGuiLayer();

@@ -7,8 +7,11 @@
     <Filter Include="src\main">
       <UniqueIdentifier>{E19E33CF-CD6B-8EDA-F684-7C82E2B0C368}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\main\dateentry">
-      <UniqueIdentifier>{006729B1-EC4A-EA06-55AB-E45941AED488}</UniqueIdentifier>
+    <Filter Include="src\main\corefiles">
+      <UniqueIdentifier>{AC57618E-983B-22E4-019C-1C37ED9E0C66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\dataentry">
+      <UniqueIdentifier>{7CC4D4A7-68A8-95FD-D108-9050BD0B807F}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\main\entry">
       <UniqueIdentifier>{62F2E5B7-4EC0-D9BD-3754-4AE423C1B522}</UniqueIdentifier>
@@ -16,8 +19,17 @@
     <Filter Include="src\main\events">
       <UniqueIdentifier>{C5B72CB5-3143-9A79-3A54-1D6EA65EF679}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\main\input">
+      <UniqueIdentifier>{C0432EB8-AC11-22BE-95A5-92E48112FE22}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\main\layer">
       <UniqueIdentifier>{8D905DB8-795E-51BE-62F2-C1E44E5F2D23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\layer\imgui">
+      <UniqueIdentifier>{B7136967-A3A2-F230-4CC1-062C382F03D7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\layer\stack">
+      <UniqueIdentifier>{92C32168-7E52-AB31-2771-BF2C13DFBBD7}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\main\logging">
       <UniqueIdentifier>{97686765-8361-86B7-AC93-6B3C98EB65C3}</UniqueIdentifier>
@@ -46,14 +58,29 @@
     <Filter Include="src\main\renderer">
       <UniqueIdentifier>{C7CB34AA-33E2-3240-7C59-BE61E8AE03C8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\main\renderer\2D">
+      <UniqueIdentifier>{0CD9725D-F867-FC26-A186-10228DF40CCD}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\main\renderer\buffers">
       <UniqueIdentifier>{63FAC7C8-CFBC-FB52-186D-8ADF846ED430}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\main\renderer\data">
       <UniqueIdentifier>{B041A985-9C3B-D2D7-85A8-68E871413844}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\main\renderer\data\camera">
+      <UniqueIdentifier>{4824D1A1-B43C-B8CB-7DE9-4765E9C04C65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\renderer\data\meshdata">
+      <UniqueIdentifier>{663954D7-D21C-6317-DB1F-915347822968}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\main\renderer\renderer">
       <UniqueIdentifier>{6DDBC5E8-59EB-71B9-C2A4-D6D7AED36052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\renderer\renderer\apistuff">
+      <UniqueIdentifier>{1E4AA1EB-8A03-0C96-1363-26707F1BC205}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\renderer\renderer\main">
+      <UniqueIdentifier>{21F77807-8DDA-8747-96DD-B58302404E98}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\main\renderer\shaders">
       <UniqueIdentifier>{C05FB7C6-2C22-EB50-75D2-79DDE1D3C32E}</UniqueIdentifier>
@@ -93,17 +120,29 @@
     <ClInclude Include="src\hzpch.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\input\Input.h">
-      <Filter>src\main</Filter>
+    <ClInclude Include="src\main\corefiles\macro.h">
+      <Filter>src\main\corefiles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\corefiles\specialincludes.h">
+      <Filter>src\main\corefiles</Filter>
     </ClInclude>
     <ClInclude Include="src\main\dataentry\KeyCodes.h">
-      <Filter>src\main</Filter>
+      <Filter>src\main\dataentry</Filter>
     </ClInclude>
     <ClInclude Include="src\main\dataentry\MouseButtonCodes.h">
-      <Filter>src\main</Filter>
+      <Filter>src\main\dataentry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\dataentry\RandomUtil.h">
+      <Filter>src\main\dataentry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\dataentry\Randoms.h">
+      <Filter>src\main\dataentry</Filter>
     </ClInclude>
     <ClInclude Include="src\main\dataentry\TimeStep.h">
-      <Filter>src\main\dateentry</Filter>
+      <Filter>src\main\dataentry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\dataentry\Timer.h">
+      <Filter>src\main\dataentry</Filter>
     </ClInclude>
     <ClInclude Include="src\main\entry\Application.h">
       <Filter>src\main\entry</Filter>
@@ -117,20 +156,23 @@
     <ClInclude Include="src\main\events\EventCaller.h">
       <Filter>src\main\events</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\layer\imgui\ImGuiLayer.h">
-      <Filter>src\main\layer</Filter>
+    <ClInclude Include="src\main\input\Input.h">
+      <Filter>src\main\input</Filter>
     </ClInclude>
     <ClInclude Include="src\main\layer\Layer.h">
       <Filter>src\main\layer</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\layer\imgui\ImGuiLayer.h">
+      <Filter>src\main\layer\imgui</Filter>
+    </ClInclude>
     <ClInclude Include="src\main\layer\stack\LayerStack.h">
-      <Filter>src\main\layer</Filter>
+      <Filter>src\main\layer\stack</Filter>
     </ClInclude>
     <ClInclude Include="src\main\logging\Log.h">
       <Filter>src\main\logging</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\corefiles\macro.h">
-      <Filter>src\main</Filter>
+    <ClInclude Include="src\main\platform\opengl\buffers\OpenGLFrameBuffer.h">
+      <Filter>src\main\platform\opengl\buffers</Filter>
     </ClInclude>
     <ClInclude Include="src\main\platform\opengl\buffers\OpenGLVertex.h">
       <Filter>src\main\platform\opengl\buffers</Filter>
@@ -156,50 +198,56 @@
     <ClInclude Include="src\main\platform\windows\WindowsWindow.h">
       <Filter>src\main\platform\windows</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\renderer\2D\Renderer2D.h">
+      <Filter>src\main\renderer\2D</Filter>
+    </ClInclude>
     <ClInclude Include="src\main\renderer\buffers\Buffers.h">
       <Filter>src\main\renderer\buffers</Filter>
     </ClInclude>
     <ClInclude Include="src\main\renderer\buffers\VertexArray.h">
       <Filter>src\main\renderer\buffers</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\data\camera\Camera.h">
-      <Filter>src\main\renderer\data</Filter>
-    </ClInclude>
-    <ClInclude Include="src\main\renderer\data\camera\CameraController.h">
-      <Filter>src\main\renderer\data</Filter>
-    </ClInclude>
-    <ClInclude Include="src\main\renderer\data\meshdata\Material.h">
-      <Filter>src\main\renderer\data</Filter>
-    </ClInclude>
-    <ClInclude Include="src\main\renderer\data\meshdata\Mesh.h">
-      <Filter>src\main\renderer\data</Filter>
-    </ClInclude>
-    <ClInclude Include="src\main\renderer\data\meshdata\Transform.h">
-      <Filter>src\main\renderer\data</Filter>
-    </ClInclude>
     <ClInclude Include="src\main\renderer\data\Vertex.h">
       <Filter>src\main\renderer\data</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\renderer\apistuff\GraphicsContext.h">
+    <ClInclude Include="src\main\renderer\data\camera\Camera.h">
+      <Filter>src\main\renderer\data\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\data\camera\CameraController.h">
+      <Filter>src\main\renderer\data\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\data\meshdata\Material.h">
+      <Filter>src\main\renderer\data\meshdata</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\data\meshdata\Mesh.h">
+      <Filter>src\main\renderer\data\meshdata</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\data\meshdata\Transform.h">
+      <Filter>src\main\renderer\data\meshdata</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\renderer\FrameBuffer.h">
       <Filter>src\main\renderer\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\renderer\main\Renderer.h">
-      <Filter>src\main\renderer\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\main\renderer\renderer\apistuff\RendererApi.h">
-      <Filter>src\main\renderer\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\main\renderer\renderer\main\RendererContent.h">
+    <ClInclude Include="src\main\renderer\renderer\SubTexture2D.h">
       <Filter>src\main\renderer\renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\main\renderer\renderer\Texture.h">
       <Filter>src\main\renderer\renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\renderer\renderer\apistuff\GraphicsContext.h">
+      <Filter>src\main\renderer\renderer\apistuff</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\renderer\apistuff\RendererApi.h">
+      <Filter>src\main\renderer\renderer\apistuff</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\renderer\main\Renderer.h">
+      <Filter>src\main\renderer\renderer\main</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\renderer\renderer\main\RendererContent.h">
+      <Filter>src\main\renderer\renderer\main</Filter>
+    </ClInclude>
     <ClInclude Include="src\main\renderer\shaders\Shader.h">
       <Filter>src\main\renderer\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="src\main\corefiles\specialincludes.h">
-      <Filter>src\main</Filter>
     </ClInclude>
     <ClInclude Include="src\main\window\window.h">
       <Filter>src\main\window</Filter>
@@ -1455,15 +1503,19 @@
     <ClInclude Include="vendors\stb\STBImage.h">
       <Filter>vendors\stb</Filter>
     </ClInclude>
-    <ClInclude Include="src\main\renderer\2D\Renderer2D.h" />
-    <ClInclude Include="src\main\dataentry\Timer.h" />
-    <ClInclude Include="src\main\dataentry\Randoms.h" />
-    <ClInclude Include="src\main\dataentry\RandomUtil.h" />
-    <ClInclude Include="src\main\renderer\renderer\SubTexture2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\hzpch.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\dataentry\RandomUtil.cpp">
+      <Filter>src\main\dataentry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\dataentry\Randoms.cpp">
+      <Filter>src\main\dataentry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\dataentry\Timer.cpp">
+      <Filter>src\main\dataentry</Filter>
     </ClCompile>
     <ClCompile Include="src\main\entry\Application.cpp">
       <Filter>src\main\entry</Filter>
@@ -1471,20 +1523,23 @@
     <ClCompile Include="src\main\events\EventCaller.cpp">
       <Filter>src\main\events</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\layer\imgui\ImGuiBuild.cpp">
-      <Filter>src\main\layer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main\layer\imgui\ImGuiLayer.cpp">
-      <Filter>src\main\layer</Filter>
-    </ClCompile>
     <ClCompile Include="src\main\layer\Layer.cpp">
       <Filter>src\main\layer</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\layer\imgui\ImGuiBuild.cpp">
+      <Filter>src\main\layer\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\layer\imgui\ImGuiLayer.cpp">
+      <Filter>src\main\layer\imgui</Filter>
+    </ClCompile>
     <ClCompile Include="src\main\layer\stack\LayerStack.cpp">
-      <Filter>src\main\layer</Filter>
+      <Filter>src\main\layer\stack</Filter>
     </ClCompile>
     <ClCompile Include="src\main\logging\Log.cpp">
       <Filter>src\main\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\platform\opengl\buffers\OpenGLFrameBuffer.cpp">
+      <Filter>src\main\platform\opengl\buffers</Filter>
     </ClCompile>
     <ClCompile Include="src\main\platform\opengl\buffers\OpenGLVertex.cpp">
       <Filter>src\main\platform\opengl\buffers</Filter>
@@ -1510,6 +1565,9 @@
     <ClCompile Include="src\main\platform\windows\WindowsWindow.cpp">
       <Filter>src\main\platform\windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\renderer\2D\Renderer2D.cpp">
+      <Filter>src\main\renderer\2D</Filter>
+    </ClCompile>
     <ClCompile Include="src\main\renderer\buffers\Buffers.cpp">
       <Filter>src\main\renderer\buffers</Filter>
     </ClCompile>
@@ -1517,22 +1575,28 @@
       <Filter>src\main\renderer\buffers</Filter>
     </ClCompile>
     <ClCompile Include="src\main\renderer\data\camera\Camera.cpp">
-      <Filter>src\main\renderer\data</Filter>
+      <Filter>src\main\renderer\data\camera</Filter>
     </ClCompile>
     <ClCompile Include="src\main\renderer\data\camera\CameraController.cpp">
-      <Filter>src\main\renderer\data</Filter>
+      <Filter>src\main\renderer\data\camera</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\renderer\renderer\main\Renderer.cpp">
+    <ClCompile Include="src\main\renderer\renderer\FrameBuffer.cpp">
       <Filter>src\main\renderer\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\renderer\renderer\apistuff\RendererApi.cpp">
-      <Filter>src\main\renderer\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main\renderer\renderer\main\RendererContent.cpp">
+    <ClCompile Include="src\main\renderer\renderer\SubTexture2D.cpp">
       <Filter>src\main\renderer\renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\main\renderer\renderer\Texture.cpp">
       <Filter>src\main\renderer\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\renderer\renderer\apistuff\RendererApi.cpp">
+      <Filter>src\main\renderer\renderer\apistuff</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\renderer\renderer\main\Renderer.cpp">
+      <Filter>src\main\renderer\renderer\main</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\renderer\renderer\main\RendererContent.cpp">
+      <Filter>src\main\renderer\renderer\main</Filter>
     </ClCompile>
     <ClCompile Include="src\main\renderer\shaders\Shader.cpp">
       <Filter>src\main\renderer\shaders</Filter>
@@ -1540,10 +1604,5 @@
     <ClCompile Include="vendors\stb\STBImage.cpp">
       <Filter>vendors\stb</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\renderer\2D\Renderer2D.cpp" />
-    <ClCompile Include="src\main\dataentry\Timer.cpp" />
-    <ClCompile Include="src\main\dataentry\Randoms.cpp" />
-    <ClCompile Include="src\main\dataentry\RandomUtil.cpp" />
-    <ClCompile Include="src\main\renderer\renderer\SubTexture2D.cpp" />
   </ItemGroup>
 </Project>

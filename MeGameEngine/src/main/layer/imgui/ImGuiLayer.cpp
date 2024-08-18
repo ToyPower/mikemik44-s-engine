@@ -58,13 +58,14 @@ namespace ME {
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
+
 	}
 
 	void ImGuiLayer::end() {
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::getInstance();
 		io.DisplaySize = ImVec2((float)app.getWindow().getWidth(), (float)app.getWindow().getHeight());
-
+		
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
@@ -73,11 +74,11 @@ namespace ME {
 			ImGui::RenderPlatformWindowsDefault();
 			glfwMakeContextCurrent(backup);
 		}
+		
 	}
 
 	void ImGuiLayer::onGUIRender() {
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
+		
 	}
 
 }
