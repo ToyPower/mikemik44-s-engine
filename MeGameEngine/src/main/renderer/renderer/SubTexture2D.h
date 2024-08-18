@@ -6,6 +6,7 @@ namespace ME {
 	class SubTexture2D {
 
 	public:
+		~SubTexture2D() = default;
 		SubTexture2D(const Ref<Texture>& texture, const glm::vec2& min, const glm::vec2& max);
 
 		Ref<Texture> getTexture() { return m_texture; }

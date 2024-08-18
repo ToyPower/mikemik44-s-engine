@@ -13,6 +13,7 @@ namespace ME {
 
 		};
 	public:
+		virtual ~RendererAPI() = default;
 		virtual void init() = 0;
 		virtual void clear() = 0;
 		virtual void setClearColor(float r = 0.0f, float g = 0.0f, float b = 0.0f, float a = 1.0f) = 0;

@@ -12,8 +12,10 @@ namespace ME {
 	public:
 		Application(const std::string& name = "My App");
 		virtual ~Application();
+
 		void run();
-		bool onEvent(Events& e);
+
+		ImGuiLayer* getImGuiLayer() { return m_imguilayer; };
 		void pushLayer(Layer* layer);
 		void pushOverlay(Layer* layer);
 		void close();
@@ -21,6 +23,8 @@ namespace ME {
 		inline static Application& getInstance() { return *s_instance; }
 		uint32_t getWidth() { return m_window->getWidth(); }
 		uint32_t getHeight() { return m_window->getHeight(); }
+	
+		bool onEvent(Events& e);
 	private:
 		std::unique_ptr<Window> m_window;
 		ImGuiLayer* m_imguilayer;

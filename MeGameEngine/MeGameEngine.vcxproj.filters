@@ -1503,6 +1503,7 @@
     <ClInclude Include="vendors\stb\STBImage.h">
       <Filter>vendors\stb</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\util\StrUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\hzpch.cpp">

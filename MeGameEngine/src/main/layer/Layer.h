@@ -19,6 +19,7 @@ namespace ME {
 		inline const std::string& getName() const { return m_name; }
 	protected:
 		std::string m_name;
+		bool m_viewPortFocused = false;
 	};
 	
 

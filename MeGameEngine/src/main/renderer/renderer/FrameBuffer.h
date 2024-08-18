@@ -15,8 +15,9 @@ namespace ME {
 	public:
 		virtual const FrameBufferSpecial& getFrameParams() const = 0;
 		virtual FrameBufferSpecial& getFrameParams() = 0;
-		virtual ~FrameBuffer() {};
+		virtual ~FrameBuffer() = default;
 		virtual void bind() = 0;
+		virtual void resize(uint32_t width, uint32_t height) = 0;
 		virtual void unbind() = 0;
 		virtual void invalidate() = 0;
 		virtual uint32_t getColorAttach() = 0;

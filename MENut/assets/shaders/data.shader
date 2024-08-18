@@ -30,9 +30,6 @@ void main() {
 	vec4 col = color;
 	col *= texture(u_tex[int(textureIndex)], v_texCoord*tileFactor);
 	
-	if (col.a == 0) {
-		discard;
-	}
 	gl_FragColor = col;
 
 }

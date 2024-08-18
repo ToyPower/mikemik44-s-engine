@@ -30,7 +30,9 @@ namespace ME {
 		rotation += step * 50;
 		this->tim.restart();
 		ME::Timer tim("update");
-		cam->update(step);
+		if (m_viewPortFocused) {
+			cam->update(step);
+		}
 		tim.stop(true);
 
 		if (ME::Input::isButtonPress(ME_MOUSE_BUTTON_LEFT))
@@ -75,12 +77,12 @@ namespace ME {
 
 		for (float x = -5.0f; x < 5.0f; x += 0.5) {
 			for (float y = -5.0f; y < 5.0f; y += 0.5) {
-				glm::vec4 color = { (x + 5.0) / 10.0f, 0.4f, (y + 5.0) / 10.0f, 0.75f };
+				glm::vec4 color = { (x + 5.0) / 10.0f, 0.4f, (y + 5.0) / 10.0f, 1 };
 				R::drawQuadCentered({ x, y }, { 0.45f, 0.45f }, color);
 			}
 		}
 		R::endScene();
-
+		
 		m_frameBuffer->unbind();
 		//tim2.stop(true);
 		tim.stop(true);
@@ -137,7 +139,6 @@ namespace ME {
 		ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
 		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 
-
 		if (ImGui::BeginMenuBar())
 		{
 			if (ImGui::BeginMenu("File"))
@@ -166,10 +167,23 @@ namespace ME {
 		ME::TimerResult::clearTimerResult();
 		ImGui::End();
 
-
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 		ImGui::Begin("ViewPort");
-		ImGui::Image((void*)m_frameBuffer->getColorAttach(), ImGui::GetWindowSize(), ImVec2(0,1), ImVec2(1,0));
+		bool prev = m_viewPortFocused;
+		m_viewPortFocused = ImGui::IsWindowFocused();
+		if (prev != m_viewPortFocused) {
+			Application::getInstance().getImGuiLayer()->setBlockEvents(!m_viewPortFocused);
+		}
+		ImVec2 viewPortSize = ImGui::GetContentRegionAvail();
+		if (m_vsize.x != viewPortSize.x || m_vsize.y != viewPortSize.y) {
+			m_vsize.x = viewPortSize.x;
+			m_vsize.y = viewPortSize.y;
+			m_frameBuffer->resize((uint32_t)viewPortSize.x, (uint32_t)viewPortSize.y);
+			cam->getCamera()->resize(m_vsize.x, m_vsize.y);
+		}
+		ImGui::Image((void*)m_frameBuffer->getColorAttach(), viewPortSize, ImVec2(0,1), ImVec2(1,0));
 		ImGui::End();
+		ImGui::PopStyleVar();
 		ImGui::End();
 	}
 }

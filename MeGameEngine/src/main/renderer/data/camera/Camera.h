@@ -11,6 +11,7 @@ namespace ME {
 	};
 	class Camera {
 	public:
+		~Camera() = default;
 		virtual void updateData() = 0;
 		virtual const glm::mat4 getProjection() const = 0;
 		virtual const glm::mat4 getView() const = 0;
@@ -31,12 +32,13 @@ namespace ME {
 		virtual void zoom(float zoomValue) = 0;
 		virtual void setZoom(float zoomValue) = 0;
 		virtual Bounds getBounds() = 0;
+		virtual void resize(float width, float height) = 0;
 	};
 
 	class PerspectiveCamera : public Camera {
 	public:
 		PerspectiveCamera(float fov, float width, float height, float near1 = 0.1, float far1 = 100.0);
-		
+		~PerspectiveCamera() = default;
 		virtual void onResize(float width, float height) override;
 		virtual const glm::mat4 getProjection() const override { return m_projection; }
 		virtual const glm::mat4 getView() const  override { return view; }
@@ -70,6 +72,7 @@ namespace ME {
 			this->pos += movement * amt;
 			updateData();
 		}
+		virtual void resize(float width, float height) override {};
 		void checkRot(glm::vec3& ref) {
 			if (ref.x >= 360) ref.x -= 360;
 			if (ref.y >= 360) ref.y -= 360;
@@ -97,12 +100,14 @@ namespace ME {
 		float fov = 40.0f, near1 = 0.1f, far1 = 100.0f, zoom1 = 1.0f;
 		float m_width, m_height;
 		Bounds m_bounds;
+
 	};
 
 	class OthrographicCamera : public Camera {
 
 	public:
 		OthrographicCamera(float aspect);
+		~OthrographicCamera() = default;
 		OthrographicCamera(float width, float height);
 		
 		virtual const glm::mat4 getProjection() const override { return m_projection; }
@@ -152,6 +157,10 @@ namespace ME {
 		virtual glm::vec3 getPosition() override { return pos; }
 		virtual glm::vec3 getRotation() override { return glm::vec3(0, 0, rot);  }
 		void updateData();
+		virtual void resize(float width, float height) override {
+			aspect = width / height;
+			updatePerspective();
+		}
 	private:
 		float aspect = 1;
 		glm::mat4 m_projection, view, fin;

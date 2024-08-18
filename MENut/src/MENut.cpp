@@ -6,20 +6,22 @@
 #include <vector>
 #include "main/entry/Entry.h"
 #include "EditorLayout.h"
+#include "main/util/StrUtil.h"
 namespace ME {
-	class MEEditor : public Application {
+	class MENut : public Application {
 	public:
 
-		MEEditor() : Application("ME Editor") {
+		MENut() : Application("ME Editor") {
 			pushLayer(new EditorLayout());
 		}
 
-		~MEEditor() {
+		~MENut() {
 
 		}
 	};
 
 	Application* CreateApplication() {
-		return new MEEditor();
+
+		return new MENut();
 	}
 }

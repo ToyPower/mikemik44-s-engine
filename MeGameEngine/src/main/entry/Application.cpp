@@ -61,7 +61,7 @@ namespace ME {
 
 			}
 			this->m_running = false;
-			return true;
+			return suc;
 		}
 		else {
 			bool suc = true;

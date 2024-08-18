@@ -138,7 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EditorLayout.cpp" />
-    <ClCompile Include="src\MeEngineEditor.cpp" />
+    <ClCompile Include="src\MENut.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MeGameEngine\MeGameEngine.vcxproj">

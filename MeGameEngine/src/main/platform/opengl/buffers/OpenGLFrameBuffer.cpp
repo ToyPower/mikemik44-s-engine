@@ -9,6 +9,14 @@ namespace ME {
 
 	OpenGLFrameBuffer::~OpenGLFrameBuffer() {
 		glDeleteFramebuffers(1, &this->renderID);
+		glDeleteTextures(1, &this->m_colorTexture);
+		glDeleteTextures(1, &this->m_depthBuffer);
+	}
+
+	void OpenGLFrameBuffer::resize(uint32_t width, uint32_t height) {
+		spec.width = width;
+		spec.height = height;
+		invalidate();
 	}
 
 	void OpenGLFrameBuffer::invalidate() {
@@ -19,6 +27,8 @@ namespace ME {
 		if (this->m_colorTexture != -1) {
 			glDeleteTextures(1, &this->m_colorTexture);
 			glDeleteTextures(1, &this->m_depthBuffer);
+			this->m_colorTexture = -1;
+			this->m_depthBuffer = -1;
 		}
 		glCreateTextures(GL_TEXTURE_2D, 1, &this->m_colorTexture);
 		
@@ -35,8 +45,7 @@ namespace ME {
 		
 		glBindTexture(GL_TEXTURE_2D, m_depthBuffer);
 		glTexStorage2D(GL_TEXTURE_2D, 1, GL_DEPTH24_STENCIL8, spec.width, spec.height);
-		//glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, spec.width, spec.height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
-
+		
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, this->m_depthBuffer, 0);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -47,7 +56,7 @@ namespace ME {
 
 	void OpenGLFrameBuffer::bind() {
 		glBindFramebuffer(GL_FRAMEBUFFER, this->renderID);
-	
+		glViewport(0, 0, spec.width, spec.height);
 	}
 
 	void OpenGLFrameBuffer::unbind() {

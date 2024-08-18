@@ -19,12 +19,7 @@ namespace ME {
 			if (!cam->onEvent(e)) {
 				return false;
 			}
-			if (e.name() == "windowResize") {
-				auto& h = m_frameBuffer->getFrameParams();
-				h.width = std::any_cast<int>(e.getParam("width"));
-				h.height = std::any_cast<int>(e.getParam("height"));
-				m_frameBuffer->invalidate();
-			}
+			
 			return true;
 		}
 
@@ -39,7 +34,7 @@ namespace ME {
 		Ref<Shader> shader;
 		std::vector<Mesh> grid;
 		Timer tim =Timer("Overall");
-
+		glm::vec2 m_vsize;
 		Ref<FrameBuffer> m_frameBuffer;
 	};
 }

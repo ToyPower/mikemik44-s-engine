@@ -11,7 +11,7 @@
 // TEMPORARY
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
-
+#include "main/util/StrUtil.h"
 namespace ME {
 
 	ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {
@@ -22,17 +22,30 @@ namespace ME {
 
 	}
 	
+	bool ImGuiLayer::onEvent(Events& e) {
+		if (blockEvents) {
+			ImGuiIO& io = ImGui::GetIO(); (void)io;
+			e.handled |= StrUtil::hasWild("windowButton*", e.name()) && io.WantCaptureMouse;
+			e.handled |= StrUtil::hasWild("windowKey*", e.name()) && io.WantCaptureKeyboard;
+			e.handled |= StrUtil::hasWild("windowMouse*", e.name()) && io.WantCaptureMouse;
+		}
+		return e.handled;
+	}
+
 	void ImGuiLayer::onAttach() {
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+		
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 		//io.ConfigViewportsNoAutoMerge = true;
 		//io.ConfigViewportsNoTaskBarIcon = true;
-
+		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
+		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+		io.BackendFlags |= ImGuiBackendFlags_HasMouseHoveredViewport;
 		ImGui::StyleColorsDark();
 
 		ImGuiStyle& style = ImGui::GetStyle();

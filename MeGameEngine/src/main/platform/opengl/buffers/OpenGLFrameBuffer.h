@@ -10,7 +10,7 @@ namespace ME {
 		virtual ~OpenGLFrameBuffer();
 		virtual const FrameBufferSpecial& getFrameParams() const override { return spec; }
 		virtual FrameBufferSpecial& getFrameParams() override { return spec; };
-	
+		virtual void resize(uint32_t width, uint32_t height) override;
 		virtual void invalidate() override;
 		virtual uint32_t getColorAttach() override { return m_colorTexture; }
 		virtual uint32_t getDepthAttach() override { return m_depthBuffer; }

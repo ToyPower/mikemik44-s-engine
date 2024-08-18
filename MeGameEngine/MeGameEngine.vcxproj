@@ -143,6 +143,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\main\util\StrUtil.h" />
     <ClInclude Include="src\MeCore.h" />
     <ClInclude Include="src\hzpch.h" />
     <ClInclude Include="src\main\corefiles\macro.h" />
